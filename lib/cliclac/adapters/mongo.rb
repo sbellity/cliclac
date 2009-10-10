@@ -69,7 +69,7 @@ module Cliclac
         {
           :total_rows => cur.count,
           :rows => cur.to_a,
-          :offset => options[:offset] || 0
+          :skip => options[:skip] || 0
         }
       end
       

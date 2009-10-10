@@ -5,13 +5,13 @@ module Cliclac
     
     set :public, File.expand_path(ROOT_PATH + "/../public")
     
-    before do
-      content_type "application/json"
-    end
-    
     # info
-    get "/" do 
-      respond adapter.db_type => "Welcome", "version" => adapter.db_version
+    get "/" do
+      if @env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+        respond adapter.db_type => "Welcome", "version" => adapter.db_version
+      else
+        redirect "/_utils/index.html"
+      end
     end
       
     # all_dbs

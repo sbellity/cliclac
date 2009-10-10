@@ -57,7 +57,7 @@ module Cliclac
       options = {}
       options[:limit] = params[:limit].nil? ? 10 : params[:limit].to_i
       options[:sort] = { "_id" => (params[:descending] == "true" ? -1 : 1) }
-      options[:offset] = params[:skip].nil? ? 0 : params[:skip].to_i
+      options[:skip] = params[:skip].nil? ? 0 : params[:skip].to_i
       return options
     end
     
@@ -87,7 +87,7 @@ module Cliclac
       
       {
         "total_rows" => res[:total_rows],
-        "offset" => res[:offset] || 0,
+        "offset" => res[:skip] || 0,
         "rows" => rows
        }.to_json
     end
