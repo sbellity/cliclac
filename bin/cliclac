@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+
+$:.push("#{File.dirname(__FILE__)}/../lib")
+require "cliclac"
+require "optparse"
+
+
+options = {
+  :sinatra => {
+    :port => 29017,
+    :host => "localhost"
+  },
+  :mongo => {
+    :port => Mongo::Connection::DEFAULT_PORT,
+    :host => "localhost"
+  }
+}
+
+ARGV.clone.options do |opts|
+  
+  opts.banner = "Usage: cliclac [options] run|start|stop|restart"
+  
+  opts.on("-p", "--port=port", Integer,
+          "Runs cliclac on the specified port (Default: 29017)") { |v| options[:sinatra][:port] = v }
+  
+  opts.on("-b", "--binding=ip", String,
+          "Binds cliclac to the specified ip (Default: localhost)") { |v| options[:sinatra][:host] = v; puts "IP is #{v}" }
+  
+  opts.on("-g", "--mongo-host=host", String, "MongoDB host (Default: localhost)") { |v| options[:mongo][:host] = v }
+  
+  opts.on("-t", "--mongo-port=port", Integer, "MongoDB port (Default: 27017)") { |v| options[:mongo][:port] = v }
+  
+  opts.separator ""
+  
+  opts.on("-h", "--help", "Show this help message.") do 
+    puts opts
+    exit
+  end
+  
+  opts.on("-v", "--version", "Show cliclac's version number.") do
+    version = open("VERSION").read
+    puts "cliclac-#{version}"
+    exit
+  end
+  
+  opts.parse!
+end
+
+begin
+  require "daemons"
+  dir = File.expand_path("~/.cliclac")
+  FileUtils.mkdir(dir) unless File.exist?(dir)
+  cmd = ["start", "stop", "run", "restart", "zap"].include?(ARGV.last) ? ARGV.last : "run"
+
+  Daemons.run_proc("cliclac", { 
+    :app_name => "cliclac", 
+    :dir_mode => :normal, 
+    :dir => dir, 
+    :multiple => false,
+    :ARGV => [cmd]
+  }) do
+    Cliclac::start(options)
+  end
+rescue
+  Cliclac::start(options)
+end

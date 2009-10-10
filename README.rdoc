@@ -1,0 +1,74 @@
+= CliClac Introduction
+
+This application is experimental for the moment do not use it on a production server !
+
+CliClac is a small Sinatra app that partially replicates CouchDB's REST interface on top of MongoDB... 
+Making CouchDB's Futon web interface compatible with our beloved MongoDB (yeah !).
+
+Futon's code is included but has not been modified (ok... I just changed the logo). This project is an experimentation to bring a fully featured web based frontend to MongoDB.
+
+Mongo and Couch have a lot of similarities... but still have some fondamental differences, so I had to make some decisions to make it work. Thoses differences are listed in the "Known issues" section of this document.
+
+
+= Installation
+
+=== Requirements
+
+* Ruby (tested with ruby 1.8.6 on MacOS Leopard / Snow Leopard & Ubuntu 9.04)
+* Gems : sinatra, yajl-ruby, mongodb-mongo, mongodb-mongo_ext
+
+To install those gems :
+    
+    $ gem sources -a http://gems.github.com
+    $ sudo gem install sinatra yajl-ruby mongodb-mongo mongodb-mongo_ext
+    
+
+= Special features
+
+=== Views
+
+CliClac replicates CouchDB's views functionality with some notable differences :
+
+* views are stored in design documents in a special collection called "__design"
+* MongoDB does not support (yet?) map/reduce operations, so the "map" part of the view is used to store filters as json documents. 
+* The "reduce" part is used to store other parameters (TODO : complete documentation here...)
+
+
+= Known issues
+
+=== Databases and Collections
+
+CouchDB does not have "collections", all the documents are stored directly into "databases". 
+CliClac sees mongo's collections as databases with the following conventions : 
+
+    * futon'db = "db_name/collection_name"
+    * futon's db list does not include mongo's system collections nor the special "__design" collections
+
+=== Document IDs
+
+Mongo's _id are typed... and it make it difficult use CouchDB's REST interface as is with Mongo. The following conventions are used to try to guess the correct _id type from the string provided in the url.
+
+    * if _id is made of numbers, tries to cast _id as a FixNum and falls back to a String if no result is found
+    * if _id is a valid ObjectId tries to cast _id as a Mongo::ObjectID and falls back to a String if no result is found
+    * else _id is considered as a String
+
+This method is not 100% reliable, but I guess it should cover the most common situations
+
+=== Pagination 
+
+"next" usually works... but "previous" definitly does not. It is due to the way pagination has been implemented in futon.
+
+== Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but
+   bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+== Copyright
+
+Copyright (c) 2009 Stephane Bellity. See LICENSE for details.
