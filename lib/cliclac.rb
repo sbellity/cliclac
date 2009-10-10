@@ -1,5 +1,7 @@
 ROOT_PATH = File.expand_path(File.join(__FILE__, ".."))
 
+$:.unshift("lib")
+
 require "rubygems"
 require "sinatra/base"
 require "mongo"
@@ -14,7 +16,6 @@ require "cliclac/utils"
 require "cliclac/key"
 require "cliclac/adapters/base"
 require "cliclac/adapters/mongo"
-require "cliclac/query"
 require "cliclac/helpers"
 require "cliclac/app"
 

@@ -8,8 +8,8 @@ module Cliclac
     # info
     get "/" do
       if @env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
-        respond adapter.db_type => "Welcome", "version" => adapter.db_version
-      else
+        respond adapter.db_type => "Welcome", "version" => "#{adapter.db_version} (#{Mongo::VERSION})"
+      else  
         redirect "/_utils/index.html"
       end
     end
@@ -22,6 +22,10 @@ module Cliclac
     # config
     get "/_config" do
       # TODO
+    end
+    
+    get "/_config/query_servers/" do
+      respond({ "javascript" => "/usr/local/bin/couchjs /usr/local/share/couchdb/server/main.js" })
     end
     
     # stats
@@ -46,9 +50,6 @@ module Cliclac
     end
     
     # Database Level Requests
-    
-    # Note: Document names must always have embedded / translated to %2F. 
-    # E.g. "get /db/foo%2fbar" for the document named "foo/bar". Attachment names may have embedded slashes.
     
     # compact
     post "/:db/_compact" do
@@ -86,26 +87,25 @@ module Cliclac
         puts "It's a __design query ? (startkey : #{startkey.string} #{startkey.design?}, endkey : #{endkey.string} #{endkey.design?})"
         database = design_db
         
-      elsif (!startkey.nil? || !endkey.nil?)
+      elsif (!params[:startkey].nil? || !params[:endkey].nil?)
+        conditions["_id"] = {}
         
         # for docid direct access...
-        if !startkey.nil? && !endkey.nil? && params[:limit] == "10" && endkey[-1] == 122
-          s = Mongo::ObjectID.from_string(startkey.ljust(24, "0")) rescue startkey.probable_value
-          e = Mongo::ObjectID.from_string(endkey.gsub("z", "f").ljust(24, "f")) rescue endkey.probable_value
+        if !params[:startkey].nil? && !params[:endkey].nil? && params[:limit] == "10" && params[:endkey].gsub("\"", "") =~ /.*[z]{3}$/
+          s = Mongo::ObjectID.from_string(startkey.string.ljust(24, "0")) rescue startkey.probable_value
+          e = Mongo::ObjectID.from_string(endkey.string.gsub("z", "f").ljust(24, "f")) rescue endkey.probable_value
           conditions["_id"] = { "$gte" => s, "$lte" => e }
         else
-          conditions["_id"] = {}
           conditions["_id"]["$gte"] = startkey if startkey
           conditions["_id"]["$lte"] = endkey if endkey
         end
       end
-      
-      respond adapter.find(database, conditions, query_options)
+      list_documents adapter.find(database, conditions, query_options)
     end
     
     # open_doc
-    get "/:db/:doc_id" do
-    
+    get "/:db/*" do
+      respond adapter.find_one(db, params[:splat].join("/"))
     end
     
     # save_doc (CREATE)

@@ -64,8 +64,9 @@ module Cliclac
       end
       
       def find(d, conditions={}, options={})
-        d = db(d) if d.is_a?(String)
-        cur = d.find(conditions, options)
+        d = self.db(d) if d.is_a?(String)
+        options[:skip] ||= 0
+        cur = d.find conditions, options
         {
           :total_rows => cur.count,
           :rows => cur.to_a,

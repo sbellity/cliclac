@@ -10,6 +10,7 @@ module Cliclac
       else
         @nil = false
         @original_key = key
+        key = key.gsub("\"", "")
         @string = key.to_s
         @object_id = Mongo::ObjectID.legal?(key.to_s) ? Mongo::ObjectID.from_string(key.to_s) : nil
         @integer = key =~ /^[0-9]+$/ ? key.to_i : nil

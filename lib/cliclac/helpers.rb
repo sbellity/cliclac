@@ -80,7 +80,18 @@ module Cliclac
       
       rows = res[:rows].map do |doc|
         d = { "id" => doc["_id"].to_s, "key" => doc["_id"].to_s }
-        d["value"] = include_docs_in_value ? doc : doc.keys
+        if include_docs_in_value
+          d["value"] =  doc
+        else 
+          d["value"] =  doc.inject({}) do |r,c| 
+            if c[1].is_a?(Hash) || c[1].is_a?(Array)
+              v = '...'
+            else
+              v= c[1]
+            end
+            r.merge(c[0] => v)
+          end
+        end
         d["doc"] = doc if include_docs
         d
       end

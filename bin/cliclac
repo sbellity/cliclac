@@ -51,7 +51,6 @@ begin
   dir = File.expand_path("~/.cliclac")
   FileUtils.mkdir(dir) unless File.exist?(dir)
   cmd = ["start", "stop", "run", "restart", "zap"].include?(ARGV.last) ? ARGV.last : "run"
-
   Daemons.run_proc("cliclac", { 
     :app_name => "cliclac", 
     :dir_mode => :normal, 
