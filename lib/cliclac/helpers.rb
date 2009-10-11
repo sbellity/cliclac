@@ -9,14 +9,17 @@ module Cliclac
       return content.to_json
     end
     
-    def ok status_code=200
-      respond({ "ok" => true }, status_code)
+    def ok status_code=200, h={}
+      respond({ "ok" => true }.merge(h), status_code)
     end
     
+    def error(type, msg, status_code)
+      respond({:error => type, :reason => msg}, status_code)
+    end
+
     def error_not_found
-      respond({"error" => "not_found", "reason" => "missing" }, 404)
+      error "not_found", "missing", 404
     end
-    
     
     # Adapter
     def adapter
@@ -89,7 +92,7 @@ module Cliclac
             else
               v= c[1]
             end
-            r.merge(c[0] => v)
+            c[0] == "_id" ? r : r.merge(c[0] => v)
           end
         end
         d["doc"] = doc if include_docs

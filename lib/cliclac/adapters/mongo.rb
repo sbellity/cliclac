@@ -25,9 +25,10 @@ module Cliclac
       end
       
       def db_infos(d)
-         {
-          :db_name => db_and_col_names(d).join(@options[:separator]),
-          :doc_count => db(*d).count,
+        puts "getting db_infos on #{db(d).name}"
+        {
+          :db_name => d,
+          :doc_count => db(d).count,
           :disk_size => 123
         }
       end
@@ -53,9 +54,19 @@ module Cliclac
         connection.db(db_name).collection(@options[:design_collection]) rescue nil
       end
       
+      
+      def db_exists?(d)
+        db_name, col_name = db_and_col_names(d)
+        if !connection.database_names.include?(db_name) || !connection.db(db_name).collection_names.include?(col_name)
+          false 
+        else 
+          true
+        end
+      end
+      
       def create_db(d)
         db_name, col_name = db_and_col_names(d)
-        connection.db(db_name).create_collection(col_name)
+        connection.db(db_name).create_collection(col_name) unless db_exists?(d)
       end
       
       def drop_db(d)
@@ -75,11 +86,22 @@ module Cliclac
       end
       
       def find_one(d, doc_id, options={})
+        include_revs_info = options.delete(:revs_info)
+        include_local_seq = options.delete(:local_seq)
+        
         d = db(d) if d.is_a?(String)
         doc_id = Cliclac::Key.new(doc_id) unless doc_id.is_a?(Cliclac::Key)
         doc = d.find_one({"_id" => doc_id.probable_value}, options)
         doc ||= d.find_one({"_id" => { "$in" => doc_id.possible_values }}, options)
-        doc
+        
+        # include revs_info ?
+        doc.merge!({ "_revs_info" => [{"rev" => "1", "status" => "available"}] }) if include_revs_info
+
+        # include local_seq ?
+        doc.merge!({ "_local_seq" => "1" }) if include_local_seq
+        
+        
+        doc.merge!({"_rev" => "1"})
       end
       
       def insert(d, doc)
@@ -88,9 +110,27 @@ module Cliclac
       end
       
       def update(d, doc, options={})
+        options[:upsert] ||= true
         d = db(d) if d.is_a?(String)
         spec = { "_id" => Cliclac::Key.new(doc["_id"], true).probable_value }
         d.update(spec, doc, options)
+        Cliclac::Key.new(doc["_id"], true).probable_value.to_s
+      end
+      
+      def remove(d)
+        d = db(d) if d.is_a?(String)
+        spec = { "_id" => Cliclac::Key.new(doc["_id"], true).probable_value }
+        d.remove(spec)
+      end
+      
+      def mapreduce(d, map, reduce="", options={})
+        d = db(d) if d.is_a?(String)
+        puts "\n\n\n\n\n--------------\nMapreduce HERE !"
+        mr = OrderedHash.new
+        mr["mapreduce"] = d.name
+        mr["map"] = "function() { var doc=this; return #{map} }";
+        pp mr
+        res = d.db.db_command(mr)
       end
       
       private
@@ -98,9 +138,11 @@ module Cliclac
       def db_and_col_names(*d)
         if d.length == 1
           db_name, col_name = d.first.split(@options[:separator])
+          col_name ||= "default"
         elsif d.length == 2
           db_name, col_name = d
         end
+        [db_name, col_name]
       end
       
       def database(d)

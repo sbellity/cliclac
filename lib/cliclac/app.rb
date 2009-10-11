@@ -7,11 +7,12 @@ module Cliclac
     
     # info
     get "/" do
-      if @env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
-        respond adapter.db_type => "Welcome", "version" => "#{adapter.db_version} (#{Mongo::VERSION})"
-      else  
-        redirect "/_utils/index.html"
-      end
+      # if @env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+      #   respond "couchdb" => "Welcome", "version" => "#{adapter.db_version} (#{Mongo::VERSION})"
+      # else  
+      #   redirect "/_utils/index.html"
+      # end
+      respond "couchdb" => "Welcome", "version" => "#{adapter.db_version} (#{Mongo::VERSION})"
     end
       
     # all_dbs
@@ -35,13 +36,8 @@ module Cliclac
     
     # UUIDs
     get "/_uuids" do # (takes a count parameter)
-      referrer = URI.parse(request.env["HTTP_REFERER"])
-      database = db CGI::unescape(referrer.query)
-      if database
-        respond "uuids" => [database.insert({}).to_s] 
-      else 
-        error_not_found
-      end
+      count = params[:count].nil? ? 1 : params[:count].to_i
+      respond "uuids" => (1..count).map { Mongo::ObjectID.new.to_s }
     end
     
     # replicate
@@ -58,8 +54,13 @@ module Cliclac
     
     # create
     put "/:db/?" do
-      adapter.create_db(db_name)
-      ok 201
+      if adapter.db_exists?(db_name)
+        error "file_exists", "The database could not be created, the file already exists.", 412
+      else
+        adapter.create_db(db_name)
+        headers "Location" => "http://#{@env["HTTP_HOST"]}/#{db_name}"
+        ok 201
+      end
     end
     
     # drop
@@ -90,11 +91,9 @@ module Cliclac
       elsif (!params[:startkey].nil? || !params[:endkey].nil?)
         conditions["_id"] = {}
         
-        # for docid direct access...
+        # for docid lookup...
         if !params[:startkey].nil? && !params[:endkey].nil? && params[:limit] == "10" && params[:endkey].gsub("\"", "") =~ /.*[z]{3}$/
-          s = Mongo::ObjectID.from_string(startkey.string.ljust(24, "0")) rescue startkey.probable_value
-          e = Mongo::ObjectID.from_string(endkey.string.gsub("z", "f").ljust(24, "f")) rescue endkey.probable_value
-          conditions["_id"] = { "$gte" => s, "$lte" => e }
+          conditions["_id"] = Regexp.new(startkey.string)
         else
           conditions["_id"]["$gte"] = startkey if startkey
           conditions["_id"]["$lte"] = endkey if endkey
@@ -105,22 +104,40 @@ module Cliclac
     
     # open_doc
     get "/:db/*" do
-      respond adapter.find_one(db, params[:splat].join("/"))
+      options = { 
+        :revs_info => params[:revs_info] == "true",
+        :local_seq => params[:local_seq] == "true"
+      }
+      respond adapter.find_one(db, params[:splat].join("/"), options)
     end
     
     # save_doc (CREATE)
     post "/:db" do
-    
+      begin
+        doc = Yajl::Parser.new.parse(request.body)
+        puts "Calling POST on #{db} with #{doc}"
+        res = adapter.insert(db, doc)
+        pp res
+        respond({ "id" => res.to_s, "rev" => "1" }, 201)
+      rescue => e
+        error "format", e.to_s, 500
+      end
     end
     
     # save_doc (UPDATE)
     put "/:db/:doc_id" do
-    
+      begin
+        doc = Yajl::Parser.new.parse(request.body)
+        puts "Calling PUT on #{db} with #{doc}"
+        res = adapter.update(db, doc)
+        ok 201, "id" => res.to_s, "rev" => "1"
+      rescue 
+      end
     end
     
     # remove_doc
-    delete "/:db/:doc_id" do
-    
+    delete "/:db/*" do
+      adapter.remove(db, { "_id" => params[:splat].join("/") })
     end
     
     # bulk_docs
@@ -130,11 +147,14 @@ module Cliclac
     
     # query (aka temporary view)
     post "/:db/_temp_view" do
-    
+      q = Yajl::Parser.new.parse(request.body)
+      if q["language"] == "javascript"
+        respond adapter.mapreduce(db, q["map"], q["reduce"])
+      end
     end
     
     # view
-    get "/:db/_design/:designname/_view/:viewname" do
+    get "/:db/_design/:design_name/_view/:viewname" do
     
     end
   end

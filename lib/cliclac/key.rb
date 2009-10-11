@@ -3,6 +3,10 @@ module Cliclac
     
     attr_reader :string, :object_id, :integer, :object, :original_key
     
+    def self.escape(k)
+      k.to_s.gsub("\"", "")
+    end
+    
     def initialize(key, prefer_original_type=false)
       @prefer_original_type = prefer_original_type
       if key.nil?
@@ -10,11 +14,11 @@ module Cliclac
       else
         @nil = false
         @original_key = key
-        key = key.gsub("\"", "")
-        @string = key.to_s
-        @object_id = Mongo::ObjectID.legal?(key.to_s) ? Mongo::ObjectID.from_string(key.to_s) : nil
-        @integer = key =~ /^[0-9]+$/ ? key.to_i : nil
-        @object = Yajl::Parser.new.parse(key.to_s) rescue nil
+        @escaped_key = Cliclac::Key.escape(key)
+        @string = @escaped_key
+        @object_id = Mongo::ObjectID.legal?(@escaped_key.to_s) ? Mongo::ObjectID.from_string(@escaped_key.to_s) : nil
+        @integer = @escaped_key =~ /^[0-9]+$/ ? @escaped_key.to_i : nil
+        @object = Yajl::Parser.new.parse(@original_key.to_s) rescue nil
       end
     end
     

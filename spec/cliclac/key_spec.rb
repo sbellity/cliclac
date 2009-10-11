@@ -36,12 +36,13 @@ describe "Cliclac::Key" do
     o = { "a" => "A" }
     k = Yajl::Encoder.new.encode(o)
     key = Cliclac::Key.new(k)
-    key.string.should == k
+    escaped = Cliclac::Key.escape(k)
+    key.string.should == escaped
     key.object.should == o
     key.object_id.should be_nil
     key.integer.should be_nil
     key.probable_value.should == o
-    key.possible_values.should == [o,k]
+    key.possible_values.should == [o,escaped]
   end
   
   it "should default to string as probable value" do
@@ -59,6 +60,10 @@ describe "Cliclac::Key" do
     Cliclac::Key.new("blabla").design?.should be_false
     Cliclac::Key.new(nil).design?.should be_false
     Cliclac::Key.new("_design.").design?.should be_true
+  end
+  
+  it "should escape properly the keys" do
+    Cliclac::Key.new("\"a\"").string.should == "a"
   end
   
 end
