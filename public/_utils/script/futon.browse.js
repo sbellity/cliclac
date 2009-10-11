@@ -206,32 +206,48 @@
 
       // Populate the languages dropdown, and listen to selection changes
       this.populateLanguagesMenu = function() {
+        var all_langs = {};
+        fill_language = function() {
+          var select = $("#language");
+          for (var language in all_langs) {
+            var option = $(document.createElement("option"))
+              .attr("value", language).text(language)
+              .appendTo(select);
+          }
+          if (select[0].options.length == 1) {
+            select[0].disabled = true;
+          } else {
+            select[0].disabled = false;
+            select.val(page.viewLanguage);
+            select.change(function() {
+              var language = $("#language").val();
+              if (language != page.viewLanguage) {
+                var mapFun = $("#viewcode_map").val();
+                if (mapFun == "" || mapFun == templates[page.viewLanguage]) {
+                  // no edits made, so change to the new default
+                  $("#viewcode_map").val(templates[language]);
+                }
+                page.viewLanguage = language;
+                $("#viewcode_map")[0].focus();
+              }
+              return false;
+            });
+          }
+        }
         $.couch.config({
           success: function(resp) {
-            var select = $("#language");
             for (var language in resp) {
-              var option = $(document.createElement("option"))
-                .attr("value", language).text(language)
-                .appendTo(select);
+              all_langs[language] = resp[language];
             }
-            if (select[0].options.length == 1) {
-              select[0].disabled = true;
-            } else {
-              select.val(page.viewLanguage);
-              select.change(function() {
-                var language = $("#language").val();
-                if (language != page.viewLanguage) {
-                  var mapFun = $("#viewcode_map").val();
-                  if (mapFun == "" || mapFun == templates[page.viewLanguage]) {
-                    // no edits made, so change to the new default
-                    $("#viewcode_map").val(templates[language]);
-                  }
-                  page.viewLanguage = language;
-                  $("#viewcode_map")[0].focus();
+
+            $.couch.config({
+              success: function(resp) {
+                for (var language in resp) {
+                  all_langs[language] = resp[language];
                 }
-                return false;
-              });
-            }
+                fill_language();
+              }
+            }, "native_query_servers");
           }
         }, "query_servers");
       }
@@ -493,10 +509,13 @@
             resp.offset = 0;
           }
           var descending_reverse = ((options.descending && !descend) || (descend && (options.descending === false)));
+          var has_reduce_prev = resp.total_rows === undefined && (descending_reverse ? resp.rows.length > per_page : options.startkey !== undefined);
           if (descending_reverse && resp.rows) {
             resp.rows = resp.rows.reverse();
+            if (resp.rows.length > per_page) {
+              resp.rows.push(resp.rows.shift());
+            }
           }
-          var has_reduce_prev = resp.total_rows === undefined && (descending_reverse ? resp.rows.length > per_page : options.startkey !== undefined);
           if (resp.rows !== null && (has_reduce_prev || (descending_reverse ?
             (resp.total_rows - resp.offset > per_page) :
             (resp.offset > 0)))) {
@@ -669,6 +688,9 @@
       page = this;
 
       this.activateTabularView = function() {
+        if ($("#fields tbody.source textarea").length > 0)
+          return;
+
         $("#tabs li").removeClass("active").filter(".tabular").addClass("active");
         $("#fields thead th:first").text("Field").attr("colspan", 1).next().show();
         $("#fields tbody.content").show();
@@ -680,7 +702,41 @@
         $("#fields thead th:first").text("Source").attr("colspan", 2).next().hide();
         $("#fields tbody.content").hide();
         $("#fields tbody.source").find("td").each(function() {
-          $(this).html($("<pre></pre>").html($.futon.formatJSON(page.doc, {html: true})));
+          $(this).html($("<pre></pre>").html($.futon.formatJSON(page.doc, {html: true})))
+            .makeEditable({allowEmpty: false,
+              createInput: function(value) {
+                return $("<textarea rows='8' cols='80' spellcheck='false'></textarea>");
+              },
+              prepareInput: function(input) {
+                $(input).makeResizable({vertical: true});
+              },
+              end: function() {
+                $(this).html($("<pre></pre>").html($.futon.formatJSON(page.doc, {html: true})));
+              },
+              accept: function(newValue) {
+                page.doc = JSON.parse(newValue);
+                page.isDirty = true;
+                page.updateFieldListing(true);
+              },
+              populate: function(value) {
+                return $.futon.formatJSON(page.doc);
+              },
+              validate: function(value) {
+                try {
+                  var doc = JSON.parse(value);
+                  if (typeof doc != "object")
+                    throw new SyntaxError("Please enter a valid JSON document (for example, {}).");
+                  return true;
+                } catch (err) {
+                  var msg = err.message;
+                  if (msg == "parseJSON" || msg == "JSON.parse") { 
+                    msg = "There is a syntax error in the document.";
+                  }
+                  $("<div class='error'></div>").text(msg).appendTo(this);
+                  return false;
+                }
+              }
+            });
         }).end().show();
       }
 
@@ -713,7 +769,7 @@
         }
       }
 
-      this.updateFieldListing = function() {
+      this.updateFieldListing = function(noReload) {
         $("#fields tbody.content").empty();
 
         function handleResult(doc, revs) {
@@ -748,9 +804,14 @@
             $("#fields tbody.footer td span").text("Showing revision " +
               (revs.length - currentIndex) + " of " + revs.length);
           }
-          if (location.hash == "#source") {
+          if (location.hash == "#source" && !noReload) {
             page.activateSourceView();
           }
+        }
+
+        if (noReload) {
+          handleResult(page.doc, []);
+          return;
         }
 
         if (!page.isNew) {

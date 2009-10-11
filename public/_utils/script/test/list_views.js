@@ -11,7 +11,7 @@
 // the License.
 
 couchTests.list_views = function(debug) {
-  var db = new CouchDB("test_suite_db");
+  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
   db.deleteDb();
   db.createDb();
   if (debug) debugger;
@@ -83,34 +83,33 @@ couchTests.list_views = function(debug) {
       }),
       acceptSwitch: stringFun(function(head, req) {
         // respondWith takes care of setting the proper headers
-        respondWith(req, {
-          html : function() {
-            send("HTML <ul>");
+        provides("html", function() {
+          send("HTML <ul>");
 
-            var row, num = 0;
-            while (row = getRow()) {
-              num ++;
-              send('\n<li>Key: '
-                +row.key+' Value: '+row.value
-                +' LineNo: '+num+'</li>');
-            }
-
-            // tail
-            return '</ul>';
-          },
-          xml : function() {
-            send('<feed xmlns="http://www.w3.org/2005/Atom">'
-              +'<title>Test XML Feed</title>');
-
-            while (row = getRow()) {
-              var entry = new XML('<entry/>');
-              entry.id = row.id;
-              entry.title = row.key;
-              entry.content = row.value;
-              send(entry);
-            }
-            return "</feed>";
+          var row, num = 0;
+          while (row = getRow()) {
+            num ++;
+            send('\n<li>Key: '
+              +row.key+' Value: '+row.value
+              +' LineNo: '+num+'</li>');
           }
+
+          // tail
+          return '</ul>';
+        });
+
+        provides("xml", function() {
+          send('<feed xmlns="http://www.w3.org/2005/Atom">'
+            +'<title>Test XML Feed</title>');
+
+          while (row = getRow()) {
+            var entry = new XML('<entry/>');
+            entry.id = row.id;
+            entry.title = row.key;
+            entry.content = row.value;
+            send(entry);
+          }
+          return "</feed>";
         });
       }),
       qsParams: stringFun(function(head, req) {
@@ -127,17 +126,15 @@ couchTests.list_views = function(debug) {
         return " tail";
       }),
       stopIter2: stringFun(function(head, req) {
-        respondWith(req, {
-          html: function() {
-            send("head");
-            var row, row_number = 0;
-            while(row = getRow()) {
-              if(row_number > 2) break;
-              send(" " + row_number);
-              row_number += 1;
-            };
-            return " tail";
-          }
+        provides("html", function() {
+          send("head");
+          var row, row_number = 0;
+          while(row = getRow()) {
+            if(row_number > 2) break;
+            send(" " + row_number);
+            row_number += 1;
+          };
+          return " tail";
         });
       }),
       tooManyGetRows : stringFun(function() {
@@ -160,7 +157,24 @@ couchTests.list_views = function(debug) {
         var row = getRow();
         send(fooBarBam); // intentional error
         return "tail";
+      }),
+      docReference : stringFun(function(head, req) {
+        send("head");
+        var row = getRow();
+        send(row.doc.integer);
+        return "tail";
       })
+    }
+  };
+  var viewOnlyDesignDoc = {
+    _id:"_design/views",
+    language: "javascript",
+    views : {
+      basicView : {
+        map : stringFun(function(doc) {
+          emit(-doc.integer, doc.string);
+        })
+      }
     }
   };
 
@@ -218,19 +232,19 @@ couchTests.list_views = function(debug) {
   T(resp.req.cookie);
 
   // get with query params
-  xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/basicView?startkey=3");
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/basicView?startkey=3&endkey=8");
   T(xhr.status == 200, "with query params");
   T(/Total Rows/.test(xhr.responseText));
   T(!(/Key: 1/.test(xhr.responseText)));
   T(/FirstKey: 3/.test(xhr.responseText));
-  T(/LastKey: 9/.test(xhr.responseText));
+  T(/LastKey: 8/.test(xhr.responseText));
 
-  var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/basicView?list=simpleForm&startkey=3");
+  var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/basicView?list=simpleForm&startkey=3&endkey=8");
   T(xhr.status == 200, "with query params");
   T(/Total Rows/.test(xhr.responseText));
   T(!(/Key: 1/.test(xhr.responseText)));
   T(/FirstKey: 3/.test(xhr.responseText));
-  T(/LastKey: 9/.test(xhr.responseText));
+  T(/LastKey: 8/.test(xhr.responseText));
 
   // with 0 rows
   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/basicView?startkey=30");
@@ -254,10 +268,10 @@ couchTests.list_views = function(debug) {
   T(/LastKey: undefined/.test(xhr.responseText));
 
   // reduce with 0 rows
-   var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/withReduce?list=simpleForm&startkey=30");
-   T(xhr.status == 200, "reduce 0 rows");
-   T(/Total Rows/.test(xhr.responseText));
-   T(/LastKey: undefined/.test(xhr.responseText));
+  var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/withReduce?list=simpleForm&startkey=30");
+  T(xhr.status == 200, "reduce 0 rows");
+  T(/Total Rows/.test(xhr.responseText));
+  T(/LastKey: undefined/.test(xhr.responseText));
 
   // when there is a reduce present, but not used
   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/withReduce?reduce=false");
@@ -300,7 +314,7 @@ couchTests.list_views = function(debug) {
   });
   T(xhr.status == 200, "multi key");
   T(/Total Rows/.test(xhr.responseText));
-  T(!(/Key: 1/.test(xhr.responseText)));
+  T(!(/Key: 1 /.test(xhr.responseText)));
   T(/Key: 2/.test(xhr.responseText));
   T(/FirstKey: 2/.test(xhr.responseText));
   T(/LastKey: 7/.test(xhr.responseText));
@@ -315,6 +329,10 @@ couchTests.list_views = function(debug) {
   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/rowError/basicView");
   T(/ReferenceError/.test(xhr.responseText));
 
+
+  // with include_docs and a reference to the doc.
+  var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/docReference/basicView?include_docs=true");
+  T(xhr.responseText.match(/head0tail/));
 
   // now with extra qs params
   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/qsParams/basicView?foo=blam");
@@ -352,4 +370,13 @@ couchTests.list_views = function(debug) {
   T(xhr.getResponseHeader("Content-Type") == "application/xml");
   T(xhr.responseText.match(/XML/));
   T(xhr.responseText.match(/entry/));
+
+  // Test we can run lists and views from separate docs.
+  T(db.save(viewOnlyDesignDoc).ok);
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/views/basicView?startkey=-3");
+  T(xhr.status == 200, "with query params");
+  T(/Total Rows/.test(xhr.responseText));
+  T(!(/Key: -4/.test(xhr.responseText)));
+  T(/FirstKey: -3/.test(xhr.responseText));
+  T(/LastKey: 0/.test(xhr.responseText));
 };

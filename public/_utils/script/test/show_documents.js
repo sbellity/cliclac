@@ -11,7 +11,7 @@
 // the License.
 
 couchTests.show_documents = function(debug) {
-  var db = new CouchDB("test_suite_db");
+  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
   db.deleteDb();
   db.createDb();
   if (debug) debugger;
@@ -101,28 +101,24 @@ couchTests.show_documents = function(debug) {
           };
         }
       }),
-      "respondWith" : stringFun(function(doc, req) {
+      "provides" : stringFun(function(doc, req) {
         registerType("foo", "application/foo","application/x-foo");
-        return respondWith(req, {
-          html : function() {
-            return "Ha ha, you said \"" + doc.word + "\".";
-          },
-          xml : function() {
-            var xml = new XML('<xml><node/></xml>');
-            // Becase Safari can't stand to see that dastardly
-            // E4X outside of a string. Outside of tests you
-            // can just use E4X literals.
-            this.eval('xml.node.@foo = doc.word');
-            return {
-              body: xml
-            };
-          },
-          foo : function() {
-            return {
-              body: "foofoo"
-            };
-          },
-          fallback : "html"
+
+        provides("html", function() {
+          return "Ha ha, you said \"" + doc.word + "\".";
+        });
+
+        provides("xml", function() {
+          var xml = new XML('<xml><node/></xml>');
+          // Becase Safari can't stand to see that dastardly
+          // E4X outside of a string. Outside of tests you
+          // can just use E4X literals.
+          eval('xml.node.@foo = doc.word');
+          return xml;
+        });
+        
+        provides("foo", function() {
+          return "foofoo";
         });
       })
     }
@@ -289,8 +285,8 @@ couchTests.show_documents = function(debug) {
   etag = xhr.getResponseHeader("etag");
   T(etag != "skipped")
 
-  // test the respondWith mime matcher
-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
+  // test the provides mime matcher
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
     headers: {
       "Accept": 'text/html,application/atom+xml; q=0.9'
     }
@@ -301,7 +297,7 @@ couchTests.show_documents = function(debug) {
   T(xhr.responseText == "Ha ha, you said \"plankton\".");
 
   // now with xml
-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
     headers: {
       "Accept": 'application/xml'
     }
@@ -311,7 +307,7 @@ couchTests.show_documents = function(debug) {
   T(xhr.responseText.match(/plankton/));
 
   // registering types works
-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
     headers: {
       "Accept": "application/x-foo"
     }
@@ -319,23 +315,31 @@ couchTests.show_documents = function(debug) {
   T(xhr.getResponseHeader("Content-Type") == "application/x-foo");
   T(xhr.responseText.match(/foofoo/));
 
-  // test the respondWith mime matcher without
-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
+  // test the provides mime matcher without a match
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
    headers: {
-     "Accept": 'text/html,application/atom+xml; q=0.9'
+     "Accept": 'text/monkeys'
+   }
+  });
+  var rs = JSON.parse(xhr.responseText);
+  T(rs.error == "not_acceptable")
+
+
+  // should fallback on the first one
+  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
+   headers: {
+     "Accept": 'application/x-foo, application/xml'
    }
   });
   var ct = xhr.getResponseHeader("Content-Type");
-  T(/charset=utf-8/.test(ct))
-  T(/text\/html/.test(ct))
-  T(xhr.responseText == "Ha ha, you said \"plankton\".");
+  T(/application\/xml/.test(ct));  
 
   // test inclusion of conflict state
   var doc1 = {_id:"foo", a:1};
   var doc2 = {_id:"foo", a:2};
   db.save(doc1);
 
-  //create the conflict with a all_or_nothing bulk docs request
+  // create the conflict with an all_or_nothing bulk docs request
   var docs = [doc2];
   db.bulkSave(docs, {all_or_nothing:true});
 

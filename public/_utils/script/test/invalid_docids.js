@@ -11,7 +11,7 @@
 // the License.
 
 couchTests.invalid_docids = function(debug) {
-  var db = new CouchDB("test_suite_db");
+  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
   db.deleteDb();
   db.createDb();
   if (debug) debugger;
@@ -19,6 +19,19 @@ couchTests.invalid_docids = function(debug) {
   // Test _local explicitly first.
   T(db.save({"_id": "_local/foo"}).ok);
   T(db.open("_local/foo")._id == "_local/foo");
+
+  var urls = [
+      "/test_suite_db/_local",
+      "/test_suite_db/_local/",
+      "/test_suite_db/_local%2F",
+      "/test_suite_db/_local/foo/bar",
+  ];
+
+  urls.forEach(function(u) {
+    var res = db.request("PUT", u, {"body": "{}"});
+    T(res.status == 400);
+    T(JSON.parse(res.responseText).error == "bad_request");
+  });
 
   //Test non-string
   try {

@@ -50,7 +50,7 @@
         }
       }
       if (value !== undefined) {
-        req.method = "PUT";
+        req.type = "PUT";
         req.data = toJSON(value);
         req.contentType = "application/json";
         req.processData = false
@@ -59,6 +59,41 @@
       ajax(req, options,
         "An error occurred retrieving/updating the server configuration"
       );
+    },
+
+    // TODO make login/logout and db.login/db.logout DRY
+    login: function(options) {
+      options = options || {};
+      $.ajax({
+        type: "POST", url: "/_login", dataType: "json",
+        data: {username: options.username, password: options.password},
+        complete: function(req) {
+          var resp = $.httpData(req, "json");
+          if (req.status == 200) {
+            if (options.success) options.success(resp);
+          } else if (options.error) {
+            options.error(req.status, resp.error, resp.reason);
+          } else {
+            alert("An error occurred logging in: " + resp.reason);
+          }
+        }
+      });
+    },
+    logout: function(options) {
+      options = options || {};
+      $.ajax({
+        type: "POST", url: "/_logout", dataType: "json",
+        complete: function(req) {
+          var resp = $.httpData(req, "json");
+          if (req.status == 200) {
+            if (options.success) options.success(resp);
+          } else if (options.error) {
+            options.error(req.status, resp.error, resp.reason);
+          } else {
+            alert("An error occurred logging out: " + resp.reason);
+          }
+        }
+      });
     },
 
     db: function(name) {
@@ -152,7 +187,7 @@
             var uri = this.uri;
           } else {
             var method = "PUT";
-            var uri = this.uri  + encodeDocId(doc._id);
+            var uri = this.uri + encodeDocId(doc._id);
           }
           $.ajax({
             type: method, url: uri + encodeOptions(options),
@@ -193,6 +228,32 @@
             "The document could not be deleted"
           );
         },
+        copyDoc: function(doc, options, ajaxOptions) {
+          ajaxOptions = $.extend(ajaxOptions, {
+            complete: function(req) {
+              var resp = $.httpData(req, "json");
+              if (req.status == 201) {
+                doc._id = resp.id;
+                doc._rev = resp.rev;
+                if (options.success) options.success(resp);
+              } else if (options.error) {
+                options.error(req.status, resp.error, resp.reason);
+              } else {
+                alert("The document could not be copied: " + resp.reason);
+              }
+            }
+          });
+          ajax({
+              type: "COPY",
+              url: this.uri +
+                   encodeDocId(doc._id) +
+                   encodeOptions({rev: doc._rev})
+            },
+            options,
+            "The document could not be copied",
+            ajaxOptions
+          );
+        },
         query: function(mapFun, reduceFun, language, options) {
           language = language || "javascript";
           if (typeof(mapFun) !== "string") {
@@ -214,8 +275,20 @@
           );
         },
         view: function(name, options) {
-          name = name.split('/');
+          var name = name.split('/');
+          var options = options || {};
+          var type = "GET";
+          var data= null;
+          if (options["keys"]) {
+            type = "POST";
+            var keys = options["keys"];
+            delete options["keys"];
+            data = toJSON({ "keys": keys });
+            console.log(data);
+          }
           ajax({
+              type: type,
+              data: data,
               url: this.uri + "_design/" + name[0] +
                    "/_view/" + name[1] + encodeOptions(options)
             },
@@ -268,7 +341,7 @@
     options = $.extend({successStatus: 200}, options);
     errorMessage = errorMessage || "Unknown error";
 
-    $.ajax($.extend({
+    $.ajax($.extend($.extend({
       type: "GET", dataType: "json",
       complete: function(req) {
         var resp = $.httpData(req, "json");
@@ -280,7 +353,7 @@
           alert(errorMessage + ": " + resp.reason);
         }
       }
-    }, obj), ajaxOptions);
+    }, obj), ajaxOptions));
   }
 
   // Convert a options object to an url query string.

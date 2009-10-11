@@ -11,7 +11,7 @@
 // the License.
 
 couchTests.etags_views = function(debug) {
-  var db = new CouchDB("test_suite_db");
+  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
   db.deleteDb();
   db.createDb();
   if (debug) debugger;
@@ -72,15 +72,32 @@ couchTests.etags_views = function(debug) {
   });
   T(xhr.status == 304);
 
-  // by seq
-  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs_by_seq");
+  // _changes
+  xhr = CouchDB.request("GET", "/test_suite_db/_changes");
   T(xhr.status == 200);
   var etag = xhr.getResponseHeader("etag");
-  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs_by_seq", {
+  xhr = CouchDB.request("GET", "/test_suite_db/_changes", {
     headers: {"if-none-match": etag}
   });
   T(xhr.status == 304);
 
   // list etag
   // in the list test for now
+  
+  // A new database should have unique _all_docs etags. 
+  db.deleteDb(); 
+  db.createDb(); 
+  db.save({a: 1}); 
+  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs"); 
+  var etag = xhr.getResponseHeader("etag"); 
+  db.deleteDb(); 
+  db.createDb(); 
+  db.save({a: 2}); 
+  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs"); 
+  var new_etag = xhr.getResponseHeader("etag");
+  T(etag != new_etag);
+  // but still be cacheable
+  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs"); 
+  T(new_etag == xhr.getResponseHeader("etag"));
+  
 };

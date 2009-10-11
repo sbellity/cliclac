@@ -127,8 +127,8 @@ function CouchDB(name, httpHeaders) {
   }
 
   // Applies the map function to the contents of database and returns the results.
-  this.query = function(mapFun, reduceFun, options, keys) {
-    var body = {language: "javascript"};
+  this.query = function(mapFun, reduceFun, options, keys, language) {
+    var body = {language: language || "javascript"};
     if(keys) {
       body.keys = keys ;
     }
@@ -207,12 +207,12 @@ function CouchDB(name, httpHeaders) {
     return this.allDocs({startkey:"_design", endkey:"_design0"});
   };
 
-  this.allDocsBySeq = function(options,keys) {
+  this.changes = function(options,keys) {
     var req = null;
     if(!keys) {
-      req = this.request("GET", this.uri + "_all_docs_by_seq" + encodeOptions(options));
+      req = this.request("GET", this.uri + "_changes" + encodeOptions(options));
     } else {
-      req = this.request("POST", this.uri + "_all_docs_by_seq" + encodeOptions(options), {
+      req = this.request("POST", this.uri + "_changes" + encodeOptions(options), {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({keys:keys})
       });
@@ -299,6 +299,69 @@ function CouchDB(name, httpHeaders) {
 // Use this from callers to check HTTP status or header values of requests.
 CouchDB.last_req = null;
 
+CouchDB.login = function(username, password) {
+  CouchDB.last_req = CouchDB.request("POST", "/_session", {
+    headers: {"Content-Type": "application/x-www-form-urlencoded",
+      "X-CouchDB-WWW-Authenticate": "Cookie"},
+    body: "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password)
+  });
+  return JSON.parse(CouchDB.last_req.responseText);
+}
+
+CouchDB.logout = function() {
+  CouchDB.last_req = CouchDB.request("DELETE", "/_session", {
+    headers: {"Content-Type": "application/x-www-form-urlencoded",
+      "X-CouchDB-WWW-Authenticate": "Cookie"}
+  });
+  return JSON.parse(CouchDB.last_req.responseText);
+}
+
+CouchDB.createUser = function(username, password, email, roles, basicAuth) {
+  var roles_str = ""
+  if (roles) {
+    for (var i=0; i< roles.length; i++) {
+      roles_str += "&roles=" + encodeURIComponent(roles[i]);
+    }
+  }
+  var headers = {"Content-Type": "application/x-www-form-urlencoded"};
+  if (basicAuth) {
+    headers['Authorization'] = basicAuth
+  } else {
+    headers['X-CouchDB-WWW-Authenticate'] = 'Cookie';
+  }
+  
+  CouchDB.last_req = CouchDB.request("POST", "/_user/", {
+    headers: headers,
+    body: "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password) 
+          + "&email="+ encodeURIComponent(email)+ roles_str
+    
+  });
+  return JSON.parse(CouchDB.last_req.responseText);
+}
+
+CouchDB.updateUser = function(username, email, roles, password, old_password) {
+  var roles_str = ""
+  if (roles) {
+    for (var i=0; i< roles.length; i++) {
+      roles_str += "&roles=" + encodeURIComponent(roles[i]);
+    }
+  }
+
+  var body = "email="+ encodeURIComponent(email)+ roles_str;
+
+  if (typeof(password) != "undefined" && password)
+    body += "&password=" + password;
+
+  if (typeof(old_password) != "undefined" && old_password)
+    body += "&old_password=" + old_password;
+
+  CouchDB.last_req = CouchDB.request("PUT", "/_user/"+encodeURIComponent(username), {
+    headers: {"Content-Type": "application/x-www-form-urlencoded",
+      "X-CouchDB-WWW-Authenticate": "Cookie"},
+    body: body
+  });
+  return JSON.parse(CouchDB.last_req.responseText);
+}
 
 CouchDB.allDbs = function() {
   CouchDB.last_req = CouchDB.request("GET", "/_all_dbs");
@@ -324,9 +387,12 @@ CouchDB.getVersion = function() {
 CouchDB.replicate = function(source, target, rep_options) {
   rep_options = rep_options || {};
   var headers = rep_options.headers || {};
+  var body = rep_options.body || {};
+  body.source = source;
+  body.target = target;
   CouchDB.last_req = CouchDB.request("POST", "/_replicate", {
     headers: headers,
-    body: JSON.stringify({source: source, target: target})
+    body: JSON.stringify(body)
   });
   CouchDB.maybeThrowError(CouchDB.last_req);
   return JSON.parse(CouchDB.last_req.responseText);
@@ -363,7 +429,8 @@ CouchDB.requestStats = function(module, key, test) {
     query_arg = "?flush=true";
   }
 
-  var stat = CouchDB.request("GET", "/_stats/" + module + "/" + key + query_arg).responseText;
+  var url = "/_stats/" + module + "/" + key + query_arg;
+  var stat = CouchDB.request("GET", url).responseText;
   return JSON.parse(stat)[module][key];
 }
 

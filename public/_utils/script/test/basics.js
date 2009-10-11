@@ -15,7 +15,7 @@ couchTests.basics = function(debug) {
   var result = JSON.parse(CouchDB.request("GET", "/").responseText);
   T(result.couchdb == "Welcome");
 
-  var db = new CouchDB("test_suite_db");
+  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
   db.deleteDb();
 
   // bug COUCHDB-100: DELETE on non-existent DB returns 500 instead of 404
@@ -29,15 +29,19 @@ couchTests.basics = function(debug) {
   if (debug) debugger;
 
   // creating a new DB should return Location header
-  xhr = CouchDB.request("DELETE", "/test_suite_db");
-  xhr = CouchDB.request("PUT", "/test_suite_db");
-  TEquals("/test_suite_db",
-    xhr.getResponseHeader("Location").substr(-14),
-    "should return Location header to newly created document");
-
-  TEquals("http://",
-    xhr.getResponseHeader("Location").substr(0, 7),
-    "should return absolute Location header to newly created document");
+  // and it should work for dbs with slashes (COUCHDB-411)
+  // var dbnames = ["test_suite_db", "test_suite_db%2Fwith_slashes"];
+  // dbnames.forEach(function(dbname) {
+  //   xhr = CouchDB.request("DELETE", "/" + dbname);
+  //   xhr = CouchDB.request("PUT", "/" + dbname);
+  //   TEquals(dbname,
+  //     xhr.getResponseHeader("Location").substr(-dbname.length),
+  //     "should return Location header to newly created document");
+  // 
+  //   TEquals("http://",
+  //     xhr.getResponseHeader("Location").substr(0, 7),
+  //     "should return absolute Location header to newly created document");
+  // });
 
   // Get the database info, check the db_name
   T(db.info().db_name == "test_suite_db");
@@ -156,6 +160,16 @@ couchTests.basics = function(debug) {
   var locs = loc.split('/');
   T(locs[4] == resp.id);
   T(locs[3] == "test_suite_db");
+
+  // test that that POST's with an _id aren't overriden with a UUID.
+  var xhr = CouchDB.request("POST", "/test_suite_db", {
+    body: JSON.stringify({"_id": "oppossum", "yar": "matey"})
+  });
+  var resp = JSON.parse(xhr.responseText);
+  T(resp.ok);
+  T(resp.id == "oppossum");
+  var doc = db.open("oppossum");
+  T(doc.yar == "matey");
 
   // document put's should return a Location header
   var xhr = CouchDB.request("PUT", "/test_suite_db/newdoc", {

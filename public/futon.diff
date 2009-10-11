@@ -1,0 +1,5476 @@
+diff --git a/public/_utils/config.html b/public/_utils/config.html
+index 096ca81..c4d4494 100644
+--- a/public/_utils/config.html
++++ b/public/_utils/config.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/jquery.editinline.js?0.9.0"></script>
+diff --git a/public/_utils/couch_tests.html b/public/_utils/couch_tests.html
+index 7970d26..7619193 100644
+--- a/public/_utils/couch_tests.html
++++ b/public/_utils/couch_tests.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/couch.js?0.9.0"></script>
+diff --git a/public/_utils/custom_test.html b/public/_utils/custom_test.html
+index 14301e0..79c04c7 100644
+--- a/public/_utils/custom_test.html
++++ b/public/_utils/custom_test.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/jquery.resizer.js?0.9.0"></script>
+@@ -88,7 +88,7 @@ specific language governing permissions and limitations under the License.
+           <td class="code">
+             <textarea name="code" id="code" rows="18" cols="120">
+ couchTests.custom_test = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+ 
+diff --git a/public/_utils/database.html b/public/_utils/database.html
+index 4d07abc..cfba8f6 100644
+--- a/public/_utils/database.html
++++ b/public/_utils/database.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/jquery.dialog.js?0.9.0"></script>
+diff --git a/public/_utils/dialog/_create_document.html b/public/_utils/dialog/_create_document.html
+deleted file mode 100644
+index f2f24a7..0000000
+--- a/public/_utils/dialog/_create_document.html
++++ /dev/null
+@@ -1,31 +0,0 @@
+-<!--
+-
+-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+-this file except in compliance with the License. You may obtain a copy of the
+-License at
+-
+-   http://www.apache.org/licenses/LICENSE-2.0
+-
+-Unless required by applicable law or agreed to in writing, software distributed
+-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+-CONDITIONS OF ANY KIND, either express or implied. See the License for the
+-specific language governing permissions and limitations under the License.
+-
+--->
+-<form action="" method="post">
+-  <h2>Create New Document</h2>
+-  <fieldset>
+-    <p class="help">
+-      Please enter a unique ID of the document, or leave the field empty to get
+-      an auto-generated ID.
+-    </p>
+-    <table summary=""><tbody><tr>
+-      <th><label>Document ID:</label></th>
+-      <td><input type="text" name="docid" size="32"></td>
+-    </tr></table>
+-  </fieldset>
+-  <div class="buttons">
+-    <button type="submit">Create</button>
+-    <button type="button" class="cancel">Cancel</button>
+-  </div>
+-</form>
+diff --git a/public/_utils/document.html b/public/_utils/document.html
+index f3dcf32..dad1191 100644
+--- a/public/_utils/document.html
++++ b/public/_utils/document.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/jquery.dialog.js?0.9.0"></script>
+diff --git a/public/_utils/image/logo.png b/public/_utils/image/logo.png
+index 56cc683..d21ac02 100644
+Binary files a/public/_utils/image/logo.png and b/public/_utils/image/logo.png differ
+diff --git a/public/_utils/index.html b/public/_utils/index.html
+index a4d61da..25bf25a 100644
+--- a/public/_utils/index.html
++++ b/public/_utils/index.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/jquery.dialog.js?0.9.0"></script>
+diff --git a/public/_utils/replicator.html b/public/_utils/replicator.html
+index 57cc01a..7a1f39e 100644
+--- a/public/_utils/replicator.html
++++ b/public/_utils/replicator.html
+@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <link rel="stylesheet" href="style/layout.css?0.9.0" type="text/css">
+     <script src="script/json2.js"></script>
+-    <script src="script/jquery.js?1.3.1"></script>
++    <script src="script/jquery.js?1.3.2"></script>
+     <script src="script/jquery.cookies.js?0.9.0"></script>
+     <script src="script/jquery.couch.js?0.9.0"></script>
+     <script src="script/futon.js?0.9.0"></script>
+diff --git a/public/_utils/script/couch.js b/public/_utils/script/couch.js
+index bd1d49d..86465c9 100644
+--- a/public/_utils/script/couch.js
++++ b/public/_utils/script/couch.js
+@@ -127,8 +127,8 @@ function CouchDB(name, httpHeaders) {
+   }
+ 
+   // Applies the map function to the contents of database and returns the results.
+-  this.query = function(mapFun, reduceFun, options, keys) {
+-    var body = {language: "javascript"};
++  this.query = function(mapFun, reduceFun, options, keys, language) {
++    var body = {language: language || "javascript"};
+     if(keys) {
+       body.keys = keys ;
+     }
+@@ -207,12 +207,12 @@ function CouchDB(name, httpHeaders) {
+     return this.allDocs({startkey:"_design", endkey:"_design0"});
+   };
+ 
+-  this.allDocsBySeq = function(options,keys) {
++  this.changes = function(options,keys) {
+     var req = null;
+     if(!keys) {
+-      req = this.request("GET", this.uri + "_all_docs_by_seq" + encodeOptions(options));
++      req = this.request("GET", this.uri + "_changes" + encodeOptions(options));
+     } else {
+-      req = this.request("POST", this.uri + "_all_docs_by_seq" + encodeOptions(options), {
++      req = this.request("POST", this.uri + "_changes" + encodeOptions(options), {
+         headers: {"Content-Type": "application/json"},
+         body: JSON.stringify({keys:keys})
+       });
+@@ -299,6 +299,69 @@ function CouchDB(name, httpHeaders) {
+ // Use this from callers to check HTTP status or header values of requests.
+ CouchDB.last_req = null;
+ 
++CouchDB.login = function(username, password) {
++  CouchDB.last_req = CouchDB.request("POST", "/_session", {
++    headers: {"Content-Type": "application/x-www-form-urlencoded",
++      "X-CouchDB-WWW-Authenticate": "Cookie"},
++    body: "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password)
++  });
++  return JSON.parse(CouchDB.last_req.responseText);
++}
++
++CouchDB.logout = function() {
++  CouchDB.last_req = CouchDB.request("DELETE", "/_session", {
++    headers: {"Content-Type": "application/x-www-form-urlencoded",
++      "X-CouchDB-WWW-Authenticate": "Cookie"}
++  });
++  return JSON.parse(CouchDB.last_req.responseText);
++}
++
++CouchDB.createUser = function(username, password, email, roles, basicAuth) {
++  var roles_str = ""
++  if (roles) {
++    for (var i=0; i< roles.length; i++) {
++      roles_str += "&roles=" + encodeURIComponent(roles[i]);
++    }
++  }
++  var headers = {"Content-Type": "application/x-www-form-urlencoded"};
++  if (basicAuth) {
++    headers['Authorization'] = basicAuth
++  } else {
++    headers['X-CouchDB-WWW-Authenticate'] = 'Cookie';
++  }
++  
++  CouchDB.last_req = CouchDB.request("POST", "/_user/", {
++    headers: headers,
++    body: "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password) 
++          + "&email="+ encodeURIComponent(email)+ roles_str
++    
++  });
++  return JSON.parse(CouchDB.last_req.responseText);
++}
++
++CouchDB.updateUser = function(username, email, roles, password, old_password) {
++  var roles_str = ""
++  if (roles) {
++    for (var i=0; i< roles.length; i++) {
++      roles_str += "&roles=" + encodeURIComponent(roles[i]);
++    }
++  }
++
++  var body = "email="+ encodeURIComponent(email)+ roles_str;
++
++  if (typeof(password) != "undefined" && password)
++    body += "&password=" + password;
++
++  if (typeof(old_password) != "undefined" && old_password)
++    body += "&old_password=" + old_password;
++
++  CouchDB.last_req = CouchDB.request("PUT", "/_user/"+encodeURIComponent(username), {
++    headers: {"Content-Type": "application/x-www-form-urlencoded",
++      "X-CouchDB-WWW-Authenticate": "Cookie"},
++    body: body
++  });
++  return JSON.parse(CouchDB.last_req.responseText);
++}
+ 
+ CouchDB.allDbs = function() {
+   CouchDB.last_req = CouchDB.request("GET", "/_all_dbs");
+@@ -324,9 +387,12 @@ CouchDB.getVersion = function() {
+ CouchDB.replicate = function(source, target, rep_options) {
+   rep_options = rep_options || {};
+   var headers = rep_options.headers || {};
++  var body = rep_options.body || {};
++  body.source = source;
++  body.target = target;
+   CouchDB.last_req = CouchDB.request("POST", "/_replicate", {
+     headers: headers,
+-    body: JSON.stringify({source: source, target: target})
++    body: JSON.stringify(body)
+   });
+   CouchDB.maybeThrowError(CouchDB.last_req);
+   return JSON.parse(CouchDB.last_req.responseText);
+@@ -363,7 +429,8 @@ CouchDB.requestStats = function(module, key, test) {
+     query_arg = "?flush=true";
+   }
+ 
+-  var stat = CouchDB.request("GET", "/_stats/" + module + "/" + key + query_arg).responseText;
++  var url = "/_stats/" + module + "/" + key + query_arg;
++  var stat = CouchDB.request("GET", url).responseText;
+   return JSON.parse(stat)[module][key];
+ }
+ 
+diff --git a/public/_utils/script/couch_tests.js b/public/_utils/script/couch_tests.js
+index 5ac0f51..5c1e2bc 100644
+--- a/public/_utils/script/couch_tests.js
++++ b/public/_utils/script/couch_tests.js
+@@ -24,34 +24,57 @@ var couchTests = {};
+ function loadTest(file) {
+   loadScript("script/test/"+file);
+ };
+-
++// keep first
+ loadTest("basics.js");
+-loadTest("batch_save.js");
+-loadTest("delayed_commits.js");
++
++// keep sorted
+ loadTest("all_docs.js");
+-loadTest("conflicts.js");
+-loadTest("recreate_doc.js");
+-loadTest("copy_doc.js");
+-loadTest("uuids.js");
+-loadTest("bulk_docs.js");
+-loadTest("lots_of_docs.js");
+-loadTest("reduce.js");
+-loadTest("reduce_false.js");
+-loadTest("reduce_builtin.js");
+-loadTest("design_options.js");
+-loadTest("multiple_rows.js");
+-loadTest("large_docs.js");
+-loadTest("utf8.js");
+-loadTest("jsonp.js");
+ loadTest("attachments.js");
+ loadTest("attachment_names.js");
+ loadTest("attachment_paths.js");
+ loadTest("attachment_views.js");
+-loadTest("design_paths.js");
++loadTest("batch_save.js");
++loadTest("bulk_docs.js");
++loadTest("changes.js");
++loadTest("compact.js");
++loadTest("config.js");
++loadTest("conflicts.js");
+ loadTest("content_negotiation.js");
++loadTest("cookie_auth.js");
++loadTest("copy_doc.js");
++loadTest("delayed_commits.js");
+ loadTest("design_docs.js");
++loadTest("design_options.js");
++loadTest("design_paths.js");
++loadTest("erlang_views.js");
++loadTest("etags_head.js");
++loadTest("etags_views.js");
++loadTest("form_submit.js");
++loadTest("http.js");
+ loadTest("invalid_docids.js");
++loadTest("jsonp.js");
++loadTest("large_docs.js");
++loadTest("list_views.js");
++loadTest("lots_of_docs.js");
++loadTest("multiple_rows.js");
++loadScript("script/oauth.js");
++loadScript("script/sha1.js");
++loadTest("oauth.js");
++loadTest("purge.js");
++loadTest("recreate_doc.js");
++loadTest("reduce.js");
++loadTest("reduce_builtin.js");
++loadTest("reduce_false.js");
++loadTest("replication.js");
++loadTest("rev_stemming.js");
++loadTest("security_validation.js");
++loadTest("show_documents.js");
++loadTest("stats.js");
++loadTest("update_documents.js");
++loadTest("utf8.js");
++loadTest("uuids.js");
+ loadTest("view_collation.js");
++loadTest("view_collation_raw.js");
+ loadTest("view_conflicts.js");
+ loadTest("view_errors.js");
+ loadTest("view_include_docs.js");
+@@ -62,19 +85,8 @@ loadTest("view_offsets.js");
+ loadTest("view_pagination.js");
+ loadTest("view_sandboxing.js");
+ loadTest("view_xml.js");
+-loadTest("changes.js");
+-loadTest("replication.js");
+-loadTest("etags_head.js");
+-loadTest("etags_views.js");
+-loadTest("show_documents.js");
+-loadTest("list_views.js");
+-loadTest("compact.js");
+-loadTest("purge.js");
+-loadTest("config.js");
+-loadTest("form_submit.js");
+-loadTest("security_validation.js");
+-loadTest("stats.js");
+-loadTest("rev_stemming.js");
++// keep sorted
++
+ 
+ function makeDocs(start, end, templateDoc) {
+   var templateDocSrc = templateDoc ? JSON.stringify(templateDoc) : "{}"
+@@ -111,10 +123,16 @@ function run_on_modified_server(settings, fun) {
+     // unset the settings
+     for(var j=0; j < i; j++) {
+       var s = settings[j];
+-      CouchDB.request("PUT", "/_config/" + s.section + "/" + s.key, {
+-        body: s.oldValue,
+-        headers: {"X-Couch-Persist": "false"}
+-      });
++      if(s.oldValue == "\"\"\n") { // unset value
++        CouchDB.request("DELETE", "/_config/" + s.section + "/" + s.key, {
++          headers: {"X-Couch-Persist": "false"}
++        });
++      } else {
++        CouchDB.request("PUT", "/_config/" + s.section + "/" + s.key, {
++          body: s.oldValue,
++          headers: {"X-Couch-Persist": "false"}
++        });
++      }
+     }
+   }
+ }
+diff --git a/public/_utils/script/futon.browse.js b/public/_utils/script/futon.browse.js
+index 29c0d86..39f3836 100644
+--- a/public/_utils/script/futon.browse.js
++++ b/public/_utils/script/futon.browse.js
+@@ -206,32 +206,48 @@
+ 
+       // Populate the languages dropdown, and listen to selection changes
+       this.populateLanguagesMenu = function() {
++        var all_langs = {};
++        fill_language = function() {
++          var select = $("#language");
++          for (var language in all_langs) {
++            var option = $(document.createElement("option"))
++              .attr("value", language).text(language)
++              .appendTo(select);
++          }
++          if (select[0].options.length == 1) {
++            select[0].disabled = true;
++          } else {
++            select[0].disabled = false;
++            select.val(page.viewLanguage);
++            select.change(function() {
++              var language = $("#language").val();
++              if (language != page.viewLanguage) {
++                var mapFun = $("#viewcode_map").val();
++                if (mapFun == "" || mapFun == templates[page.viewLanguage]) {
++                  // no edits made, so change to the new default
++                  $("#viewcode_map").val(templates[language]);
++                }
++                page.viewLanguage = language;
++                $("#viewcode_map")[0].focus();
++              }
++              return false;
++            });
++          }
++        }
+         $.couch.config({
+           success: function(resp) {
+-            var select = $("#language");
+             for (var language in resp) {
+-              var option = $(document.createElement("option"))
+-                .attr("value", language).text(language)
+-                .appendTo(select);
++              all_langs[language] = resp[language];
+             }
+-            if (select[0].options.length == 1) {
+-              select[0].disabled = true;
+-            } else {
+-              select.val(page.viewLanguage);
+-              select.change(function() {
+-                var language = $("#language").val();
+-                if (language != page.viewLanguage) {
+-                  var mapFun = $("#viewcode_map").val();
+-                  if (mapFun == "" || mapFun == templates[page.viewLanguage]) {
+-                    // no edits made, so change to the new default
+-                    $("#viewcode_map").val(templates[language]);
+-                  }
+-                  page.viewLanguage = language;
+-                  $("#viewcode_map")[0].focus();
++
++            $.couch.config({
++              success: function(resp) {
++                for (var language in resp) {
++                  all_langs[language] = resp[language];
+                 }
+-                return false;
+-              });
+-            }
++                fill_language();
++              }
++            }, "native_query_servers");
+           }
+         }, "query_servers");
+       }
+@@ -493,10 +509,13 @@
+             resp.offset = 0;
+           }
+           var descending_reverse = ((options.descending && !descend) || (descend && (options.descending === false)));
++          var has_reduce_prev = resp.total_rows === undefined && (descending_reverse ? resp.rows.length > per_page : options.startkey !== undefined);
+           if (descending_reverse && resp.rows) {
+             resp.rows = resp.rows.reverse();
++            if (resp.rows.length > per_page) {
++              resp.rows.push(resp.rows.shift());
++            }
+           }
+-          var has_reduce_prev = resp.total_rows === undefined && (descending_reverse ? resp.rows.length > per_page : options.startkey !== undefined);
+           if (resp.rows !== null && (has_reduce_prev || (descending_reverse ?
+             (resp.total_rows - resp.offset > per_page) :
+             (resp.offset > 0)))) {
+@@ -669,6 +688,9 @@
+       page = this;
+ 
+       this.activateTabularView = function() {
++        if ($("#fields tbody.source textarea").length > 0)
++          return;
++
+         $("#tabs li").removeClass("active").filter(".tabular").addClass("active");
+         $("#fields thead th:first").text("Field").attr("colspan", 1).next().show();
+         $("#fields tbody.content").show();
+@@ -680,7 +702,41 @@
+         $("#fields thead th:first").text("Source").attr("colspan", 2).next().hide();
+         $("#fields tbody.content").hide();
+         $("#fields tbody.source").find("td").each(function() {
+-          $(this).html($("<pre></pre>").html($.futon.formatJSON(page.doc, {html: true})));
++          $(this).html($("<pre></pre>").html($.futon.formatJSON(page.doc, {html: true})))
++            .makeEditable({allowEmpty: false,
++              createInput: function(value) {
++                return $("<textarea rows='8' cols='80' spellcheck='false'></textarea>");
++              },
++              prepareInput: function(input) {
++                $(input).makeResizable({vertical: true});
++              },
++              end: function() {
++                $(this).html($("<pre></pre>").html($.futon.formatJSON(page.doc, {html: true})));
++              },
++              accept: function(newValue) {
++                page.doc = JSON.parse(newValue);
++                page.isDirty = true;
++                page.updateFieldListing(true);
++              },
++              populate: function(value) {
++                return $.futon.formatJSON(page.doc);
++              },
++              validate: function(value) {
++                try {
++                  var doc = JSON.parse(value);
++                  if (typeof doc != "object")
++                    throw new SyntaxError("Please enter a valid JSON document (for example, {}).");
++                  return true;
++                } catch (err) {
++                  var msg = err.message;
++                  if (msg == "parseJSON" || msg == "JSON.parse") { 
++                    msg = "There is a syntax error in the document.";
++                  }
++                  $("<div class='error'></div>").text(msg).appendTo(this);
++                  return false;
++                }
++              }
++            });
+         }).end().show();
+       }
+ 
+@@ -713,7 +769,7 @@
+         }
+       }
+ 
+-      this.updateFieldListing = function() {
++      this.updateFieldListing = function(noReload) {
+         $("#fields tbody.content").empty();
+ 
+         function handleResult(doc, revs) {
+@@ -748,11 +804,16 @@
+             $("#fields tbody.footer td span").text("Showing revision " +
+               (revs.length - currentIndex) + " of " + revs.length);
+           }
+-          if (location.hash == "#source") {
++          if (location.hash == "#source" && !noReload) {
+             page.activateSourceView();
+           }
+         }
+ 
++        if (noReload) {
++          handleResult(page.doc, []);
++          return;
++        }
++
+         if (!page.isNew) {
+           db.openDoc(docId, {revs_info: true,
+             success: function(doc) {
+diff --git a/public/_utils/script/jquery.couch.js b/public/_utils/script/jquery.couch.js
+index 73d064c..ab1a7a0 100644
+--- a/public/_utils/script/jquery.couch.js
++++ b/public/_utils/script/jquery.couch.js
+@@ -50,7 +50,7 @@
+         }
+       }
+       if (value !== undefined) {
+-        req.method = "PUT";
++        req.type = "PUT";
+         req.data = toJSON(value);
+         req.contentType = "application/json";
+         req.processData = false
+@@ -61,6 +61,41 @@
+       );
+     },
+ 
++    // TODO make login/logout and db.login/db.logout DRY
++    login: function(options) {
++      options = options || {};
++      $.ajax({
++        type: "POST", url: "/_login", dataType: "json",
++        data: {username: options.username, password: options.password},
++        complete: function(req) {
++          var resp = $.httpData(req, "json");
++          if (req.status == 200) {
++            if (options.success) options.success(resp);
++          } else if (options.error) {
++            options.error(req.status, resp.error, resp.reason);
++          } else {
++            alert("An error occurred logging in: " + resp.reason);
++          }
++        }
++      });
++    },
++    logout: function(options) {
++      options = options || {};
++      $.ajax({
++        type: "POST", url: "/_logout", dataType: "json",
++        complete: function(req) {
++          var resp = $.httpData(req, "json");
++          if (req.status == 200) {
++            if (options.success) options.success(resp);
++          } else if (options.error) {
++            options.error(req.status, resp.error, resp.reason);
++          } else {
++            alert("An error occurred logging out: " + resp.reason);
++          }
++        }
++      });
++    },
++
+     db: function(name) {
+       return {
+         name: name,
+@@ -152,7 +187,7 @@
+             var uri = this.uri;
+           } else {
+             var method = "PUT";
+-            var uri = this.uri  + encodeDocId(doc._id);
++            var uri = this.uri + encodeDocId(doc._id);
+           }
+           $.ajax({
+             type: method, url: uri + encodeOptions(options),
+@@ -193,6 +228,32 @@
+             "The document could not be deleted"
+           );
+         },
++        copyDoc: function(doc, options, ajaxOptions) {
++          ajaxOptions = $.extend(ajaxOptions, {
++            complete: function(req) {
++              var resp = $.httpData(req, "json");
++              if (req.status == 201) {
++                doc._id = resp.id;
++                doc._rev = resp.rev;
++                if (options.success) options.success(resp);
++              } else if (options.error) {
++                options.error(req.status, resp.error, resp.reason);
++              } else {
++                alert("The document could not be copied: " + resp.reason);
++              }
++            }
++          });
++          ajax({
++              type: "COPY",
++              url: this.uri +
++                   encodeDocId(doc._id) +
++                   encodeOptions({rev: doc._rev})
++            },
++            options,
++            "The document could not be copied",
++            ajaxOptions
++          );
++        },
+         query: function(mapFun, reduceFun, language, options) {
+           language = language || "javascript";
+           if (typeof(mapFun) !== "string") {
+@@ -214,8 +275,20 @@
+           );
+         },
+         view: function(name, options) {
+-          name = name.split('/');
++          var name = name.split('/');
++          var options = options || {};
++          var type = "GET";
++          var data= null;
++          if (options["keys"]) {
++            type = "POST";
++            var keys = options["keys"];
++            delete options["keys"];
++            data = toJSON({ "keys": keys });
++            console.log(data);
++          }
+           ajax({
++              type: type,
++              data: data,
+               url: this.uri + "_design/" + name[0] +
+                    "/_view/" + name[1] + encodeOptions(options)
+             },
+@@ -268,7 +341,7 @@
+     options = $.extend({successStatus: 200}, options);
+     errorMessage = errorMessage || "Unknown error";
+ 
+-    $.ajax($.extend({
++    $.ajax($.extend($.extend({
+       type: "GET", dataType: "json",
+       complete: function(req) {
+         var resp = $.httpData(req, "json");
+@@ -280,7 +353,7 @@
+           alert(errorMessage + ": " + resp.reason);
+         }
+       }
+-    }, obj), ajaxOptions);
++    }, obj), ajaxOptions));
+   }
+ 
+   // Convert a options object to an url query string.
+diff --git a/public/_utils/script/jquery.js b/public/_utils/script/jquery.js
+index 9ee8702..9263574 100644
+--- a/public/_utils/script/jquery.js
++++ b/public/_utils/script/jquery.js
+@@ -1,17 +1,17 @@
+ /*!
+- * jQuery JavaScript Library v1.3.1
++ * jQuery JavaScript Library v1.3.2
+  * http://jquery.com/
+  *
+  * Copyright (c) 2009 John Resig
+  * Dual licensed under the MIT and GPL licenses.
+  * http://docs.jquery.com/License
+  *
+- * Date: 2009-01-21 20:42:16 -0500 (Wed, 21 Jan 2009)
+- * Revision: 6158
++ * Date: 2009-02-19 17:34:21 -0500 (Thu, 19 Feb 2009)
++ * Revision: 6246
+  */
+ (function(){
+ 
+-var
++var 
+ 	// Will speed up references to window, and allows munging its name.
+ 	window = this,
+ 	// Will speed up references to undefined, and allows munging its name.
+@@ -88,14 +88,16 @@ jQuery.fn = jQuery.prototype = {
+ 			this.context = selector.context;
+ 		}
+ 
+-		return this.setArray(jQuery.makeArray(selector));
++		return this.setArray(jQuery.isArray( selector ) ?
++			selector :
++			jQuery.makeArray(selector));
+ 	},
+ 
+ 	// Start with an empty selector
+ 	selector: "",
+ 
+ 	// The current version of jQuery being used
+-	jquery: "1.3.1",
++	jquery: "1.3.2",
+ 
+ 	// The number of elements contained in the matched element set
+ 	size: function() {
+@@ -108,7 +110,7 @@ jQuery.fn = jQuery.prototype = {
+ 		return num === undefined ?
+ 
+ 			// Return a 'clean' array
+-			jQuery.makeArray( this ) :
++			Array.prototype.slice.call( this ) :
+ 
+ 			// Return just the object
+ 			this[ num ];
+@@ -278,23 +280,21 @@ jQuery.fn = jQuery.prototype = {
+ 	},
+ 
+ 	// For internal use only.
+-	// Behaves like an Array's .push method, not like a jQuery method.
++	// Behaves like an Array's method, not like a jQuery method.
+ 	push: [].push,
++	sort: [].sort,
++	splice: [].splice,
+ 
+ 	find: function( selector ) {
+-		if ( this.length === 1 && !/,/.test(selector) ) {
++		if ( this.length === 1 ) {
+ 			var ret = this.pushStack( [], "find", selector );
+ 			ret.length = 0;
+ 			jQuery.find( selector, this[0], ret );
+ 			return ret;
+ 		} else {
+-			var elems = jQuery.map(this, function(elem){
++			return this.pushStack( jQuery.unique(jQuery.map(this, function(elem){
+ 				return jQuery.find( selector, elem );
+-			});
+-
+-			return this.pushStack( /[^+>] [^+>]/.test( selector ) ?
+-				jQuery.unique( elems ) :
+-				elems, "find", selector );
++			})), "find", selector );
+ 		}
+ 	},
+ 
+@@ -310,33 +310,37 @@ jQuery.fn = jQuery.prototype = {
+ 				// attributes in IE that are actually only stored
+ 				// as properties will not be copied (such as the
+ 				// the name attribute on an input).
+-				var clone = this.cloneNode(true),
+-					container = document.createElement("div");
+-				container.appendChild(clone);
+-				return jQuery.clean([container.innerHTML])[0];
++				var html = this.outerHTML;
++				if ( !html ) {
++					var div = this.ownerDocument.createElement("div");
++					div.appendChild( this.cloneNode(true) );
++					html = div.innerHTML;
++				}
++
++				return jQuery.clean([html.replace(/ jQuery\d+="(?:\d+|null)"/g, "").replace(/^\s*/, "")])[0];
+ 			} else
+ 				return this.cloneNode(true);
+ 		});
+ 
+-		// Need to set the expando to null on the cloned set if it exists
+-		// removeData doesn't work here, IE removes it from the original as well
+-		// this is primarily for IE but the data expando shouldn't be copied over in any browser
+-		var clone = ret.find("*").andSelf().each(function(){
+-			if ( this[ expando ] !== undefined )
+-				this[ expando ] = null;
+-		});
+-
+ 		// Copy the events from the original to the clone
+-		if ( events === true )
+-			this.find("*").andSelf().each(function(i){
+-				if (this.nodeType == 3)
++		if ( events === true ) {
++			var orig = this.find("*").andSelf(), i = 0;
++
++			ret.find("*").andSelf().each(function(){
++				if ( this.nodeName !== orig[i].nodeName )
+ 					return;
+-				var events = jQuery.data( this, "events" );
+ 
+-				for ( var type in events )
+-					for ( var handler in events[ type ] )
+-						jQuery.event.add( clone[ i ], type, events[ type ][ handler ], events[ type ][ handler ].data );
++				var events = jQuery.data( orig[i], "events" );
++
++				for ( var type in events ) {
++					for ( var handler in events[ type ] ) {
++						jQuery.event.add( this, type, events[ type ][ handler ], events[ type ][ handler ].data );
++					}
++				}
++
++				i++;
+ 			});
++		}
+ 
+ 		// Return the cloned set
+ 		return ret;
+@@ -355,14 +359,18 @@ jQuery.fn = jQuery.prototype = {
+ 	},
+ 
+ 	closest: function( selector ) {
+-		var pos = jQuery.expr.match.POS.test( selector ) ? jQuery(selector) : null;
++		var pos = jQuery.expr.match.POS.test( selector ) ? jQuery(selector) : null,
++			closer = 0;
+ 
+ 		return this.map(function(){
+ 			var cur = this;
+ 			while ( cur && cur.ownerDocument ) {
+-				if ( pos ? pos.index(cur) > -1 : jQuery(cur).is(selector) )
++				if ( pos ? pos.index(cur) > -1 : jQuery(cur).is(selector) ) {
++					jQuery.data(cur, "closest", closer);
+ 					return cur;
++				}
+ 				cur = cur.parentNode;
++				closer++;
+ 			}
+ 		});
+ 	},
+@@ -399,13 +407,13 @@ jQuery.fn = jQuery.prototype = {
+ 	},
+ 
+ 	val: function( value ) {
+-		if ( value === undefined ) {
++		if ( value === undefined ) {			
+ 			var elem = this[0];
+ 
+ 			if ( elem ) {
+ 				if( jQuery.nodeName( elem, 'option' ) )
+ 					return (elem.attributes.value || {}).specified ? elem.value : elem.text;
+-
++				
+ 				// We need to handle select boxes special
+ 				if ( jQuery.nodeName( elem, "select" ) ) {
+ 					var index = elem.selectedIndex,
+@@ -434,7 +442,7 @@ jQuery.fn = jQuery.prototype = {
+ 						}
+ 					}
+ 
+-					return values;
++					return values;				
+ 				}
+ 
+ 				// Everything else, we just grab the value
+@@ -475,7 +483,7 @@ jQuery.fn = jQuery.prototype = {
+ 	html: function( value ) {
+ 		return value === undefined ?
+ 			(this[0] ?
+-				this[0].innerHTML :
++				this[0].innerHTML.replace(/ jQuery\d+="(?:\d+|null)"/g, "") :
+ 				null) :
+ 			this.empty().append( value );
+ 	},
+@@ -507,19 +515,19 @@ jQuery.fn = jQuery.prototype = {
+ 		if ( this[0] ) {
+ 			var fragment = (this[0].ownerDocument || this[0]).createDocumentFragment(),
+ 				scripts = jQuery.clean( args, (this[0].ownerDocument || this[0]), fragment ),
+-				first = fragment.firstChild,
+-				extra = this.length > 1 ? fragment.cloneNode(true) : fragment;
++				first = fragment.firstChild;
+ 
+ 			if ( first )
+ 				for ( var i = 0, l = this.length; i < l; i++ )
+-					callback.call( root(this[i], first), i > 0 ? extra.cloneNode(true) : fragment );
+-
++					callback.call( root(this[i], first), this.length > 1 || i > 0 ?
++							fragment.cloneNode(true) : fragment );
++		
+ 			if ( scripts )
+ 				jQuery.each( scripts, evalScript );
+ 		}
+ 
+ 		return this;
+-
++		
+ 		function root( elem, cur ) {
+ 			return table && jQuery.nodeName(elem, "table") && jQuery.nodeName(cur, "tr") ?
+ 				(elem.getElementsByTagName("tbody")[0] ||
+@@ -586,7 +594,7 @@ jQuery.extend = jQuery.fn.extend = function() {
+ 
+ 				// Recurse if we're merging object values
+ 				if ( deep && copy && typeof copy === "object" && !copy.nodeType )
+-					target[ name ] = jQuery.extend( deep,
++					target[ name ] = jQuery.extend( deep, 
+ 						// Never move original objects, clone them
+ 						src || ( copy.length != null ? [ ] : { } )
+ 					, copy );
+@@ -636,9 +644,7 @@ jQuery.extend({
+ 
+ 	// Evalulates a script in a global context
+ 	globalEval: function( data ) {
+-		data = jQuery.trim( data );
+-
+-		if ( data ) {
++		if ( data && /\S/.test(data) ) {
+ 			// Inspired by code by Andrea Giammarchi
+ 			// http://webreflection.blogspot.com/2007/08/global-scope-evaluation-and-dom.html
+ 			var head = document.getElementsByTagName("head")[0] || document.documentElement,
+@@ -741,26 +747,32 @@ jQuery.extend({
+ 			elem.style[ name ] = old[ name ];
+ 	},
+ 
+-	css: function( elem, name, force ) {
++	css: function( elem, name, force, extra ) {
+ 		if ( name == "width" || name == "height" ) {
+ 			var val, props = { position: "absolute", visibility: "hidden", display:"block" }, which = name == "width" ? [ "Left", "Right" ] : [ "Top", "Bottom" ];
+ 
+ 			function getWH() {
+ 				val = name == "width" ? elem.offsetWidth : elem.offsetHeight;
+-				var padding = 0, border = 0;
++
++				if ( extra === "border" )
++					return;
++
+ 				jQuery.each( which, function() {
+-					padding += parseFloat(jQuery.curCSS( elem, "padding" + this, true)) || 0;
+-					border += parseFloat(jQuery.curCSS( elem, "border" + this + "Width", true)) || 0;
++					if ( !extra )
++						val -= parseFloat(jQuery.curCSS( elem, "padding" + this, true)) || 0;
++					if ( extra === "margin" )
++						val += parseFloat(jQuery.curCSS( elem, "margin" + this, true)) || 0;
++					else
++						val -= parseFloat(jQuery.curCSS( elem, "border" + this + "Width", true)) || 0;
+ 				});
+-				val -= Math.round(padding + border);
+ 			}
+ 
+-			if ( jQuery(elem).is(":visible") )
++			if ( elem.offsetWidth !== 0 )
+ 				getWH();
+ 			else
+ 				jQuery.swap( elem, props, getWH );
+ 
+-			return Math.max(0, val);
++			return Math.max(0, Math.round(val));
+ 		}
+ 
+ 		return jQuery.curCSS( elem, name, force );
+@@ -866,7 +878,7 @@ jQuery.extend({
+ 				});
+ 
+ 				// Trim whitespace, otherwise indexOf won't work as expected
+-				var tags = jQuery.trim( elem ).toLowerCase();
++				var tags = elem.replace(/^\s+/, "").substring(0, 10).toLowerCase();
+ 
+ 				var wrap =
+ 					// option or optgroup
+@@ -906,11 +918,12 @@ jQuery.extend({
+ 				if ( !jQuery.support.tbody ) {
+ 
+ 					// String was a <table>, *may* have spurious <tbody>
+-					var tbody = !tags.indexOf("<table") && tags.indexOf("<tbody") < 0 ?
+-						div.firstChild && div.firstChild.childNodes :
++					var hasBody = /<tbody/i.test(elem),
++						tbody = !tags.indexOf("<table") && !hasBody ?
++							div.firstChild && div.firstChild.childNodes :
+ 
+ 						// String was a bare <thead> or <tfoot>
+-						wrap[1] == "<table>" && tags.indexOf("<tbody") < 0 ?
++						wrap[1] == "<table>" && !hasBody ?
+ 							div.childNodes :
+ 							[];
+ 
+@@ -923,7 +936,7 @@ jQuery.extend({
+ 				// IE completely kills leading whitespace when innerHTML is used
+ 				if ( !jQuery.support.leadingWhitespace && /^\s/.test( elem ) )
+ 					div.insertBefore( context.createTextNode( elem.match(/^\s*/)[0] ), div.firstChild );
+-
++				
+ 				elem = jQuery.makeArray( div.childNodes );
+ 			}
+ 
+@@ -944,7 +957,7 @@ jQuery.extend({
+ 					fragment.appendChild( ret[i] );
+ 				}
+ 			}
+-
++			
+ 			return scripts;
+ 		}
+ 
+@@ -1189,13 +1202,16 @@ jQuery.each({
+ 	insertAfter: "after",
+ 	replaceAll: "replaceWith"
+ }, function(name, original){
+-	jQuery.fn[ name ] = function() {
+-		var args = arguments;
++	jQuery.fn[ name ] = function( selector ) {
++		var ret = [], insert = jQuery( selector );
+ 
+-		return this.each(function(){
+-			for ( var i = 0, length = args.length; i < length; i++ )
+-				jQuery( args[ i ] )[ original ]( this );
+-		});
++		for ( var i = 0, l = insert.length; i < l; i++ ) {
++			var elems = (i > 0 ? this.clone(true) : this).get();
++			jQuery.fn[ original ].apply( jQuery(insert[i]), elems );
++			ret = ret.concat( elems );
++		}
++
++		return this.pushStack( ret, name, selector );
+ 	};
+ });
+ 
+@@ -1234,7 +1250,7 @@ jQuery.each({
+ 
+ 	empty: function() {
+ 		// Remove element nodes and prevent memory leaks
+-		jQuery( ">*", this ).remove();
++		jQuery(this).children().remove();
+ 
+ 		// Remove any remaining nodes
+ 		while ( this.firstChild )
+@@ -1250,150 +1266,150 @@ jQuery.each({
+ function num(elem, prop) {
+ 	return elem[0] && parseInt( jQuery.curCSS(elem[0], prop, true), 10 ) || 0;
+ }
+-var expando = "jQuery" + now(), uuid = 0, windowData = {};
+-
+-jQuery.extend({
+-	cache: {},
+-
+-	data: function( elem, name, data ) {
+-		elem = elem == window ?
+-			windowData :
+-			elem;
+-
+-		var id = elem[ expando ];
+-
+-		// Compute a unique ID for the element
+-		if ( !id )
+-			id = elem[ expando ] = ++uuid;
+-
+-		// Only generate the data cache if we're
+-		// trying to access or manipulate it
+-		if ( name && !jQuery.cache[ id ] )
+-			jQuery.cache[ id ] = {};
+-
+-		// Prevent overriding the named cache with undefined values
+-		if ( data !== undefined )
+-			jQuery.cache[ id ][ name ] = data;
+-
+-		// Return the named cache data, or the ID for the element
+-		return name ?
+-			jQuery.cache[ id ][ name ] :
+-			id;
+-	},
+-
+-	removeData: function( elem, name ) {
+-		elem = elem == window ?
+-			windowData :
+-			elem;
+-
+-		var id = elem[ expando ];
+-
+-		// If we want to remove a specific section of the element's data
+-		if ( name ) {
+-			if ( jQuery.cache[ id ] ) {
+-				// Remove the section of cache data
+-				delete jQuery.cache[ id ][ name ];
+-
+-				// If we've removed all the data, remove the element's cache
+-				name = "";
+-
+-				for ( name in jQuery.cache[ id ] )
+-					break;
+-
+-				if ( !name )
+-					jQuery.removeData( elem );
+-			}
+-
+-		// Otherwise, we want to remove all of the element's data
+-		} else {
+-			// Clean up the element expando
+-			try {
+-				delete elem[ expando ];
+-			} catch(e){
+-				// IE has trouble directly removing the expando
+-				// but it's ok with using removeAttribute
+-				if ( elem.removeAttribute )
+-					elem.removeAttribute( expando );
+-			}
+-
+-			// Completely remove the data cache
+-			delete jQuery.cache[ id ];
+-		}
+-	},
+-	queue: function( elem, type, data ) {
+-		if ( elem ){
+-
+-			type = (type || "fx") + "queue";
+-
+-			var q = jQuery.data( elem, type );
+-
+-			if ( !q || jQuery.isArray(data) )
+-				q = jQuery.data( elem, type, jQuery.makeArray(data) );
+-			else if( data )
+-				q.push( data );
+-
+-		}
+-		return q;
+-	},
+-
+-	dequeue: function( elem, type ){
+-		var queue = jQuery.queue( elem, type ),
+-			fn = queue.shift();
+-
+-		if( !type || type === "fx" )
+-			fn = queue[0];
+-
+-		if( fn !== undefined )
+-			fn.call(elem);
+-	}
+-});
+-
+-jQuery.fn.extend({
+-	data: function( key, value ){
+-		var parts = key.split(".");
+-		parts[1] = parts[1] ? "." + parts[1] : "";
+-
+-		if ( value === undefined ) {
+-			var data = this.triggerHandler("getData" + parts[1] + "!", [parts[0]]);
+-
+-			if ( data === undefined && this.length )
+-				data = jQuery.data( this[0], key );
+-
+-			return data === undefined && parts[1] ?
+-				this.data( parts[0] ) :
+-				data;
+-		} else
+-			return this.trigger("setData" + parts[1] + "!", [parts[0], value]).each(function(){
+-				jQuery.data( this, key, value );
+-			});
+-	},
+-
+-	removeData: function( key ){
+-		return this.each(function(){
+-			jQuery.removeData( this, key );
+-		});
+-	},
+-	queue: function(type, data){
+-		if ( typeof type !== "string" ) {
+-			data = type;
+-			type = "fx";
+-		}
+-
+-		if ( data === undefined )
+-			return jQuery.queue( this[0], type );
+-
+-		return this.each(function(){
+-			var queue = jQuery.queue( this, type, data );
+-
+-			 if( type == "fx" && queue.length == 1 )
+-				queue[0].call(this);
+-		});
+-	},
+-	dequeue: function(type){
+-		return this.each(function(){
+-			jQuery.dequeue( this, type );
+-		});
+-	}
++var expando = "jQuery" + now(), uuid = 0, windowData = {};
++
++jQuery.extend({
++	cache: {},
++
++	data: function( elem, name, data ) {
++		elem = elem == window ?
++			windowData :
++			elem;
++
++		var id = elem[ expando ];
++
++		// Compute a unique ID for the element
++		if ( !id )
++			id = elem[ expando ] = ++uuid;
++
++		// Only generate the data cache if we're
++		// trying to access or manipulate it
++		if ( name && !jQuery.cache[ id ] )
++			jQuery.cache[ id ] = {};
++
++		// Prevent overriding the named cache with undefined values
++		if ( data !== undefined )
++			jQuery.cache[ id ][ name ] = data;
++
++		// Return the named cache data, or the ID for the element
++		return name ?
++			jQuery.cache[ id ][ name ] :
++			id;
++	},
++
++	removeData: function( elem, name ) {
++		elem = elem == window ?
++			windowData :
++			elem;
++
++		var id = elem[ expando ];
++
++		// If we want to remove a specific section of the element's data
++		if ( name ) {
++			if ( jQuery.cache[ id ] ) {
++				// Remove the section of cache data
++				delete jQuery.cache[ id ][ name ];
++
++				// If we've removed all the data, remove the element's cache
++				name = "";
++
++				for ( name in jQuery.cache[ id ] )
++					break;
++
++				if ( !name )
++					jQuery.removeData( elem );
++			}
++
++		// Otherwise, we want to remove all of the element's data
++		} else {
++			// Clean up the element expando
++			try {
++				delete elem[ expando ];
++			} catch(e){
++				// IE has trouble directly removing the expando
++				// but it's ok with using removeAttribute
++				if ( elem.removeAttribute )
++					elem.removeAttribute( expando );
++			}
++
++			// Completely remove the data cache
++			delete jQuery.cache[ id ];
++		}
++	},
++	queue: function( elem, type, data ) {
++		if ( elem ){
++	
++			type = (type || "fx") + "queue";
++	
++			var q = jQuery.data( elem, type );
++	
++			if ( !q || jQuery.isArray(data) )
++				q = jQuery.data( elem, type, jQuery.makeArray(data) );
++			else if( data )
++				q.push( data );
++	
++		}
++		return q;
++	},
++
++	dequeue: function( elem, type ){
++		var queue = jQuery.queue( elem, type ),
++			fn = queue.shift();
++		
++		if( !type || type === "fx" )
++			fn = queue[0];
++			
++		if( fn !== undefined )
++			fn.call(elem);
++	}
++});
++
++jQuery.fn.extend({
++	data: function( key, value ){
++		var parts = key.split(".");
++		parts[1] = parts[1] ? "." + parts[1] : "";
++
++		if ( value === undefined ) {
++			var data = this.triggerHandler("getData" + parts[1] + "!", [parts[0]]);
++
++			if ( data === undefined && this.length )
++				data = jQuery.data( this[0], key );
++
++			return data === undefined && parts[1] ?
++				this.data( parts[0] ) :
++				data;
++		} else
++			return this.trigger("setData" + parts[1] + "!", [parts[0], value]).each(function(){
++				jQuery.data( this, key, value );
++			});
++	},
++
++	removeData: function( key ){
++		return this.each(function(){
++			jQuery.removeData( this, key );
++		});
++	},
++	queue: function(type, data){
++		if ( typeof type !== "string" ) {
++			data = type;
++			type = "fx";
++		}
++
++		if ( data === undefined )
++			return jQuery.queue( this[0], type );
++
++		return this.each(function(){
++			var queue = jQuery.queue( this, type, data );
++			
++			 if( type == "fx" && queue.length == 1 )
++				queue[0].call(this);
++		});
++	},
++	dequeue: function(type){
++		return this.each(function(){
++			jQuery.dequeue( this, type );
++		});
++	}
+ });/*!
+  * Sizzle CSS Selector Engine - v0.9.3
+  *  Copyright 2009, The Dojo Foundation
+@@ -1402,7 +1418,7 @@ jQuery.fn.extend({
+  */
+ (function(){
+ 
+-var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^[\]]*\]|['"][^'"]+['"]|[^[\]'"]+)+\]|\\.|[^ >+~,(\[]+)+|[>+~])(\s*,\s*)?/g,
++var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^[\]]*\]|['"][^'"]*['"]|[^[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?/g,
+ 	done = 0,
+ 	toString = Object.prototype.toString;
+ 
+@@ -1412,19 +1428,19 @@ var Sizzle = function(selector, context, results, seed) {
+ 
+ 	if ( context.nodeType !== 1 && context.nodeType !== 9 )
+ 		return [];
+-
++	
+ 	if ( !selector || typeof selector !== "string" ) {
+ 		return results;
+ 	}
+ 
+ 	var parts = [], m, set, checkSet, check, mode, extra, prune = true;
+-
++	
+ 	// Reset the position of the chunker regexp (start from head)
+ 	chunker.lastIndex = 0;
+-
++	
+ 	while ( (m = chunker.exec(selector)) !== null ) {
+ 		parts.push( m[1] );
+-
++		
+ 		if ( m[2] ) {
+ 			extra = RegExp.rightContext;
+ 			break;
+@@ -1507,6 +1523,19 @@ var Sizzle = function(selector, context, results, seed) {
+ 
+ 	if ( extra ) {
+ 		Sizzle( extra, context, results, seed );
++
++		if ( sortOrder ) {
++			hasDuplicate = false;
++			results.sort(sortOrder);
++
++			if ( hasDuplicate ) {
++				for ( var i = 1; i < results.length; i++ ) {
++					if ( results[i] === results[i-1] ) {
++						results.splice(i--, 1);
++					}
++				}
++			}
++		}
+ 	}
+ 
+ 	return results;
+@@ -1525,7 +1554,7 @@ Sizzle.find = function(expr, context, isXML){
+ 
+ 	for ( var i = 0, l = Expr.order.length; i < l; i++ ) {
+ 		var type = Expr.order[i], match;
+-
++		
+ 		if ( (match = Expr.match[ type ].exec( expr )) ) {
+ 			var left = RegExp.leftContext;
+ 
+@@ -1548,7 +1577,8 @@ Sizzle.find = function(expr, context, isXML){
+ };
+ 
+ Sizzle.filter = function(expr, set, inplace, not){
+-	var old = expr, result = [], curLoop = set, match, anyFound;
++	var old = expr, result = [], curLoop = set, match, anyFound,
++		isXMLFilter = set && set[0] && isXML(set[0]);
+ 
+ 	while ( expr && set.length ) {
+ 		for ( var type in Expr.filter ) {
+@@ -1561,7 +1591,7 @@ Sizzle.filter = function(expr, set, inplace, not){
+ 				}
+ 
+ 				if ( Expr.preFilter[ type ] ) {
+-					match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not );
++					match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
+ 
+ 					if ( !match ) {
+ 						anyFound = found = true;
+@@ -1606,8 +1636,6 @@ Sizzle.filter = function(expr, set, inplace, not){
+ 			}
+ 		}
+ 
+-		expr = expr.replace(/\s*,\s*/, "");
+-
+ 		// Improper expression
+ 		if ( expr == old ) {
+ 			if ( anyFound == null ) {
+@@ -1645,26 +1673,33 @@ var Expr = Sizzle.selectors = {
+ 		}
+ 	},
+ 	relative: {
+-		"+": function(checkSet, part){
+-			for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+-				var elem = checkSet[i];
+-				if ( elem ) {
+-					var cur = elem.previousSibling;
+-					while ( cur && cur.nodeType !== 1 ) {
+-						cur = cur.previousSibling;
+-					}
+-					checkSet[i] = typeof part === "string" ?
+-						cur || false :
+-						cur === part;
++		"+": function(checkSet, part, isXML){
++			var isPartStr = typeof part === "string",
++				isTag = isPartStr && !/\W/.test(part),
++				isPartStrNotTag = isPartStr && !isTag;
++
++			if ( isTag && !isXML ) {
++				part = part.toUpperCase();
++			}
++
++			for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
++				if ( (elem = checkSet[i]) ) {
++					while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
++
++					checkSet[i] = isPartStrNotTag || elem && elem.nodeName === part ?
++						elem || false :
++						elem === part;
+ 				}
+ 			}
+ 
+-			if ( typeof part === "string" ) {
++			if ( isPartStrNotTag ) {
+ 				Sizzle.filter( part, checkSet, true );
+ 			}
+ 		},
+ 		">": function(checkSet, part, isXML){
+-			if ( typeof part === "string" && !/\W/.test(part) ) {
++			var isPartStr = typeof part === "string";
++
++			if ( isPartStr && !/\W/.test(part) ) {
+ 				part = isXML ? part : part.toUpperCase();
+ 
+ 				for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+@@ -1678,19 +1713,19 @@ var Expr = Sizzle.selectors = {
+ 				for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+ 					var elem = checkSet[i];
+ 					if ( elem ) {
+-						checkSet[i] = typeof part === "string" ?
++						checkSet[i] = isPartStr ?
+ 							elem.parentNode :
+ 							elem.parentNode === part;
+ 					}
+ 				}
+ 
+-				if ( typeof part === "string" ) {
++				if ( isPartStr ) {
+ 					Sizzle.filter( part, checkSet, true );
+ 				}
+ 			}
+ 		},
+ 		"": function(checkSet, part, isXML){
+-			var doneName = "done" + (done++), checkFn = dirCheck;
++			var doneName = done++, checkFn = dirCheck;
+ 
+ 			if ( !part.match(/\W/) ) {
+ 				var nodeCheck = part = isXML ? part : part.toUpperCase();
+@@ -1700,7 +1735,7 @@ var Expr = Sizzle.selectors = {
+ 			checkFn("parentNode", part, doneName, checkSet, nodeCheck, isXML);
+ 		},
+ 		"~": function(checkSet, part, isXML){
+-			var doneName = "done" + (done++), checkFn = dirCheck;
++			var doneName = done++, checkFn = dirCheck;
+ 
+ 			if ( typeof part === "string" && !part.match(/\W/) ) {
+ 				var nodeCheck = part = isXML ? part : part.toUpperCase();
+@@ -1718,8 +1753,16 @@ var Expr = Sizzle.selectors = {
+ 			}
+ 		},
+ 		NAME: function(match, context, isXML){
+-			if ( typeof context.getElementsByName !== "undefined" && !isXML ) {
+-				return context.getElementsByName(match[1]);
++			if ( typeof context.getElementsByName !== "undefined" ) {
++				var ret = [], results = context.getElementsByName(match[1]);
++
++				for ( var i = 0, l = results.length; i < l; i++ ) {
++					if ( results[i].getAttribute("name") === match[1] ) {
++						ret.push( results[i] );
++					}
++				}
++
++				return ret.length === 0 ? null : ret;
+ 			}
+ 		},
+ 		TAG: function(match, context){
+@@ -1727,13 +1770,16 @@ var Expr = Sizzle.selectors = {
+ 		}
+ 	},
+ 	preFilter: {
+-		CLASS: function(match, curLoop, inplace, result, not){
++		CLASS: function(match, curLoop, inplace, result, not, isXML){
+ 			match = " " + match[1].replace(/\\/g, "") + " ";
+ 
+-			var elem;
+-			for ( var i = 0; (elem = curLoop[i]) != null; i++ ) {
++			if ( isXML ) {
++				return match;
++			}
++
++			for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+ 				if ( elem ) {
+-					if ( not ^ (" " + elem.className + " ").indexOf(match) >= 0 ) {
++					if ( not ^ (elem.className && (" " + elem.className + " ").indexOf(match) >= 0) ) {
+ 						if ( !inplace )
+ 							result.push( elem );
+ 					} else if ( inplace ) {
+@@ -1764,14 +1810,14 @@ var Expr = Sizzle.selectors = {
+ 			}
+ 
+ 			// TODO: Move to normal caching system
+-			match[0] = "done" + (done++);
++			match[0] = done++;
+ 
+ 			return match;
+ 		},
+-		ATTR: function(match){
++		ATTR: function(match, curLoop, inplace, result, not, isXML){
+ 			var name = match[1].replace(/\\/g, "");
+-
+-			if ( Expr.attrMap[name] ) {
++			
++			if ( !isXML && Expr.attrMap[name] ) {
+ 				match[1] = Expr.attrMap[name];
+ 			}
+ 
+@@ -1784,7 +1830,7 @@ var Expr = Sizzle.selectors = {
+ 		PSEUDO: function(match, curLoop, inplace, result, not){
+ 			if ( match[1] === "not" ) {
+ 				// If we're dealing with a complex expression, or a simple one
+-				if ( match[3].match(chunker).length > 1 ) {
++				if ( match[3].match(chunker).length > 1 || /^\w/.test(match[3]) ) {
+ 					match[3] = Sizzle(match[3], null, null, curLoop);
+ 				} else {
+ 					var ret = Sizzle.filter(match[3], curLoop, inplace, true ^ not);
+@@ -1793,10 +1839,10 @@ var Expr = Sizzle.selectors = {
+ 					}
+ 					return false;
+ 				}
+-			} else if ( Expr.match.POS.test( match[0] ) ) {
++			} else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
+ 				return true;
+ 			}
+-
++			
+ 			return match;
+ 		},
+ 		POS: function(match){
+@@ -1890,47 +1936,6 @@ var Expr = Sizzle.selectors = {
+ 		}
+ 	},
+ 	filter: {
+-		CHILD: function(elem, match){
+-			var type = match[1], parent = elem.parentNode;
+-
+-			var doneName = match[0];
+-
+-			if ( parent && (!parent[ doneName ] || !elem.nodeIndex) ) {
+-				var count = 1;
+-
+-				for ( var node = parent.firstChild; node; node = node.nextSibling ) {
+-					if ( node.nodeType == 1 ) {
+-						node.nodeIndex = count++;
+-					}
+-				}
+-
+-				parent[ doneName ] = count - 1;
+-			}
+-
+-			if ( type == "first" ) {
+-				return elem.nodeIndex == 1;
+-			} else if ( type == "last" ) {
+-				return elem.nodeIndex == parent[ doneName ];
+-			} else if ( type == "only" ) {
+-				return parent[ doneName ] == 1;
+-			} else if ( type == "nth" ) {
+-				var add = false, first = match[2], last = match[3];
+-
+-				if ( first == 1 && last == 0 ) {
+-					return true;
+-				}
+-
+-				if ( first == 0 ) {
+-					if ( elem.nodeIndex == last ) {
+-						add = true;
+-					}
+-				} else if ( (elem.nodeIndex - last) % first == 0 && (elem.nodeIndex - last) / first >= 0 ) {
+-					add = true;
+-				}
+-
+-				return add;
+-			}
+-		},
+ 		PSEUDO: function(elem, match, i, array){
+ 			var name = match[1], filter = Expr.filters[ name ];
+ 
+@@ -1950,6 +1955,49 @@ var Expr = Sizzle.selectors = {
+ 				return true;
+ 			}
+ 		},
++		CHILD: function(elem, match){
++			var type = match[1], node = elem;
++			switch (type) {
++				case 'only':
++				case 'first':
++					while (node = node.previousSibling)  {
++						if ( node.nodeType === 1 ) return false;
++					}
++					if ( type == 'first') return true;
++					node = elem;
++				case 'last':
++					while (node = node.nextSibling)  {
++						if ( node.nodeType === 1 ) return false;
++					}
++					return true;
++				case 'nth':
++					var first = match[2], last = match[3];
++
++					if ( first == 1 && last == 0 ) {
++						return true;
++					}
++					
++					var doneName = match[0],
++						parent = elem.parentNode;
++	
++					if ( parent && (parent.sizcache !== doneName || !elem.nodeIndex) ) {
++						var count = 0;
++						for ( node = parent.firstChild; node; node = node.nextSibling ) {
++							if ( node.nodeType === 1 ) {
++								node.nodeIndex = ++count;
++							}
++						} 
++						parent.sizcache = doneName;
++					}
++					
++					var diff = elem.nodeIndex - last;
++					if ( first == 0 ) {
++						return diff == 0;
++					} else {
++						return ( diff % first == 0 && diff / first >= 0 );
++					}
++			}
++		},
+ 		ID: function(elem, match){
+ 			return elem.nodeType === 1 && elem.getAttribute("id") === match;
+ 		},
+@@ -1957,10 +2005,20 @@ var Expr = Sizzle.selectors = {
+ 			return (match === "*" && elem.nodeType === 1) || elem.nodeName === match;
+ 		},
+ 		CLASS: function(elem, match){
+-			return match.test( elem.className );
++			return (" " + (elem.className || elem.getAttribute("class")) + " ")
++				.indexOf( match ) > -1;
+ 		},
+ 		ATTR: function(elem, match){
+-			var result = Expr.attrHandle[ match[1] ] ? Expr.attrHandle[ match[1] ]( elem ) : elem[ match[1] ] || elem.getAttribute( match[1] ), value = result + "", type = match[2], check = match[4];
++			var name = match[1],
++				result = Expr.attrHandle[ name ] ?
++					Expr.attrHandle[ name ]( elem ) :
++					elem[ name ] != null ?
++						elem[ name ] :
++						elem.getAttribute( name ),
++				value = result + "",
++				type = match[2],
++				check = match[4];
++
+ 			return result == null ?
+ 				type === "!=" :
+ 				type === "=" ?
+@@ -1969,8 +2027,8 @@ var Expr = Sizzle.selectors = {
+ 				value.indexOf(check) >= 0 :
+ 				type === "~=" ?
+ 				(" " + value + " ").indexOf(check) >= 0 :
+-				!match[4] ?
+-				result :
++				!check ?
++				value && result !== false :
+ 				type === "!=" ?
+ 				value != check :
+ 				type === "^=" ?
+@@ -2004,7 +2062,7 @@ var makeArray = function(array, results) {
+ 		results.push.apply( results, array );
+ 		return results;
+ 	}
+-
++	
+ 	return array;
+ };
+ 
+@@ -2036,6 +2094,39 @@ try {
+ 	};
+ }
+ 
++var sortOrder;
++
++if ( document.documentElement.compareDocumentPosition ) {
++	sortOrder = function( a, b ) {
++		var ret = a.compareDocumentPosition(b) & 4 ? -1 : a === b ? 0 : 1;
++		if ( ret === 0 ) {
++			hasDuplicate = true;
++		}
++		return ret;
++	};
++} else if ( "sourceIndex" in document.documentElement ) {
++	sortOrder = function( a, b ) {
++		var ret = a.sourceIndex - b.sourceIndex;
++		if ( ret === 0 ) {
++			hasDuplicate = true;
++		}
++		return ret;
++	};
++} else if ( document.createRange ) {
++	sortOrder = function( a, b ) {
++		var aRange = a.ownerDocument.createRange(), bRange = b.ownerDocument.createRange();
++		aRange.selectNode(a);
++		aRange.collapse(true);
++		bRange.selectNode(b);
++		bRange.collapse(true);
++		var ret = aRange.compareBoundaryPoints(Range.START_TO_END, bRange);
++		if ( ret === 0 ) {
++			hasDuplicate = true;
++		}
++		return ret;
++	};
++}
++
+ // Check to see if the browser returns elements by name when
+ // querying by getElementById (and provide a workaround)
+ (function(){
+@@ -2099,7 +2190,8 @@ try {
+ 
+ 	// Check to see if an attribute returns normalized href attributes
+ 	div.innerHTML = "<a href='#'></a>";
+-	if ( div.firstChild && div.firstChild.getAttribute("href") !== "#" ) {
++	if ( div.firstChild && typeof div.firstChild.getAttribute !== "undefined" &&
++			div.firstChild.getAttribute("href") !== "#" ) {
+ 		Expr.attrHandle.href = function(elem){
+ 			return elem.getAttribute("href", 2);
+ 		};
+@@ -2115,7 +2207,7 @@ if ( document.querySelectorAll ) (function(){
+ 	if ( div.querySelectorAll && div.querySelectorAll(".TEST").length === 0 ) {
+ 		return;
+ 	}
+-
++	
+ 	Sizzle = function(query, context, extra, seed){
+ 		context = context || document;
+ 
+@@ -2126,7 +2218,7 @@ if ( document.querySelectorAll ) (function(){
+ 				return makeArray( context.querySelectorAll(query), extra );
+ 			} catch(e){}
+ 		}
+-
++		
+ 		return oldSizzle(query, context, extra, seed);
+ 	};
+ 
+@@ -2136,29 +2228,50 @@ if ( document.querySelectorAll ) (function(){
+ 	Sizzle.matches = oldSizzle.matches;
+ })();
+ 
+-if ( document.getElementsByClassName && document.documentElement.getElementsByClassName ) {
++if ( document.getElementsByClassName && document.documentElement.getElementsByClassName ) (function(){
++	var div = document.createElement("div");
++	div.innerHTML = "<div class='test e'></div><div class='test'></div>";
++
++	// Opera can't find a second classname (in 9.6)
++	if ( div.getElementsByClassName("e").length === 0 )
++		return;
++
++	// Safari caches class attributes, doesn't catch changes (in 3.2)
++	div.lastChild.className = "e";
++
++	if ( div.getElementsByClassName("e").length === 1 )
++		return;
++
+ 	Expr.order.splice(1, 0, "CLASS");
+-	Expr.find.CLASS = function(match, context) {
+-		return context.getElementsByClassName(match[1]);
++	Expr.find.CLASS = function(match, context, isXML) {
++		if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
++			return context.getElementsByClassName(match[1]);
++		}
+ 	};
+-}
++})();
+ 
+ function dirNodeCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
++	var sibDir = dir == "previousSibling" && !isXML;
+ 	for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+ 		var elem = checkSet[i];
+ 		if ( elem ) {
++			if ( sibDir && elem.nodeType === 1 ){
++				elem.sizcache = doneName;
++				elem.sizset = i;
++			}
+ 			elem = elem[dir];
+ 			var match = false;
+ 
+-			while ( elem && elem.nodeType ) {
+-				var done = elem[doneName];
+-				if ( done ) {
+-					match = checkSet[ done ];
++			while ( elem ) {
++				if ( elem.sizcache === doneName ) {
++					match = checkSet[elem.sizset];
+ 					break;
+ 				}
+ 
+-				if ( elem.nodeType === 1 && !isXML )
+-					elem[doneName] = i;
++				if ( elem.nodeType === 1 && !isXML ){
++					elem.sizcache = doneName;
++					elem.sizset = i;
++				}
+ 
+ 				if ( elem.nodeName === cur ) {
+ 					match = elem;
+@@ -2174,22 +2287,28 @@ function dirNodeCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
+ }
+ 
+ function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
++	var sibDir = dir == "previousSibling" && !isXML;
+ 	for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+ 		var elem = checkSet[i];
+ 		if ( elem ) {
++			if ( sibDir && elem.nodeType === 1 ) {
++				elem.sizcache = doneName;
++				elem.sizset = i;
++			}
+ 			elem = elem[dir];
+ 			var match = false;
+ 
+-			while ( elem && elem.nodeType ) {
+-				if ( elem[doneName] ) {
+-					match = checkSet[ elem[doneName] ];
++			while ( elem ) {
++				if ( elem.sizcache === doneName ) {
++					match = checkSet[elem.sizset];
+ 					break;
+ 				}
+ 
+ 				if ( elem.nodeType === 1 ) {
+-					if ( !isXML )
+-						elem[doneName] = i;
+-
++					if ( !isXML ) {
++						elem.sizcache = doneName;
++						elem.sizset = i;
++					}
+ 					if ( typeof cur !== "string" ) {
+ 						if ( elem === cur ) {
+ 							match = true;
+@@ -2248,15 +2367,11 @@ jQuery.expr = Sizzle.selectors;
+ jQuery.expr[":"] = jQuery.expr.filters;
+ 
+ Sizzle.selectors.filters.hidden = function(elem){
+-	return "hidden" === elem.type ||
+-		jQuery.css(elem, "display") === "none" ||
+-		jQuery.css(elem, "visibility") === "hidden";
++	return elem.offsetWidth === 0 || elem.offsetHeight === 0;
+ };
+ 
+ Sizzle.selectors.filters.visible = function(elem){
+-	return "hidden" !== elem.type &&
+-		jQuery.css(elem, "display") !== "none" &&
+-		jQuery.css(elem, "visibility") !== "hidden";
++	return elem.offsetWidth > 0 || elem.offsetHeight > 0;
+ };
+ 
+ Sizzle.selectors.filters.animated = function(elem){
+@@ -2368,7 +2483,7 @@ jQuery.event = {
+ 
+ 			// Get the current list of functions bound to this event
+ 			var handlers = events[type];
+-
++			
+ 			if ( jQuery.event.specialAll[type] )
+ 				jQuery.event.specialAll[type].setup.call(elem, data, namespaces);
+ 
+@@ -2441,7 +2556,7 @@ jQuery.event = {
+ 								// Handle the removal of namespaced events
+ 								if ( namespace.test(events[type][handle].type) )
+ 									delete events[type][handle];
+-
++									
+ 						if ( jQuery.event.specialAll[type] )
+ 							jQuery.event.specialAll[type].teardown.call(elem, namespaces);
+ 
+@@ -2508,11 +2623,11 @@ jQuery.event = {
+ 			// don't do events on text and comment nodes
+ 			if ( !elem || elem.nodeType == 3 || elem.nodeType == 8 )
+ 				return undefined;
+-
++			
+ 			// Clean up in case it is reused
+ 			event.result = undefined;
+ 			event.target = elem;
+-
++			
+ 			// Clone the incoming data, if any
+ 			data = jQuery.makeArray(data);
+ 			data.unshift( event );
+@@ -2552,14 +2667,15 @@ jQuery.event = {
+ 		var all, handlers;
+ 
+ 		event = arguments[0] = jQuery.event.fix( event || window.event );
+-
++		event.currentTarget = this;
++		
+ 		// Namespaced event handlers
+ 		var namespaces = event.type.split(".");
+ 		event.type = namespaces.shift();
+ 
+ 		// Cache this now, all = true means, any handler
+ 		all = !namespaces.length && !event.exclusive;
+-
++		
+ 		var namespace = RegExp("(^|\\.)" + namespaces.slice().sort().join(".*\\.") + "(\\.|$)");
+ 
+ 		handlers = ( jQuery.data(this, "events") || {} )[event.type];
+@@ -2657,7 +2773,7 @@ jQuery.event = {
+ 			teardown: function() {}
+ 		}
+ 	},
+-
++	
+ 	specialAll: {
+ 		live: {
+ 			setup: function( selector, namespaces ){
+@@ -2666,12 +2782,12 @@ jQuery.event = {
+ 			teardown:  function( namespaces ){
+ 				if ( namespaces.length ) {
+ 					var remove = 0, name = RegExp("(^|\\.)" + namespaces[0] + "(\\.|$)");
+-
++					
+ 					jQuery.each( (jQuery.data(this, "events").live || {}), function(){
+ 						if ( name.test(this.type) )
+ 							remove++;
+ 					});
+-
++					
+ 					if ( remove < 1 )
+ 						jQuery.event.remove( this, namespaces[0], liveHandler );
+ 				}
+@@ -2684,7 +2800,7 @@ jQuery.Event = function( src ){
+ 	// Allow instantiation without the 'new' keyword
+ 	if( !this.preventDefault )
+ 		return new jQuery.Event(src);
+-
++	
+ 	// Event object
+ 	if( src && src.type ){
+ 		this.originalEvent = src;
+@@ -2696,7 +2812,7 @@ jQuery.Event = function( src ){
+ 	// timeStamp is buggy for some events on Firefox(#3843)
+ 	// So we won't rely on the native value
+ 	this.timeStamp = now();
+-
++	
+ 	// Mark it as fixed
+ 	this[expando] = true;
+ };
+@@ -2752,7 +2868,7 @@ var withinElement = function(event) {
+ 	while ( parent && parent != this )
+ 		try { parent = parent.parentNode; }
+ 		catch(e) { parent = this; }
+-
++	
+ 	if( parent != this ){
+ 		// set the correct event type
+ 		event.type = event.data;
+@@ -2760,9 +2876,9 @@ var withinElement = function(event) {
+ 		jQuery.event.handle.apply( this, arguments );
+ 	}
+ };
+-
+-jQuery.each({
+-	mouseover: 'mouseenter',
++	
++jQuery.each({ 
++	mouseover: 'mouseenter', 
+ 	mouseout: 'mouseleave'
+ }, function( orig, fix ){
+ 	jQuery.event.special[ fix ] = {
+@@ -2772,7 +2888,7 @@ jQuery.each({
+ 		teardown: function(){
+ 			jQuery.event.remove( this, orig, withinElement );
+ 		}
+-	};
++	};			   
+ });
+ 
+ jQuery.fn.extend({
+@@ -2811,7 +2927,7 @@ jQuery.fn.extend({
+ 			event.stopPropagation();
+ 			jQuery.event.trigger( event, data, this[0] );
+ 			return event.result;
+-		}
++		}		
+ 	},
+ 
+ 	toggle: function( fn ) {
+@@ -2854,7 +2970,7 @@ jQuery.fn.extend({
+ 
+ 		return this;
+ 	},
+-
++	
+ 	live: function( type, fn ){
+ 		var proxy = jQuery.event.proxy( fn );
+ 		proxy.guid += this.selector + type;
+@@ -2863,7 +2979,7 @@ jQuery.fn.extend({
+ 
+ 		return this;
+ 	},
+-
++	
+ 	die: function( type, fn ){
+ 		jQuery(document).unbind( liveConvert(type, this.selector), fn ? { guid: fn.guid + this.selector + type } : null );
+ 		return this;
+@@ -2883,9 +2999,13 @@ function liveHandler( event ){
+ 		}
+ 	});
+ 
++	elems.sort(function(a,b) {
++		return jQuery.data(a.elem, "closest") - jQuery.data(b.elem, "closest");
++	});
++	
+ 	jQuery.each(elems, function(){
+ 		if ( this.fn.call(this.elem, event, this.fn.data) === false )
+-			stop = false;
++			return (stop = false);
+ 	});
+ 
+ 	return stop;
+@@ -2949,7 +3069,7 @@ function bindReady(){
+ 
+ 		// If IE and not an iframe
+ 		// continually check to see if the document is ready
+-		if ( document.documentElement.doScroll && typeof window.frameElement === "undefined" ) (function(){
++		if ( document.documentElement.doScroll && window == window.top ) (function(){
+ 			if ( jQuery.isReady ) return;
+ 
+ 			try {
+@@ -2983,12 +3103,12 @@ jQuery.each( ("blur,focus,load,resize,scroll,unload,click,dblclick," +
+ // Prevent memory leaks in IE
+ // And prevent errors on refresh with events like mouseover in other browsers
+ // Window isn't included so as not to unbind existing unload events
+-jQuery( window ).bind( 'unload', function(){
++jQuery( window ).bind( 'unload', function(){ 
+ 	for ( var id in jQuery.cache )
+ 		// Skip the window
+ 		if ( id != 1 && jQuery.cache[ id ].handle )
+ 			jQuery.event.remove( jQuery.cache[ id ].handle.elem );
+-});
++}); 
+ (function(){
+ 
+ 	jQuery.support = {};
+@@ -3012,32 +3132,32 @@ jQuery( window ).bind( 'unload', function(){
+ 	jQuery.support = {
+ 		// IE strips leading whitespace when .innerHTML is used
+ 		leadingWhitespace: div.firstChild.nodeType == 3,
+-
++		
+ 		// Make sure that tbody elements aren't automatically inserted
+ 		// IE will insert them into empty tables
+ 		tbody: !div.getElementsByTagName("tbody").length,
+-
++		
+ 		// Make sure that you can get all elements in an <object> element
+ 		// IE 7 always returns no results
+ 		objectAll: !!div.getElementsByTagName("object")[0]
+ 			.getElementsByTagName("*").length,
+-
++		
+ 		// Make sure that link elements get serialized correctly by innerHTML
+ 		// This requires a wrapper element in IE
+ 		htmlSerialize: !!div.getElementsByTagName("link").length,
+-
++		
+ 		// Get the style information from getAttribute
+ 		// (IE uses .cssText insted)
+ 		style: /red/.test( a.getAttribute("style") ),
+-
++		
+ 		// Make sure that URLs aren't manipulated
+ 		// (IE normalizes it by default)
+ 		hrefNormalized: a.getAttribute("href") === "/a",
+-
++		
+ 		// Make sure that element opacity exists
+ 		// (IE uses filter instead)
+ 		opacity: a.style.opacity === "0.5",
+-
++		
+ 		// Verify style float existence
+ 		// (IE uses styleFloat instead of cssFloat)
+ 		cssFloat: !!a.style.cssFloat,
+@@ -3047,14 +3167,14 @@ jQuery( window ).bind( 'unload', function(){
+ 		noCloneEvent: true,
+ 		boxModel: null
+ 	};
+-
++	
+ 	script.type = "text/javascript";
+ 	try {
+ 		script.appendChild( document.createTextNode( "window." + id + "=1;" ) );
+ 	} catch(e){}
+ 
+ 	root.insertBefore( script, root.firstChild );
+-
++	
+ 	// Make sure that the execution of code works by injecting a script
+ 	// tag with appendChild/createTextNode
+ 	// (IE doesn't support this, fails, and uses .text instead)
+@@ -3079,12 +3199,11 @@ jQuery( window ).bind( 'unload', function(){
+ 	// document.body must exist before we can do this
+ 	jQuery(function(){
+ 		var div = document.createElement("div");
+-		div.style.width = "1px";
+-		div.style.paddingLeft = "1px";
++		div.style.width = div.style.paddingLeft = "1px";
+ 
+ 		document.body.appendChild( div );
+ 		jQuery.boxModel = jQuery.support.boxModel = div.offsetWidth === 2;
+-		document.body.removeChild( div );
++		document.body.removeChild( div ).style.display = 'none';
+ 	});
+ })();
+ 
+@@ -3175,7 +3294,7 @@ jQuery.fn.extend({
+ 		.filter(function(){
+ 			return this.name && !this.disabled &&
+ 				(this.checked || /select|textarea/i.test(this.nodeName) ||
+-					/text|hidden|password/i.test(this.type));
++					/text|hidden|password|search/i.test(this.type));
+ 		})
+ 		.map(function(i, elem){
+ 			var val = jQuery(this).val();
+@@ -3199,7 +3318,7 @@ jQuery.each( "ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend".sp
+ var jsc = now();
+ 
+ jQuery.extend({
+-
++  
+ 	get: function( url, data, callback, type ) {
+ 		// shift arguments if data argument was ommited
+ 		if ( jQuery.isFunction( data ) ) {
+@@ -3371,6 +3490,9 @@ jQuery.extend({
+ 						done = true;
+ 						success();
+ 						complete();
++
++						// Handle memory leak in IE
++						script.onload = script.onreadystatechange = null;
+ 						head.removeChild( script );
+ 					}
+ 				};
+@@ -3585,7 +3707,7 @@ jQuery.extend({
+ 
+ 		if ( xml && data.documentElement.tagName == "parsererror" )
+ 			throw "parsererror";
+-
++			
+ 		// Allow a pre-filtering function to sanitize the response
+ 		// s != null is checked to keep backwards compatibility
+ 		if( s && s.dataFilter )
+@@ -3602,7 +3724,7 @@ jQuery.extend({
+ 			if ( type == "json" )
+ 				data = window["eval"]("(" + data + ")");
+ 		}
+-
++		
+ 		return data;
+ 	},
+ 
+@@ -3666,30 +3788,36 @@ jQuery.fn.extend({
+ 		} else {
+ 			for ( var i = 0, l = this.length; i < l; i++ ){
+ 				var old = jQuery.data(this[i], "olddisplay");
+-
++				
+ 				this[i].style.display = old || "";
+-
++				
+ 				if ( jQuery.css(this[i], "display") === "none" ) {
+ 					var tagName = this[i].tagName, display;
+-
++					
+ 					if ( elemdisplay[ tagName ] ) {
+ 						display = elemdisplay[ tagName ];
+ 					} else {
+ 						var elem = jQuery("<" + tagName + " />").appendTo("body");
+-
++						
+ 						display = elem.css("display");
+ 						if ( display === "none" )
+ 							display = "block";
+-
++						
+ 						elem.remove();
+-
++						
+ 						elemdisplay[ tagName ] = display;
+ 					}
+-
+-					this[i].style.display = jQuery.data(this[i], "olddisplay", display);
++					
++					jQuery.data(this[i], "olddisplay", display);
+ 				}
+ 			}
+ 
++			// Set the display of the elements in a second loop
++			// to avoid the constant reflow
++			for ( var i = 0, l = this.length; i < l; i++ ){
++				this[i].style.display = jQuery.data(this[i], "olddisplay") || "";
++			}
++			
+ 			return this;
+ 		}
+ 	},
+@@ -3702,8 +3830,14 @@ jQuery.fn.extend({
+ 				var old = jQuery.data(this[i], "olddisplay");
+ 				if ( !old && old !== "none" )
+ 					jQuery.data(this[i], "olddisplay", jQuery.css(this[i], "display"));
++			}
++
++			// Set the display of the elements in a second loop
++			// to avoid the constant reflow
++			for ( var i = 0, l = this.length; i < l; i++ ){
+ 				this[i].style.display = "none";
+ 			}
++
+ 			return this;
+ 		}
+ 	},
+@@ -3732,11 +3866,11 @@ jQuery.fn.extend({
+ 		var optall = jQuery.speed(speed, easing, callback);
+ 
+ 		return this[ optall.queue === false ? "each" : "queue" ](function(){
+-
++		
+ 			var opt = jQuery.extend({}, optall), p,
+ 				hidden = this.nodeType == 1 && jQuery(this).is(":hidden"),
+ 				self = this;
+-
++	
+ 			for ( p in prop ) {
+ 				if ( prop[p] == "hide" && hidden || prop[p] == "show" && !hidden )
+ 					return opt.complete.call(this);
+@@ -3915,7 +4049,7 @@ jQuery.fx.prototype = {
+ 
+ 		t.elem = this.elem;
+ 
+-		if ( t() && jQuery.timers.push(t) == 1 ) {
++		if ( t() && jQuery.timers.push(t) && !timerId ) {
+ 			timerId = setInterval(function(){
+ 				var timers = jQuery.timers;
+ 
+@@ -3925,6 +4059,7 @@ jQuery.fx.prototype = {
+ 
+ 				if ( !timers.length ) {
+ 					clearInterval( timerId );
++					timerId = undefined;
+ 				}
+ 			}, 13);
+ 		}
+@@ -3990,7 +4125,7 @@ jQuery.fx.prototype = {
+ 				if ( this.options.hide || this.options.show )
+ 					for ( var p in this.options.curAnim )
+ 						jQuery.attr(this.elem.style, p, this.options.orig[p]);
+-
++					
+ 				// Execute the complete function
+ 				this.options.complete.call( this.elem );
+ 			}
+@@ -4044,7 +4179,7 @@ if ( document.documentElement["getBoundingClientRect"] )
+ 			left = box.left + (self.pageXOffset || jQuery.boxModel && docElem.scrollLeft || body.scrollLeft) - clientLeft;
+ 		return { top: top, left: left };
+ 	};
+-else
++else 
+ 	jQuery.fn.offset = function() {
+ 		if ( !this[0] ) return { top: 0, left: 0 };
+ 		if ( this[0] === this[0].ownerDocument.body ) return jQuery.offset.bodyOffset( this[0] );
+@@ -4134,7 +4269,7 @@ jQuery.fn.extend({
+ 			parentOffset = /^body|html$/i.test(offsetParent[0].tagName) ? { top: 0, left: 0 } : offsetParent.offset();
+ 
+ 			// Subtract element margins
+-			// note: when an element has margin: auto the offsetLeft and marginLeft
++			// note: when an element has margin: auto the offsetLeft and marginLeft 
+ 			// are the same in Safari causing offset.left to incorrectly be 0
+ 			offset.top  -= num( this, 'marginTop'  );
+ 			offset.left -= num( this, 'marginLeft' );
+@@ -4165,7 +4300,7 @@ jQuery.fn.extend({
+ // Create scrollLeft and scrollTop methods
+ jQuery.each( ['Left', 'Top'], function(i, name) {
+ 	var method = 'scroll' + name;
+-
++	
+ 	jQuery.fn[ method ] = function(val) {
+ 		if (!this[0]) return null;
+ 
+@@ -4193,24 +4328,23 @@ jQuery.each( ['Left', 'Top'], function(i, name) {
+ jQuery.each([ "Height", "Width" ], function(i, name){
+ 
+ 	var tl = i ? "Left"  : "Top",  // top or left
+-		br = i ? "Right" : "Bottom"; // bottom or right
++		br = i ? "Right" : "Bottom", // bottom or right
++		lower = name.toLowerCase();
+ 
+ 	// innerHeight and innerWidth
+ 	jQuery.fn["inner" + name] = function(){
+-		return this[ name.toLowerCase() ]() +
+-			num(this, "padding" + tl) +
+-			num(this, "padding" + br);
++		return this[0] ?
++			jQuery.css( this[0], lower, false, "padding" ) :
++			null;
+ 	};
+ 
+ 	// outerHeight and outerWidth
+ 	jQuery.fn["outer" + name] = function(margin) {
+-		return this["inner" + name]() +
+-			num(this, "border" + tl + "Width") +
+-			num(this, "border" + br + "Width") +
+-			(margin ?
+-				num(this, "margin" + tl) + num(this, "margin" + br) : 0);
++		return this[0] ?
++			jQuery.css( this[0], lower, false, margin ? "margin" : "border" ) :
++			null;
+ 	};
+-
++	
+ 	var type = name.toLowerCase();
+ 
+ 	jQuery.fn[ type ] = function( size ) {
+@@ -4238,4 +4372,5 @@ jQuery.each([ "Height", "Width" ], function(i, name){
+ 					this.css( type, typeof size === "string" ? size : size + "px" );
+ 	};
+ 
+-});})();
++});
++})();
+diff --git a/public/_utils/script/json2.js b/public/_utils/script/json2.js
+index e412ed2..48c5536 100644
+--- a/public/_utils/script/json2.js
++++ b/public/_utils/script/json2.js
+@@ -1,39 +1,199 @@
+ /*
+-    json2.js
+-    2008-03-14
++    http://www.JSON.org/json2.js
++    2009-08-17
+ 
+-    Public Domain
++    Public Domain.
+ 
+-    No warranty expressed or implied. Use at your own risk.
++    NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
+ 
+     See http://www.JSON.org/js.html
+ 
++    This file creates a global JSON object containing two methods: stringify
++    and parse.
++
++        JSON.stringify(value, replacer, space)
++            value       any JavaScript value, usually an object or array.
++
++            replacer    an optional parameter that determines how object
++                        values are stringified for objects. It can be a
++                        function or an array of strings.
++
++            space       an optional parameter that specifies the indentation
++                        of nested structures. If it is omitted, the text will
++                        be packed without extra whitespace. If it is a number,
++                        it will specify the number of spaces to indent at each
++                        level. If it is a string (such as '\t' or '&nbsp;'),
++                        it contains the characters used to indent at each level.
++
++            This method produces a JSON text from a JavaScript value.
++
++            When an object value is found, if the object contains a toJSON
++            method, its toJSON method will be called and the result will be
++            stringified. A toJSON method does not serialize: it returns the
++            value represented by the name/value pair that should be serialized,
++            or undefined if nothing should be serialized. The toJSON method
++            will be passed the key associated with the value, and this will be
++            bound to the value
++
++            For example, this would serialize Dates as ISO strings.
++
++                Date.prototype.toJSON = function (key) {
++                    function f(n) {
++                        // Format integers to have at least two digits.
++                        return n < 10 ? '0' + n : n;
++                    }
++
++                    return this.getUTCFullYear()   + '-' +
++                         f(this.getUTCMonth() + 1) + '-' +
++                         f(this.getUTCDate())      + 'T' +
++                         f(this.getUTCHours())     + ':' +
++                         f(this.getUTCMinutes())   + ':' +
++                         f(this.getUTCSeconds())   + 'Z';
++                };
++
++            You can provide an optional replacer method. It will be passed the
++            key and value of each member, with this bound to the containing
++            object. The value that is returned from your method will be
++            serialized. If your method returns undefined, then the member will
++            be excluded from the serialization.
++
++            If the replacer parameter is an array of strings, then it will be
++            used to select the members to be serialized. It filters the results
++            such that only members with keys listed in the replacer array are
++            stringified.
++
++            Values that do not have JSON representations, such as undefined or
++            functions, will not be serialized. Such values in objects will be
++            dropped; in arrays they will be replaced with null. You can use
++            a replacer function to replace those with JSON values.
++            JSON.stringify(undefined) returns undefined.
++
++            The optional space parameter produces a stringification of the
++            value that is filled with line breaks and indentation to make it
++            easier to read.
++
++            If the space parameter is a non-empty string, then that string will
++            be used for indentation. If the space parameter is a number, then
++            the indentation will be that many spaces.
++
++            Example:
++
++            text = JSON.stringify(['e', {pluribus: 'unum'}]);
++            // text is '["e",{"pluribus":"unum"}]'
++
++
++            text = JSON.stringify(['e', {pluribus: 'unum'}], null, '\t');
++            // text is '[\n\t"e",\n\t{\n\t\t"pluribus": "unum"\n\t}\n]'
++
++            text = JSON.stringify([new Date()], function (key, value) {
++                return this[key] instanceof Date ?
++                    'Date(' + this[key] + ')' : value;
++            });
++            // text is '["Date(---current time---)"]'
++
++
++        JSON.parse(text, reviver)
++            This method parses a JSON text to produce an object or array.
++            It can throw a SyntaxError exception.
++
++            The optional reviver parameter is a function that can filter and
++            transform the results. It receives each of the keys and values,
++            and its return value is used instead of the original value.
++            If it returns what it received, then the structure is not modified.
++            If it returns undefined then the member is deleted.
++
++            Example:
++
++            // Parse the text. Values that look like ISO date strings will
++            // be converted to Date objects.
++
++            myData = JSON.parse(text, function (key, value) {
++                var a;
++                if (typeof value === 'string') {
++                    a =
++/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/.exec(value);
++                    if (a) {
++                        return new Date(Date.UTC(+a[1], +a[2] - 1, +a[3], +a[4],
++                            +a[5], +a[6]));
++                    }
++                }
++                return value;
++            });
++
++            myData = JSON.parse('["Date(09/09/2001)"]', function (key, value) {
++                var d;
++                if (typeof value === 'string' &&
++                        value.slice(0, 5) === 'Date(' &&
++                        value.slice(-1) === ')') {
++                    d = new Date(value.slice(5, -1));
++                    if (d) {
++                        return d;
++                    }
++                }
++                return value;
++            });
++
++
+     This is a reference implementation. You are free to copy, modify, or
+     redistribute.
+ 
+-    Use your own copy. It is extremely unwise to load third party
+-    code into your pages.
++    This code should be minified before deployment.
++    See http://javascript.crockford.com/jsmin.html
++
++    USE YOUR OWN COPY. IT IS EXTREMELY UNWISE TO LOAD CODE FROM SERVERS YOU DO
++    NOT CONTROL.
++*/
++
++/*jslint evil: true */
++
++/*members "", "\b", "\t", "\n", "\f", "\r", "\"", JSON, "\\", apply,
++    call, charCodeAt, getUTCDate, getUTCFullYear, getUTCHours,
++    getUTCMinutes, getUTCMonth, getUTCSeconds, hasOwnProperty, join,
++    lastIndex, length, parse, prototype, push, replace, slice, stringify,
++    test, toJSON, toString, valueOf
+ */
+ 
++"use strict";
++
++// Create a JSON object only if one does not already exist. We create the
++// methods in a closure to avoid creating global variables.
++
+ if (!this.JSON) {
++    this.JSON = {};
++}
+ 
+-    JSON = function () {
++(function () {
+ 
+-        function f(n) {    // Format integers to have at least two digits.
+-            return n < 10 ? '0' + n : n;
+-        }
++    function f(n) {
++        // Format integers to have at least two digits.
++        return n < 10 ? '0' + n : n;
++    }
++
++    if (typeof Date.prototype.toJSON !== 'function') {
+ 
+-        Date.prototype.toJSON = function () {
+-            return this.getUTCFullYear()   + '-' +
++        Date.prototype.toJSON = function (key) {
++
++            return isFinite(this.valueOf()) ?
++                   this.getUTCFullYear()   + '-' +
+                  f(this.getUTCMonth() + 1) + '-' +
+                  f(this.getUTCDate())      + 'T' +
+                  f(this.getUTCHours())     + ':' +
+                  f(this.getUTCMinutes())   + ':' +
+-                 f(this.getUTCSeconds())   + 'Z';
++                 f(this.getUTCSeconds())   + 'Z' : null;
+         };
+ 
++        String.prototype.toJSON =
++        Number.prototype.toJSON =
++        Boolean.prototype.toJSON = function (key) {
++            return this.valueOf();
++        };
++    }
+ 
+-        var m = {    // table of character substitutions
++    var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
++        escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
++        gap,
++        indent,
++        meta = {    // table of character substitutions
+             '\b': '\\b',
+             '\t': '\\t',
+             '\n': '\\n',
+@@ -41,119 +201,280 @@ if (!this.JSON) {
+             '\r': '\\r',
+             '"' : '\\"',
+             '\\': '\\\\'
+-        };
++        },
++        rep;
+ 
+-        function stringify(value, whitelist) {
+-            var a,          // The array holding the partial texts.
+-                i,          // The loop counter.
+-                k,          // The member key.
+-                l,          // Length.
+-                r = /["\\\x00-\x1f\x7f-\x9f]/g,
+-                v;          // The member value.
+-
+-            switch (typeof value) {
+-            case 'string':
+-
+-                return r.test(value) ?
+-                    '"' + value.replace(r, function (a) {
+-                        var c = m[a];
+-                        if (c) {
+-                            return c;
+-                        }
+-                        c = a.charCodeAt();
+-                        return '\\u00' + Math.floor(c / 16).toString(16) +
+-                                                   (c % 16).toString(16);
+-                    }) + '"' :
+-                    '"' + value + '"';
+ 
+-            case 'number':
++    function quote(string) {
+ 
+-                return isFinite(value) ? String(value) : 'null';
++// If the string contains no control characters, no quote characters, and no
++// backslash characters, then we can safely slap some quotes around it.
++// Otherwise we must also replace the offending characters with safe escape
++// sequences.
+ 
+-            case 'boolean':
+-            case 'null':
+-                return String(value);
++        escapable.lastIndex = 0;
++        return escapable.test(string) ?
++            '"' + string.replace(escapable, function (a) {
++                var c = meta[a];
++                return typeof c === 'string' ? c :
++                    '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
++            }) + '"' :
++            '"' + string + '"';
++    }
+ 
+-            case 'object':
+ 
+-                if (!value) {
+-                    return 'null';
+-                }
++    function str(key, holder) {
+ 
+-                if (typeof value.toJSON === 'function') {
+-                    return stringify(value.toJSON());
+-                }
+-                a = [];
+-                if (typeof value.length === 'number' &&
+-                        !(value.propertyIsEnumerable('length'))) {
++// Produce a string from holder[key].
+ 
+-                    l = value.length;
+-                    for (i = 0; i < l; i += 1) {
+-                        a.push(stringify(value[i], whitelist) || 'null');
+-                    }
++        var i,          // The loop counter.
++            k,          // The member key.
++            v,          // The member value.
++            length,
++            mind = gap,
++            partial,
++            value = holder[key];
++
++// If the value has a toJSON method, call it to obtain a replacement value.
++
++        if (value && typeof value === 'object' &&
++                typeof value.toJSON === 'function') {
++            value = value.toJSON(key);
++        }
++
++// If we were called with a replacer function, then call the replacer to
++// obtain a replacement value.
++
++        if (typeof rep === 'function') {
++            value = rep.call(holder, key, value);
++        }
++
++// What happens next depends on the value's type.
++
++        switch (typeof value) {
++        case 'string':
++            return quote(value);
++
++        case 'number':
++
++// JSON numbers must be finite. Encode non-finite numbers as null.
++
++            return isFinite(value) ? String(value) : 'null';
++
++        case 'boolean':
++        case 'null':
++
++// If the value is a boolean or null, convert it to a string. Note:
++// typeof null does not produce 'null'. The case is included here in
++// the remote chance that this gets fixed someday.
+ 
+-                    return '[' + a.join(',') + ']';
++            return String(value);
++
++// If the type is 'object', we might be dealing with an object or an array or
++// null.
++
++        case 'object':
++
++// Due to a specification blunder in ECMAScript, typeof null is 'object',
++// so watch out for that case.
++
++            if (!value) {
++                return 'null';
++            }
++
++// Make an array to hold the partial results of stringifying this object value.
++
++            gap += indent;
++            partial = [];
++
++// Is the value an array?
++
++            if (Object.prototype.toString.apply(value) === '[object Array]') {
++
++// The value is an array. Stringify every element. Use null as a placeholder
++// for non-JSON values.
++
++                length = value.length;
++                for (i = 0; i < length; i += 1) {
++                    partial[i] = str(i, value) || 'null';
+                 }
+-                if (whitelist) {
+-                    l = whitelist.length;
+-                    for (i = 0; i < l; i += 1) {
+-                        k = whitelist[i];
+-                        if (typeof k === 'string') {
+-                            v = stringify(value[k], whitelist);
+-                            if (v) {
+-                                a.push(stringify(k) + ':' + v);
+-                            }
++
++// Join all of the elements together, separated with commas, and wrap them in
++// brackets.
++
++                v = partial.length === 0 ? '[]' :
++                    gap ? '[\n' + gap +
++                            partial.join(',\n' + gap) + '\n' +
++                                mind + ']' :
++                          '[' + partial.join(',') + ']';
++                gap = mind;
++                return v;
++            }
++
++// If the replacer is an array, use it to select the members to be stringified.
++
++            if (rep && typeof rep === 'object') {
++                length = rep.length;
++                for (i = 0; i < length; i += 1) {
++                    k = rep[i];
++                    if (typeof k === 'string') {
++                        v = str(k, value);
++                        if (v) {
++                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                         }
+                     }
+-                } else {
++                }
++            } else {
+ 
+-                    for (k in value) {
+-                        if (typeof k === 'string') {
+-                            v = stringify(value[k], whitelist);
+-                            if (v) {
+-                                a.push(stringify(k) + ':' + v);
+-                            }
++// Otherwise, iterate through all of the keys in the object.
++
++                for (k in value) {
++                    if (Object.hasOwnProperty.call(value, k)) {
++                        v = str(k, value);
++                        if (v) {
++                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                         }
+                     }
+                 }
+-
+-                return '{' + a.join(',') + '}';
+             }
++
++// Join all of the member texts together, separated with commas,
++// and wrap them in braces.
++
++            v = partial.length === 0 ? '{}' :
++                gap ? '{\n' + gap + partial.join(',\n' + gap) + '\n' +
++                        mind + '}' : '{' + partial.join(',') + '}';
++            gap = mind;
++            return v;
+         }
++    }
++
++// If the JSON object does not yet have a stringify method, give it one.
++
++    if (typeof JSON.stringify !== 'function') {
++        JSON.stringify = function (value, replacer, space) {
++
++// The stringify method takes a value and an optional replacer, and an optional
++// space parameter, and returns a JSON text. The replacer can be a function
++// that can replace values, or an array of strings that will select the keys.
++// A default replacer method can be provided. Use of the space parameter can
++// produce text that is more easily readable.
+ 
+-        return {
+-            stringify: stringify,
+-            parse: function (text, filter) {
+-                var j;
+-
+-                function walk(k, v) {
+-                    var i, n;
+-                    if (v && typeof v === 'object') {
+-                        for (i in v) {
+-                            if (Object.prototype.hasOwnProperty.apply(v, [i])) {
+-                                n = walk(i, v[i]);
+-                                if (n !== undefined) {
+-                                    v[i] = n;
+-                                } else {
+-                                    delete v[i];
+-                                }
++            var i;
++            gap = '';
++            indent = '';
++
++// If the space parameter is a number, make an indent string containing that
++// many spaces.
++
++            if (typeof space === 'number') {
++                for (i = 0; i < space; i += 1) {
++                    indent += ' ';
++                }
++
++// If the space parameter is a string, it will be used as the indent string.
++
++            } else if (typeof space === 'string') {
++                indent = space;
++            }
++
++// If there is a replacer, it must be a function or an array.
++// Otherwise, throw an error.
++
++            rep = replacer;
++            if (replacer && typeof replacer !== 'function' &&
++                    (typeof replacer !== 'object' ||
++                     typeof replacer.length !== 'number')) {
++                throw new Error('JSON.stringify');
++            }
++
++// Make a fake root object containing our value under the key of ''.
++// Return the result of stringifying the value.
++
++            return str('', {'': value});
++        };
++    }
++
++
++// If the JSON object does not yet have a parse method, give it one.
++
++    if (typeof JSON.parse !== 'function') {
++        JSON.parse = function (text, reviver) {
++
++// The parse method takes a text and an optional reviver function, and returns
++// a JavaScript value if the text is a valid JSON text.
++
++            var j;
++
++            function walk(holder, key) {
++
++// The walk method is used to recursively walk the resulting structure so
++// that modifications can be made.
++
++                var k, v, value = holder[key];
++                if (value && typeof value === 'object') {
++                    for (k in value) {
++                        if (Object.hasOwnProperty.call(value, k)) {
++                            v = walk(value, k);
++                            if (v !== undefined) {
++                                value[k] = v;
++                            } else {
++                                delete value[k];
+                             }
+                         }
+                     }
+-                    return filter(k, v);
+                 }
++                return reviver.call(holder, key, value);
++            }
++
++
++// Parsing happens in four stages. In the first stage, we replace certain
++// Unicode characters with escape sequences. JavaScript handles many characters
++// incorrectly, either silently deleting them, or treating them as line endings.
++
++            cx.lastIndex = 0;
++            if (cx.test(text)) {
++                text = text.replace(cx, function (a) {
++                    return '\\u' +
++                        ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
++                });
++            }
++
++// In the second stage, we run the text against regular expressions that look
++// for non-JSON patterns. We are especially concerned with '()' and 'new'
++// because they can cause invocation, and '=' because it can cause mutation.
++// But just to be safe, we want to reject all unexpected forms.
+ 
+-                if (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').
++// We split the second stage into 4 regexp operations in order to work around
++// crippling inefficiencies in IE's and Safari's regexp engines. First we
++// replace the JSON backslash pairs with '@' (a non-JSON character). Second, we
++// replace all simple value tokens with ']' characters. Third, we delete all
++// open brackets that follow a colon or comma or that begin the text. Finally,
++// we look to see that the remaining characters are only whitespace or ']' or
++// ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
++
++            if (/^[\],:{}\s]*$/.
++test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').
+ replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+ 
+-                    j = eval('(' + text + ')');
++// In the third stage we use the eval function to compile the text into a
++// JavaScript structure. The '{' operator is subject to a syntactic ambiguity
++// in JavaScript: it can begin a block or an object literal. We wrap the text
++// in parens to eliminate the ambiguity.
+ 
+-                    return typeof filter === 'function' ? walk('', j) : j;
+-                }
++                j = eval('(' + text + ')');
+ 
+-                throw new SyntaxError('parseJSON');
++// In the optional fourth stage, we recursively walk the new structure, passing
++// each name/value pair to a reviver function for possible transformation.
++
++                return typeof reviver === 'function' ?
++                    walk({'': j}, '') : j;
+             }
++
++// If the text is not JSON parseable, then a SyntaxError is thrown.
++
++            throw new SyntaxError('JSON.parse');
+         };
+-    }();
+-}
+\ No newline at end of file
++    }
++}());
+diff --git a/public/_utils/script/test/all_docs.js b/public/_utils/script/test/all_docs.js
+index acac6a0..ab44360 100644
+--- a/public/_utils/script/test/all_docs.js
++++ b/public/_utils/script/test/all_docs.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.all_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -42,54 +42,49 @@ couchTests.all_docs = function(debug) {
+   T(all.offset == 2);
+ 
+   // check that the docs show up in the seq view in the order they were created
+-  var all_seq = db.allDocsBySeq();
++  var changes = db.changes();
+   var ids = ["0","3","1","2"];
+-  for (var i=0; i < all_seq.rows.length; i++) {
+-    var row = all_seq.rows[i];
+-    T(row.id == ids[i]);
++  for (var i=0; i < changes.results.length; i++) {
++    var row = changes.results[i];
++    T(row.id == ids[i], "seq order");
+   };
+ 
+   // it should work in reverse as well
+-  all_seq = db.allDocsBySeq({descending:true});
++  changes = db.changes({descending:true});
+   ids = ["2","1","3","0"];
+-  for (var i=0; i < all_seq.rows.length; i++) {
+-    var row = all_seq.rows[i];
+-    T(row.id == ids[i]);
++  for (var i=0; i < changes.results.length; i++) {
++    var row = changes.results[i];
++    T(row.id == ids[i], "descending=true");
+   };
+ 
+   // check that deletions also show up right
+   var doc1 = db.open("1");
+   var deleted = db.deleteDoc(doc1);
+   T(deleted.ok);
+-  all_seq = db.allDocsBySeq();
+-
++  changes = db.changes();
+   // the deletion should make doc id 1 have the last seq num
+-  T(all_seq.rows.length == 4);
+-  T(all_seq.rows[3].id == "1");
+-  T(all_seq.rows[3].value.deleted);
+-
+-  // is this a bug?
+-  // T(all_seq.rows.length == all_seq.total_rows);
++  T(changes.results.length == 4);
++  T(changes.results[3].id == "1");
++  T(changes.results[3].deleted);
+ 
+   // do an update
+   var doc2 = db.open("3");
+   doc2.updated = "totally";
+   db.save(doc2);
+-  all_seq = db.allDocsBySeq();
++  changes = db.changes();
+ 
+   // the update should make doc id 3 have the last seq num
+-  T(all_seq.rows.length == 4);
+-  T(all_seq.rows[3].id == "3");
++  T(changes.results.length == 4);
++  T(changes.results[3].id == "3");
+ 
+   // ok now lets see what happens with include docs
+-  all_seq = db.allDocsBySeq({include_docs: true});
+-  T(all_seq.rows.length == 4);
+-  T(all_seq.rows[3].id == "3");
+-  T(all_seq.rows[3].doc.updated == "totally");
+-
+-  // and on the deleted one, no doc
+-  T(all_seq.rows[2].value.deleted);
+-  T(!all_seq.rows[2].doc);
++  changes = db.changes({include_docs: true});
++  T(changes.results.length == 4);
++  T(changes.results[3].id == "3");
++  T(changes.results[3].doc.updated == "totally");
++
++  T(changes.results[2].doc);
++  T(changes.results[2].doc._deleted);
+ 
+   // test the all docs collates sanely
+   db.save({_id: "Z", foo: "Z"});
+diff --git a/public/_utils/script/test/attachment_names.js b/public/_utils/script/test/attachment_names.js
+index 44c57ed..d90c24c 100644
+--- a/public/_utils/script/test/attachment_names.js
++++ b/public/_utils/script/test/attachment_names.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.attachment_names = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/attachment_views.js b/public/_utils/script/test/attachment_views.js
+index 61abc92..fd30dcf 100644
+--- a/public/_utils/script/test/attachment_views.js
++++ b/public/_utils/script/test/attachment_views.js
+@@ -12,7 +12,7 @@
+ 
+ couchTests.attachment_views= function(debug) {
+ 
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/attachments.js b/public/_utils/script/test/attachments.js
+index 4b6fa58..1ed81ad 100644
+--- a/public/_utils/script/test/attachments.js
++++ b/public/_utils/script/test/attachments.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.attachments= function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -225,4 +225,16 @@ couchTests.attachments= function(debug) {
+     headers: {"if-none-match": etag}
+   });
+   T(xhr.status == 304);
++
++  // test COUCHDB-497 - empty attachments
++  var xhr = CouchDB.request("PUT", "/test_suite_db/bin_doc5/empty.txt?rev="+rev, {
++    headers:{"Content-Type":"text/plain;charset=utf-8", "Content-Length": "0"},
++    body:""
++  });
++  TEquals(201, xhr.status, "should send 201 Accepted");
++  var rev = JSON.parse(xhr.responseText).rev;
++  var xhr = CouchDB.request("PUT", "/test_suite_db/bin_doc5/empty.txt?rev="+rev, {
++    headers:{"Content-Type":"text/plain;charset=utf-8"}
++  });
++  TEquals(201, xhr.status, "should send 201 Accepted");
+ };
+diff --git a/public/_utils/script/test/basics.js b/public/_utils/script/test/basics.js
+index 5e26360..a261b5a 100644
+--- a/public/_utils/script/test/basics.js
++++ b/public/_utils/script/test/basics.js
+@@ -15,7 +15,7 @@ couchTests.basics = function(debug) {
+   var result = JSON.parse(CouchDB.request("GET", "/").responseText);
+   T(result.couchdb == "Welcome");
+ 
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+ 
+   // bug COUCHDB-100: DELETE on non-existent DB returns 500 instead of 404
+@@ -29,15 +29,19 @@ couchTests.basics = function(debug) {
+   if (debug) debugger;
+ 
+   // creating a new DB should return Location header
+-  xhr = CouchDB.request("DELETE", "/test_suite_db");
+-  xhr = CouchDB.request("PUT", "/test_suite_db");
+-  TEquals("/test_suite_db",
+-    xhr.getResponseHeader("Location").substr(-14),
+-    "should return Location header to newly created document");
+-
+-  TEquals("http://",
+-    xhr.getResponseHeader("Location").substr(0, 7),
+-    "should return absolute Location header to newly created document");
++  // and it should work for dbs with slashes (COUCHDB-411)
++  var dbnames = ["test_suite_db", "test_suite_db%2Fwith_slashes"];
++  dbnames.forEach(function(dbname) {
++    xhr = CouchDB.request("DELETE", "/" + dbname);
++    xhr = CouchDB.request("PUT", "/" + dbname);
++    TEquals(dbname,
++      xhr.getResponseHeader("Location").substr(-dbname.length),
++      "should return Location header to newly created document");
++
++    TEquals("http://",
++      xhr.getResponseHeader("Location").substr(0, 7),
++      "should return absolute Location header to newly created document");
++  });
+ 
+   // Get the database info, check the db_name
+   T(db.info().db_name == "test_suite_db");
+@@ -157,6 +161,16 @@ couchTests.basics = function(debug) {
+   T(locs[4] == resp.id);
+   T(locs[3] == "test_suite_db");
+ 
++  // test that that POST's with an _id aren't overriden with a UUID.
++  var xhr = CouchDB.request("POST", "/test_suite_db", {
++    body: JSON.stringify({"_id": "oppossum", "yar": "matey"})
++  });
++  var resp = JSON.parse(xhr.responseText);
++  T(resp.ok);
++  T(resp.id == "oppossum");
++  var doc = db.open("oppossum");
++  T(doc.yar == "matey");
++
+   // document put's should return a Location header
+   var xhr = CouchDB.request("PUT", "/test_suite_db/newdoc", {
+     body: JSON.stringify({"a":1})
+diff --git a/public/_utils/script/test/bulk_docs.js b/public/_utils/script/test/bulk_docs.js
+index 972accf..346aea8 100644
+--- a/public/_utils/script/test/bulk_docs.js
++++ b/public/_utils/script/test/bulk_docs.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.bulk_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/changes.js b/public/_utils/script/test/changes.js
+index d805d6c..f348aed 100644
+--- a/public/_utils/script/test/changes.js
++++ b/public/_utils/script/test/changes.js
+@@ -12,12 +12,12 @@
+ 
+ function jsonp(obj) {
+   T(jsonp_flag == 0);
+-  T(obj.results.length == 1 && obj.last_seq==1)
++  T(obj.results.length == 1 && obj.last_seq==1, "jsonp")
+   jsonp_flag = 1;
+ }
+ 
+ couchTests.changes = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -25,15 +25,15 @@ couchTests.changes = function(debug) {
+   var req = CouchDB.request("GET", "/test_suite_db/_changes");
+   var resp = JSON.parse(req.responseText);
+ 
+-  T(resp.results.length == 0 && resp.last_seq==0)
++  T(resp.results.length == 0 && resp.last_seq==0, "empty db")
+ 
+   var docFoo = {_id:"foo", bar:1};
+-  db.save(docFoo);
++  T(db.save(docFoo).ok);
+ 
+   req = CouchDB.request("GET", "/test_suite_db/_changes");
+   var resp = JSON.parse(req.responseText);
+ 
+-  T(resp.results.length == 1 && resp.last_seq==1)
++  T(resp.results.length == 1 && resp.last_seq==1, "one doc db")
+   T(resp.results[0].changes[0].rev == docFoo._rev)
+ 
+   // test with callback
+@@ -44,10 +44,10 @@ couchTests.changes = function(debug) {
+   T(jsonp_flag == 1);
+ 
+ 
+-  req = CouchDB.request("GET", "/test_suite_db/_changes?continuous=true&timeout=10");
+-  var resp = JSON.parse(req.responseText);
+-  T(resp.results.length == 1 && resp.last_seq==1)
+-  T(resp.results[0].changes[0].rev == docFoo._rev)
++  req = CouchDB.request("GET", "/test_suite_db/_changes?feed=continuous&timeout=10");
++  var lines = req.responseText.split("\n");
++  T(JSON.parse(lines[0]).changes[0].rev == docFoo._rev);
++  T(JSON.parse(lines[1]).last_seq == 1);
+ 
+   var xhr;
+ 
+@@ -56,10 +56,15 @@ couchTests.changes = function(debug) {
+   } catch (err) {
+   }
+ 
+-  if (xhr) {
++  // poor man's browser detection
++  var is_safari = navigator.userAgent.match(/AppleWebKit/);
++  if (!is_safari && xhr) {
+     // Only test the continuous stuff if we have a real XHR object
+     // with real async support.
+ 
++    // WebKit (last checked on nightly #47686) does fail on processing
++    // the async-request properly while javascript is executed.
++
+     var sleep = function(msecs) {
+       // by making a slow sync request, we allow the waiting XHR request data
+       // to be received.
+@@ -67,15 +72,7 @@ couchTests.changes = function(debug) {
+       T(JSON.parse(req.responseText).ok == true);
+     }
+ 
+-    var parse_changes_line = function(line) {
+-      if (line.charAt(line.length-1) == ",") {
+-        line = line.substring(0, line.length-1);
+-      }
+-      return JSON.parse(line);
+-    }
+-
+-
+-    xhr.open("GET", "/test_suite_db/_changes?continuous=true", true);
++    xhr.open("GET", "/test_suite_db/_changes?feed=continuous", true);
+     xhr.send("");
+ 
+     var docBar = {_id:"bar", bar:1};
+@@ -83,15 +80,13 @@ couchTests.changes = function(debug) {
+ 
+     sleep(100);
+     var lines = xhr.responseText.split("\n");
+-
+-    T(lines[0]='{"results":[');
+-
+-    var change = parse_changes_line(lines[1]);
++  
++    var change = JSON.parse(lines[0]);
+ 
+     T(change.seq == 1)
+     T(change.id == "foo")
+ 
+-    change = parse_changes_line(lines[2]);
++    change = JSON.parse(lines[1]);
+ 
+     T(change.seq == 2)
+     T(change.id == "bar")
+@@ -103,7 +98,7 @@ couchTests.changes = function(debug) {
+     sleep(100);
+     var lines = xhr.responseText.split("\n");
+ 
+-    change = parse_changes_line(lines[3]);
++    change = JSON.parse(lines[2]);
+ 
+     T(change.seq == 3);
+     T(change.id == "baz");
+@@ -113,7 +108,7 @@ couchTests.changes = function(debug) {
+     xhr = CouchDB.newXhr();
+ 
+     //verify the hearbeat newlines are sent
+-    xhr.open("GET", "/test_suite_db/_changes?continuous=true&heartbeat=10", true);
++    xhr.open("GET", "/test_suite_db/_changes?feed=continuous&heartbeat=10", true);
+     xhr.send("");
+ 
+     sleep(100);
+@@ -122,19 +117,59 @@ couchTests.changes = function(debug) {
+ 
+     T(str.charAt(str.length - 1) == "\n")
+     T(str.charAt(str.length - 2) == "\n")
++
++
++    // test longpolling
++    xhr = CouchDB.newXhr();
++
++    xhr.open("GET", "/test_suite_db/_changes?feed=longpoll", true);
++    xhr.send("");
++
++    sleep(100);
++    var lines = xhr.responseText.split("\n");
++    T(lines[5]=='"last_seq":3}');
++
++    xhr = CouchDB.newXhr();
++
++    xhr.open("GET", "/test_suite_db/_changes?feed=longpoll&since=3", true);
++    xhr.send("");
++
++    sleep(100);
++
++    var docBarz = {_id:"barz", bar:1};
++    db.save(docBarz);
++
++    sleep(100);
++
++    var lines = xhr.responseText.split("\n");
++
++    var parse_changes_line = function(line) {
++      if (line.charAt(line.length-1) == ",") {
++        line = line.substring(0, line.length-1);
++      }
++      return JSON.parse(line);
++    }
++
++    change = parse_changes_line(lines[1]);
++
++    T(change.seq == 4);
++    T(change.id == "barz");
++    T(change.changes[0].rev == docBarz._rev);
++    T(lines[3]=='"last_seq":4}');
++	
+   }
+   
+   // test the filtered changes
+   var ddoc = {
+     _id : "_design/changes_filter",
+     "filters" : {
+-      "bop" : "function(doc, req, userCtx) { return (doc.bop);}",
+-      "dynamic" : stringFun(function(doc, req, userCtx) { 
++      "bop" : "function(doc, req) { return (doc.bop);}",
++      "dynamic" : stringFun(function(doc, req) { 
+         var field = req.query.field;
+         return doc[field];
+       }),
+-      "userCtx" : stringFun(function(doc, req, userCtx) {
+-        return doc.user && (doc.user == userCtx.name);
++      "userCtx" : stringFun(function(doc, req) {
++        return doc.user && (doc.user == req.userCtx.name);
+       })
+     }
+   }
+@@ -158,18 +193,48 @@ couchTests.changes = function(debug) {
+   req = CouchDB.request("GET", "/test_suite_db/_changes?filter=changes_filter/dynamic&field=bop");
+   resp = JSON.parse(req.responseText);
+   T(resp.results.length == 1);
++
++  // error conditions
++
++  // non-existing design doc
++  var req = CouchDB.request("GET", 
++    "/test_suite_db/_changes?filter=nothingtosee/bop");
++  TEquals(400, req.status, "should return 400 for non existant design doc");
++
++  // non-existing filter 
++  var req = CouchDB.request("GET", 
++    "/test_suite_db/_changes?filter=changes_filter/movealong");
++  TEquals(400, req.status, "should return 400 for non existant filter fun");
++
++  // both
++  var req = CouchDB.request("GET", 
++    "/test_suite_db/_changes?filter=nothingtosee/movealong");
++  TEquals(400, req.status, 
++    "should return 400 for non existant design doc and filter fun");
++
++  // changes get all_docs style with deleted docs
++  var doc = {a:1};
++  db.save(doc);
++  db.deleteDoc(doc);
++  var req = CouchDB.request("GET", 
++    "/test_suite_db/_changes?filter=changes_filter/bop&style=all_docs");
++  var resp = JSON.parse(req.responseText);
++  TEquals(1, resp.results.length, "should return one result row");
+   
+   // test for userCtx
+   run_on_modified_server(
+     [{section: "httpd",
+-      key: "authentication_handler",
+-      value: "{couch_httpd, special_test_authentication_handler}"},
++      key: "authentication_handlers",
++      value: "{couch_httpd_auth, special_test_authentication_handler}"},
+      {section:"httpd",
+       key: "WWW-Authenticate",
+       value:  "X-Couch-Test-Auth"}],
+ 
+     function() {
+       var authOpts = {"headers":{"WWW-Authenticate": "X-Couch-Test-Auth Chris Anderson:mp3"}};
++
++      var req = CouchDB.request("GET", "/_session", authOpts);
++      var resp = JSON.parse(req.responseText);
+       
+       T(db.save({"user" : "Noah Slater"}).ok);
+       var req = CouchDB.request("GET", "/test_suite_db/_changes?filter=changes_filter/userCtx", authOpts);
+@@ -180,9 +245,11 @@ couchTests.changes = function(debug) {
+       T(docResp.ok);
+       req = CouchDB.request("GET", "/test_suite_db/_changes?filter=changes_filter/userCtx", authOpts);
+       resp = JSON.parse(req.responseText);
+-      T(resp.results.length == 1);
++      T(resp.results.length == 1, "userCtx");
+       T(resp.results[0].id == docResp.id);
+     });
+   
+-  // todo implement adhoc filters...
++    req = CouchDB.request("GET", "/test_suite_db/_changes?limit=1");
++    resp = JSON.parse(req.responseText);
++    TEquals(1, resp.results.length)
+ };
+diff --git a/public/_utils/script/test/compact.js b/public/_utils/script/test/compact.js
+index 60745e2..f63bfc5 100644
+--- a/public/_utils/script/test/compact.js
++++ b/public/_utils/script/test/compact.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.compact = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/config.js b/public/_utils/script/test/config.js
+index ee3a3eb..ef74934 100644
+--- a/public/_utils/script/test/config.js
++++ b/public/_utils/script/test/config.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.config = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/conflicts.js b/public/_utils/script/test/conflicts.js
+index 517918f..b8b9394 100644
+--- a/public/_utils/script/test/conflicts.js
++++ b/public/_utils/script/test/conflicts.js
+@@ -12,7 +12,7 @@
+ 
+ // Do some edit conflict detection tests
+ couchTests.conflicts = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -42,9 +42,9 @@ couchTests.conflicts = function(debug) {
+     T(e.error == "conflict");
+   }
+ 
+-  var bySeq = db.allDocsBySeq();
++  var changes = db.changes();
+ 
+-  T( bySeq.rows.length == 1)
++  T( changes.results.length == 1)
+ 
+   // Now clear out the _rev member and save. This indicates this document is
+   // new, not based on an existing revision.
+diff --git a/public/_utils/script/test/content_negotiation.js b/public/_utils/script/test/content_negotiation.js
+index 0f324ef..70a2248 100644
+--- a/public/_utils/script/test/content_negotiation.js
++++ b/public/_utils/script/test/content_negotiation.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.content_negotiation = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/copy_doc.js b/public/_utils/script/test/copy_doc.js
+index 2913140..a6de189 100644
+--- a/public/_utils/script/test/copy_doc.js
++++ b/public/_utils/script/test/copy_doc.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.copy_doc = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/delayed_commits.js b/public/_utils/script/test/delayed_commits.js
+index 27ef24c..d0c8718 100644
+--- a/public/_utils/script/test/delayed_commits.js
++++ b/public/_utils/script/test/delayed_commits.js
+@@ -11,84 +11,91 @@
+ // the License.
+ 
+ couchTests.delayed_commits = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+ 
+-  // By default, couchdb doesn't fully commit documents to disk right away,
+-  // it waits about a second to batch the full commit flush along with any
+-  // other updates. If it crashes or is restarted you may lose the most
+-  // recent commits.
++  run_on_modified_server(
++    [{section: "couchdb",
++      key: "delayed_commits",
++      value: "true"}],
+ 
+-  T(db.save({_id:"1",a:2,b:4}).ok);
+-  T(db.open("1") != null);
++    function () {
++      // By default, couchdb doesn't fully commit documents to disk right away,
++      // it waits about a second to batch the full commit flush along with any
++      // other updates. If it crashes or is restarted you may lose the most
++      // recent commits.
+ 
+-  restartServer();
++      T(db.save({_id:"1",a:2,b:4}).ok);
++      T(db.open("1") != null);
+ 
+-  T(db.open("1") == null); // lost the update.
+-  // note if we waited > 1 sec before the restart, the doc would likely
+-  // commit.
++      restartServer();
+ 
++      T(db.open("1") == null); // lost the update.
++      // note if we waited > 1 sec before the restart, the doc would likely
++      // commit.
+ 
+-  // Retry the same thing but with full commits on.
+ 
+-  var db2 = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"true"});
++      // Retry the same thing but with full commits on.
+ 
+-  T(db2.save({_id:"1",a:2,b:4}).ok);
+-  T(db2.open("1") != null);
++      var db2 = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"true"});
+ 
+-  restartServer();
++      T(db2.save({_id:"1",a:2,b:4}).ok);
++      T(db2.open("1") != null);
+ 
+-  T(db2.open("1") != null);
++      restartServer();
+ 
+-  // You can update but without committing immediately, and then ensure
+-  // everything is commited in the last step.
++      T(db2.open("1") != null);
+ 
+-  T(db.save({_id:"2",a:2,b:4}).ok);
+-  T(db.open("2") != null);
+-  T(db.ensureFullCommit().ok);
+-  restartServer();
++      // You can update but without committing immediately, and then ensure
++      // everything is commited in the last step.
+ 
+-  T(db.open("2") != null);
++      T(db.save({_id:"2",a:2,b:4}).ok);
++      T(db.open("2") != null);
++      T(db.ensureFullCommit().ok);
++      restartServer();
+ 
+-  // However, it's possible even when flushed, that the server crashed between
+-  // the update and the commit, and you don't want to check to make sure
+-  // every doc you updated actually made it to disk. So record the instance
+-  // start time of the database before the updates and then check it again
+-  // after the flush (the instance start time is returned by the flush
+-  // operation). if they are the same, we know everything was updated
+-  // safely.
++      T(db.open("2") != null);
+ 
+-  // First try it with a crash.
++      // However, it's possible even when flushed, that the server crashed between
++      // the update and the commit, and you don't want to check to make sure
++      // every doc you updated actually made it to disk. So record the instance
++      // start time of the database before the updates and then check it again
++      // after the flush (the instance start time is returned by the flush
++      // operation). if they are the same, we know everything was updated
++      // safely.
+ 
+-  var instanceStartTime = db.info().instance_start_time;
++      // First try it with a crash.
+ 
+-  T(db.save({_id:"3",a:2,b:4}).ok);
+-  T(db.open("3") != null);
++      var instanceStartTime = db.info().instance_start_time;
+ 
+-  restartServer();
++      T(db.save({_id:"3",a:2,b:4}).ok);
++      T(db.open("3") != null);
+ 
+-  var commitResult = db.ensureFullCommit();
+-  T(commitResult.ok && commitResult.instance_start_time != instanceStartTime);
+-  // start times don't match, meaning the server lost our change
++      restartServer();
+ 
+-  T(db.open("3") == null); // yup lost it
++      var commitResult = db.ensureFullCommit();
++      T(commitResult.ok && commitResult.instance_start_time != instanceStartTime);
++      // start times don't match, meaning the server lost our change
+ 
+-  // retry with no server restart
++      T(db.open("3") == null); // yup lost it
+ 
+-  var instanceStartTime = db.info().instance_start_time;
++      // retry with no server restart
+ 
+-  T(db.save({_id:"4",a:2,b:4}).ok);
+-  T(db.open("4") != null);
++      var instanceStartTime = db.info().instance_start_time;
+ 
+-  var commitResult = db.ensureFullCommit();
+-  T(commitResult.ok && commitResult.instance_start_time == instanceStartTime);
+-  // Successful commit, start times match!
++      T(db.save({_id:"4",a:2,b:4}).ok);
++      T(db.open("4") != null);
+ 
+-  restartServer();
++      var commitResult = db.ensureFullCommit();
++      T(commitResult.ok && commitResult.instance_start_time == instanceStartTime);
++      // Successful commit, start times match!
+ 
+-  T(db.open("4") != null);
++      restartServer();
++
++      T(db.open("4") != null);
++    });
+ 
+   // Now test that when we exceed the max_dbs_open, pending commits are safely
+   // written.
+@@ -96,6 +103,9 @@ couchTests.delayed_commits = function(debug) {
+   var max = 2;
+   run_on_modified_server(
+     [{section: "couchdb",
++      key: "delayed_commits",
++      value: "true"},
++     {section: "couchdb",
+       key: "max_dbs_open",
+       value: max.toString()}],
+ 
+diff --git a/public/_utils/script/test/design_docs.js b/public/_utils/script/test/design_docs.js
+index 1b3f45b..82c186f 100644
+--- a/public/_utils/script/test/design_docs.js
++++ b/public/_utils/script/test/design_docs.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.design_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -55,7 +55,7 @@ function() {
+   var vinfo = dinfo.view_index;
+   TEquals(51, vinfo.disk_size);
+   TEquals(false, vinfo.compact_running);
+-  TEquals("64625dce94960fd5ca116e42aa9d011a", vinfo.signature);
++  TEquals("3f88e53b303e2342e49a66c538c30679", vinfo.signature);
+ 
+   db.bulkSave(makeDocs(1, numDocs + 1));
+ 
+diff --git a/public/_utils/script/test/design_options.js b/public/_utils/script/test/design_options.js
+index ed39304..05764e2 100644
+--- a/public/_utils/script/test/design_options.js
++++ b/public/_utils/script/test/design_options.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.design_options = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/etags_head.js b/public/_utils/script/test/etags_head.js
+index b89513c..63e2999 100644
+--- a/public/_utils/script/test/etags_head.js
++++ b/public/_utils/script/test/etags_head.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.etags_head = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/etags_views.js b/public/_utils/script/test/etags_views.js
+index 3d8b63b..8d24898 100644
+--- a/public/_utils/script/test/etags_views.js
++++ b/public/_utils/script/test/etags_views.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.etags_views = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -72,15 +72,32 @@ couchTests.etags_views = function(debug) {
+   });
+   T(xhr.status == 304);
+ 
+-  // by seq
+-  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs_by_seq");
++  // _changes
++  xhr = CouchDB.request("GET", "/test_suite_db/_changes");
+   T(xhr.status == 200);
+   var etag = xhr.getResponseHeader("etag");
+-  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs_by_seq", {
++  xhr = CouchDB.request("GET", "/test_suite_db/_changes", {
+     headers: {"if-none-match": etag}
+   });
+   T(xhr.status == 304);
+ 
+   // list etag
+   // in the list test for now
++  
++  // A new database should have unique _all_docs etags. 
++  db.deleteDb(); 
++  db.createDb(); 
++  db.save({a: 1}); 
++  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs"); 
++  var etag = xhr.getResponseHeader("etag"); 
++  db.deleteDb(); 
++  db.createDb(); 
++  db.save({a: 2}); 
++  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs"); 
++  var new_etag = xhr.getResponseHeader("etag");
++  T(etag != new_etag);
++  // but still be cacheable
++  xhr = CouchDB.request("GET", "/test_suite_db/_all_docs"); 
++  T(new_etag == xhr.getResponseHeader("etag"));
++  
+ };
+diff --git a/public/_utils/script/test/invalid_docids.js b/public/_utils/script/test/invalid_docids.js
+index a3c9a6e..d0195b0 100644
+--- a/public/_utils/script/test/invalid_docids.js
++++ b/public/_utils/script/test/invalid_docids.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.invalid_docids = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -20,6 +20,19 @@ couchTests.invalid_docids = function(debug) {
+   T(db.save({"_id": "_local/foo"}).ok);
+   T(db.open("_local/foo")._id == "_local/foo");
+ 
++  var urls = [
++      "/test_suite_db/_local",
++      "/test_suite_db/_local/",
++      "/test_suite_db/_local%2F",
++      "/test_suite_db/_local/foo/bar",
++  ];
++
++  urls.forEach(function(u) {
++    var res = db.request("PUT", u, {"body": "{}"});
++    T(res.status == 400);
++    T(JSON.parse(res.responseText).error == "bad_request");
++  });
++
+   //Test non-string
+   try {
+     db.save({"_id": 1});
+diff --git a/public/_utils/script/test/jsonp.js b/public/_utils/script/test/jsonp.js
+index 0da493d..dfd6a0d 100644
+--- a/public/_utils/script/test/jsonp.js
++++ b/public/_utils/script/test/jsonp.js
+@@ -28,7 +28,7 @@ function jsonp_chunk(doc) {
+ 
+ // Do some jsonp tests.
+ couchTests.jsonp = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/large_docs.js b/public/_utils/script/test/large_docs.js
+index d37ce73..b84648b 100644
+--- a/public/_utils/script/test/large_docs.js
++++ b/public/_utils/script/test/large_docs.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.large_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/list_views.js b/public/_utils/script/test/list_views.js
+index 6ad5c6b..b261be7 100644
+--- a/public/_utils/script/test/list_views.js
++++ b/public/_utils/script/test/list_views.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.list_views = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -83,34 +83,33 @@ couchTests.list_views = function(debug) {
+       }),
+       acceptSwitch: stringFun(function(head, req) {
+         // respondWith takes care of setting the proper headers
+-        respondWith(req, {
+-          html : function() {
+-            send("HTML <ul>");
+-
+-            var row, num = 0;
+-            while (row = getRow()) {
+-              num ++;
+-              send('\n<li>Key: '
+-                +row.key+' Value: '+row.value
+-                +' LineNo: '+num+'</li>');
+-            }
+-
+-            // tail
+-            return '</ul>';
+-          },
+-          xml : function() {
+-            send('<feed xmlns="http://www.w3.org/2005/Atom">'
+-              +'<title>Test XML Feed</title>');
+-
+-            while (row = getRow()) {
+-              var entry = new XML('<entry/>');
+-              entry.id = row.id;
+-              entry.title = row.key;
+-              entry.content = row.value;
+-              send(entry);
+-            }
+-            return "</feed>";
++        provides("html", function() {
++          send("HTML <ul>");
++
++          var row, num = 0;
++          while (row = getRow()) {
++            num ++;
++            send('\n<li>Key: '
++              +row.key+' Value: '+row.value
++              +' LineNo: '+num+'</li>');
+           }
++
++          // tail
++          return '</ul>';
++        });
++
++        provides("xml", function() {
++          send('<feed xmlns="http://www.w3.org/2005/Atom">'
++            +'<title>Test XML Feed</title>');
++
++          while (row = getRow()) {
++            var entry = new XML('<entry/>');
++            entry.id = row.id;
++            entry.title = row.key;
++            entry.content = row.value;
++            send(entry);
++          }
++          return "</feed>";
+         });
+       }),
+       qsParams: stringFun(function(head, req) {
+@@ -127,17 +126,15 @@ couchTests.list_views = function(debug) {
+         return " tail";
+       }),
+       stopIter2: stringFun(function(head, req) {
+-        respondWith(req, {
+-          html: function() {
+-            send("head");
+-            var row, row_number = 0;
+-            while(row = getRow()) {
+-              if(row_number > 2) break;
+-              send(" " + row_number);
+-              row_number += 1;
+-            };
+-            return " tail";
+-          }
++        provides("html", function() {
++          send("head");
++          var row, row_number = 0;
++          while(row = getRow()) {
++            if(row_number > 2) break;
++            send(" " + row_number);
++            row_number += 1;
++          };
++          return " tail";
+         });
+       }),
+       tooManyGetRows : stringFun(function() {
+@@ -160,9 +157,26 @@ couchTests.list_views = function(debug) {
+         var row = getRow();
+         send(fooBarBam); // intentional error
+         return "tail";
++      }),
++      docReference : stringFun(function(head, req) {
++        send("head");
++        var row = getRow();
++        send(row.doc.integer);
++        return "tail";
+       })
+     }
+   };
++  var viewOnlyDesignDoc = {
++    _id:"_design/views",
++    language: "javascript",
++    views : {
++      basicView : {
++        map : stringFun(function(doc) {
++          emit(-doc.integer, doc.string);
++        })
++      }
++    }
++  };
+ 
+   T(db.save(designDoc).ok);
+ 
+@@ -218,19 +232,19 @@ couchTests.list_views = function(debug) {
+   T(resp.req.cookie);
+ 
+   // get with query params
+-  xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/basicView?startkey=3");
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/basicView?startkey=3&endkey=8");
+   T(xhr.status == 200, "with query params");
+   T(/Total Rows/.test(xhr.responseText));
+   T(!(/Key: 1/.test(xhr.responseText)));
+   T(/FirstKey: 3/.test(xhr.responseText));
+-  T(/LastKey: 9/.test(xhr.responseText));
++  T(/LastKey: 8/.test(xhr.responseText));
+ 
+-  var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/basicView?list=simpleForm&startkey=3");
++  var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/basicView?list=simpleForm&startkey=3&endkey=8");
+   T(xhr.status == 200, "with query params");
+   T(/Total Rows/.test(xhr.responseText));
+   T(!(/Key: 1/.test(xhr.responseText)));
+   T(/FirstKey: 3/.test(xhr.responseText));
+-  T(/LastKey: 9/.test(xhr.responseText));
++  T(/LastKey: 8/.test(xhr.responseText));
+ 
+   // with 0 rows
+   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/basicView?startkey=30");
+@@ -254,10 +268,10 @@ couchTests.list_views = function(debug) {
+   T(/LastKey: undefined/.test(xhr.responseText));
+ 
+   // reduce with 0 rows
+-   var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/withReduce?list=simpleForm&startkey=30");
+-   T(xhr.status == 200, "reduce 0 rows");
+-   T(/Total Rows/.test(xhr.responseText));
+-   T(/LastKey: undefined/.test(xhr.responseText));
++  var xhr = CouchDB.request("GET", "/test_suite_db/_view/lists/withReduce?list=simpleForm&startkey=30");
++  T(xhr.status == 200, "reduce 0 rows");
++  T(/Total Rows/.test(xhr.responseText));
++  T(/LastKey: undefined/.test(xhr.responseText));
+ 
+   // when there is a reduce present, but not used
+   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/withReduce?reduce=false");
+@@ -300,7 +314,7 @@ couchTests.list_views = function(debug) {
+   });
+   T(xhr.status == 200, "multi key");
+   T(/Total Rows/.test(xhr.responseText));
+-  T(!(/Key: 1/.test(xhr.responseText)));
++  T(!(/Key: 1 /.test(xhr.responseText)));
+   T(/Key: 2/.test(xhr.responseText));
+   T(/FirstKey: 2/.test(xhr.responseText));
+   T(/LastKey: 7/.test(xhr.responseText));
+@@ -316,6 +330,10 @@ couchTests.list_views = function(debug) {
+   T(/ReferenceError/.test(xhr.responseText));
+ 
+ 
++  // with include_docs and a reference to the doc.
++  var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/docReference/basicView?include_docs=true");
++  T(xhr.responseText.match(/head0tail/));
++
+   // now with extra qs params
+   var xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/qsParams/basicView?foo=blam");
+   T(xhr.responseText.match(/blam/));
+@@ -352,4 +370,13 @@ couchTests.list_views = function(debug) {
+   T(xhr.getResponseHeader("Content-Type") == "application/xml");
+   T(xhr.responseText.match(/XML/));
+   T(xhr.responseText.match(/entry/));
++
++  // Test we can run lists and views from separate docs.
++  T(db.save(viewOnlyDesignDoc).ok);
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/lists/_list/simpleForm/views/basicView?startkey=-3");
++  T(xhr.status == 200, "with query params");
++  T(/Total Rows/.test(xhr.responseText));
++  T(!(/Key: -4/.test(xhr.responseText)));
++  T(/FirstKey: -3/.test(xhr.responseText));
++  T(/LastKey: 0/.test(xhr.responseText));
+ };
+diff --git a/public/_utils/script/test/lots_of_docs.js b/public/_utils/script/test/lots_of_docs.js
+index 97ed56a..2fe702b 100644
+--- a/public/_utils/script/test/lots_of_docs.js
++++ b/public/_utils/script/test/lots_of_docs.js
+@@ -12,7 +12,7 @@
+ 
+ // test saving a semi-large quanitity of documents and do some view queries.
+ couchTests.lots_of_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/multiple_rows.js b/public/_utils/script/test/multiple_rows.js
+index ce2d9c5..4f6fcd3 100644
+--- a/public/_utils/script/test/multiple_rows.js
++++ b/public/_utils/script/test/multiple_rows.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.multiple_rows = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/purge.js b/public/_utils/script/test/purge.js
+index 2cc8b20..ca68b36 100644
+--- a/public/_utils/script/test/purge.js
++++ b/public/_utils/script/test/purge.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.purge = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/recreate_doc.js b/public/_utils/script/test/recreate_doc.js
+index 75e3461..3786aba 100644
+--- a/public/_utils/script/test/recreate_doc.js
++++ b/public/_utils/script/test/recreate_doc.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.recreate_doc = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/reduce.js b/public/_utils/script/test/reduce.js
+index 03c86ae..9c80fa7 100644
+--- a/public/_utils/script/test/reduce.js
++++ b/public/_utils/script/test/reduce.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.reduce = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/reduce_false.js b/public/_utils/script/test/reduce_false.js
+index 3014cc0..29890ce 100644
+--- a/public/_utils/script/test/reduce_false.js
++++ b/public/_utils/script/test/reduce_false.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.reduce_false = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/replication.js b/public/_utils/script/test/replication.js
+index b1a8792..7867893 100644
+--- a/public/_utils/script/test/replication.js
++++ b/public/_utils/script/test/replication.js
+@@ -23,8 +23,8 @@ couchTests.replication = function(debug) {
+     {source:"http://" + host + "/test_suite_db_a",
+       target:"http://" + host + "/test_suite_db_b"}
+   ]
+-  var dbA = new CouchDB("test_suite_db_a");
+-  var dbB = new CouchDB("test_suite_db_b");
++  var dbA = new CouchDB("test_suite_db_a", {"X-Couch-Full-Commit":"false"});
++  var dbB = new CouchDB("test_suite_db_b", {"X-Couch-Full-Commit":"false"});
+   var numDocs = 10;
+   var xhr;
+   for (var testPair = 0; testPair < dbPairs.length; testPair++) {
+@@ -100,12 +100,12 @@ couchTests.replication = function(debug) {
+         };
+ 
+         this.afterAB1 = function(dbA, dbB) {
+-          var rows = dbB.allDocsBySeq().rows;
++          var rows = dbB.changes().results;
+           var rowCnt = 0;
+           for (var i=0; i < rows.length; i++) {
+             if (rows[i].id == "del1") {
+               rowCnt += 1;
+-              T(rows[i].value.deleted == true);
++              T(rows[i].deleted == true);
+             }
+           };
+           T(rowCnt == 1);
+@@ -277,4 +277,28 @@ couchTests.replication = function(debug) {
+     T(result2.no_changes == true);
+     T(result2.session_id == result.session_id);
+   }
++
++  // test optional automatic creation of the target db
++
++  var dbA = new CouchDB("test_suite_db_a", {"X-Couch-Full-Commit":"false"});
++  var dbB = new CouchDB("test_suite_db_b", {"X-Couch-Full-Commit":"false"});
++  
++  dbA.deleteDb();
++  dbA.createDb();
++  dbB.deleteDb();
++  
++  // local
++  CouchDB.replicate(dbA.name, "test_suite_db_b", {
++    body: {"create_target": true}
++  });
++  TEquals("test_suite_db_b", dbB.info().db_name,
++    "Target database should exist");
++
++  // remote
++  dbB.deleteDb();
++  CouchDB.replicate(dbA.name, "http://" + CouchDB.host + "/test_suite_db_b", {
++    body: {"create_target": true}
++  });
++  TEquals("test_suite_db_b", dbB.info().db_name,
++    "Target database should exist");
+ };
+diff --git a/public/_utils/script/test/rev_stemming.js b/public/_utils/script/test/rev_stemming.js
+index 5fae9c4..03d91c2 100644
+--- a/public/_utils/script/test/rev_stemming.js
++++ b/public/_utils/script/test/rev_stemming.js
+@@ -11,10 +11,10 @@
+ // the License.
+ 
+ couchTests.rev_stemming = function(debug) {
+-  var db = new CouchDB("test_suite_db_a");
++  var db = new CouchDB("test_suite_db_a", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+-  var dbB = new CouchDB("test_suite_db_b");
++  var dbB = new CouchDB("test_suite_db_b", {"X-Couch-Full-Commit":"false"});
+   dbB.deleteDb();
+   dbB.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/security_validation.js b/public/_utils/script/test/security_validation.js
+index 10553e5..d07195e 100644
+--- a/public/_utils/script/test/security_validation.js
++++ b/public/_utils/script/test/security_validation.js
+@@ -32,21 +32,21 @@ couchTests.security_validation = function(debug) {
+   // Firefox and Safari both deal with this correctly (which is to say
+   // they correctly do nothing special).
+ 
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+ 
+   run_on_modified_server(
+     [{section: "httpd",
+-      key: "authentication_handler",
+-      value: "{couch_httpd, special_test_authentication_handler}"},
++      key: "authentication_handlers",
++      value: "{couch_httpd_auth, special_test_authentication_handler}"},
+      {section:"httpd",
+       key: "WWW-Authenticate",
+       value:  "X-Couch-Test-Auth"}],
+ 
+     function () {
+-      // try saving document usin the wrong credentials
++      // try saving document using the wrong credentials
+       var wrongPasswordDb = new CouchDB("test_suite_db",
+         {"WWW-Authenticate": "X-Couch-Test-Auth Damien Katz:foo"}
+       );
+@@ -59,8 +59,8 @@ couchTests.security_validation = function(debug) {
+         T(wrongPasswordDb.last_req.status == 401);
+       }
+ 
+-      // test force_login=true.
+-      var resp = wrongPasswordDb.request("GET", "/_whoami?force_login=true");
++      // test force basic login
++      var resp = wrongPasswordDb.request("GET", "/_session?basic=true");
+       var err = JSON.parse(resp.responseText);
+       T(err.error == "unauthorized");
+       T(resp.status == 401);
+@@ -104,7 +104,7 @@ couchTests.security_validation = function(debug) {
+       T(userDb.save(designDoc).ok);
+ 
+       // test the _whoami endpoint
+-      var resp = userDb.request("GET", "/_whoami");
++      var resp = userDb.request("GET", "/_session");
+       var user = JSON.parse(resp.responseText)
+       T(user.name == "Damien Katz");
+       // test that the roles are listed properly
+@@ -209,8 +209,8 @@ couchTests.security_validation = function(debug) {
+          target:{url:"http://" + host + "/test_suite_db_b",
+                  headers: AuthHeaders}},
+       ]
+-      var adminDbA = new CouchDB("test_suite_db_a");
+-      var adminDbB = new CouchDB("test_suite_db_b");
++      var adminDbA = new CouchDB("test_suite_db_a", {"X-Couch-Full-Commit":"false"});
++      var adminDbB = new CouchDB("test_suite_db_b", {"X-Couch-Full-Commit":"false"});
+       var dbA = new CouchDB("test_suite_db_a",
+           {"WWW-Authenticate": "X-Couch-Test-Auth Christopher Lenz:dog food"});
+       var dbB = new CouchDB("test_suite_db_b",
+diff --git a/public/_utils/script/test/show_documents.js b/public/_utils/script/test/show_documents.js
+index 8a1edd2..d0a2325 100644
+--- a/public/_utils/script/test/show_documents.js
++++ b/public/_utils/script/test/show_documents.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.show_documents = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -101,28 +101,24 @@ couchTests.show_documents = function(debug) {
+           };
+         }
+       }),
+-      "respondWith" : stringFun(function(doc, req) {
++      "provides" : stringFun(function(doc, req) {
+         registerType("foo", "application/foo","application/x-foo");
+-        return respondWith(req, {
+-          html : function() {
+-            return "Ha ha, you said \"" + doc.word + "\".";
+-          },
+-          xml : function() {
+-            var xml = new XML('<xml><node/></xml>');
+-            // Becase Safari can't stand to see that dastardly
+-            // E4X outside of a string. Outside of tests you
+-            // can just use E4X literals.
+-            this.eval('xml.node.@foo = doc.word');
+-            return {
+-              body: xml
+-            };
+-          },
+-          foo : function() {
+-            return {
+-              body: "foofoo"
+-            };
+-          },
+-          fallback : "html"
++
++        provides("html", function() {
++          return "Ha ha, you said \"" + doc.word + "\".";
++        });
++
++        provides("xml", function() {
++          var xml = new XML('<xml><node/></xml>');
++          // Becase Safari can't stand to see that dastardly
++          // E4X outside of a string. Outside of tests you
++          // can just use E4X literals.
++          eval('xml.node.@foo = doc.word');
++          return xml;
++        });
++        
++        provides("foo", function() {
++          return "foofoo";
+         });
+       })
+     }
+@@ -289,8 +285,8 @@ couchTests.show_documents = function(debug) {
+   etag = xhr.getResponseHeader("etag");
+   T(etag != "skipped")
+ 
+-  // test the respondWith mime matcher
+-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
++  // test the provides mime matcher
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
+     headers: {
+       "Accept": 'text/html,application/atom+xml; q=0.9'
+     }
+@@ -301,7 +297,7 @@ couchTests.show_documents = function(debug) {
+   T(xhr.responseText == "Ha ha, you said \"plankton\".");
+ 
+   // now with xml
+-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
+     headers: {
+       "Accept": 'application/xml'
+     }
+@@ -311,7 +307,7 @@ couchTests.show_documents = function(debug) {
+   T(xhr.responseText.match(/plankton/));
+ 
+   // registering types works
+-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
+     headers: {
+       "Accept": "application/x-foo"
+     }
+@@ -319,23 +315,31 @@ couchTests.show_documents = function(debug) {
+   T(xhr.getResponseHeader("Content-Type") == "application/x-foo");
+   T(xhr.responseText.match(/foofoo/));
+ 
+-  // test the respondWith mime matcher without
+-  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/respondWith/"+docid, {
++  // test the provides mime matcher without a match
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
+    headers: {
+-     "Accept": 'text/html,application/atom+xml; q=0.9'
++     "Accept": 'text/monkeys'
++   }
++  });
++  var rs = JSON.parse(xhr.responseText);
++  T(rs.error == "not_acceptable")
++
++
++  // should fallback on the first one
++  xhr = CouchDB.request("GET", "/test_suite_db/_design/template/_show/provides/"+docid, {
++   headers: {
++     "Accept": 'application/x-foo, application/xml'
+    }
+   });
+   var ct = xhr.getResponseHeader("Content-Type");
+-  T(/charset=utf-8/.test(ct))
+-  T(/text\/html/.test(ct))
+-  T(xhr.responseText == "Ha ha, you said \"plankton\".");
++  T(/application\/xml/.test(ct));  
+ 
+   // test inclusion of conflict state
+   var doc1 = {_id:"foo", a:1};
+   var doc2 = {_id:"foo", a:2};
+   db.save(doc1);
+ 
+-  //create the conflict with a all_or_nothing bulk docs request
++  // create the conflict with an all_or_nothing bulk docs request
+   var docs = [doc2];
+   db.bulkSave(docs, {all_or_nothing:true});
+ 
+diff --git a/public/_utils/script/test/stats.js b/public/_utils/script/test/stats.js
+index 96fa093..cf2581e 100644
+--- a/public/_utils/script/test/stats.js
++++ b/public/_utils/script/test/stats.js
+@@ -11,414 +11,303 @@
+ // the License.
+ 
+ couchTests.stats = function(debug) {
+-  if (debug) debugger;
+-
+-  var open_databases_tests = {
+-    'should increment the number of open databases when creating a db': function(name) {
+-       var db = new CouchDB("test_suite_db");
+-       db.deleteDb();
+-       var open_databases = requestStatsTest("couchdb", "open_databases").current;
+-       db.createDb();
+-
+-       var new_open_databases = requestStatsTest("couchdb", "open_databases").current;
+-       TEquals(open_databases + 1, new_open_databases, name);
+-     },
+-    'should increment the number of open databases when opening a db': function(name) {
+-       var db = new CouchDB("test_suite_db");
+-       db.deleteDb();
+-       db.createDb();
+-
+-       restartServer();
+-
+-       var open_databases = requestStatsTest("couchdb", "open_databases").current;
+ 
+-       db.open("123");
++  function newDb(name, doSetup) {
++    var db = new CouchDB(name, {"X-Couch-Full-Commit": "false"});
++    if(doSetup) {
++      db.deleteDb();
++      db.createDb();
++    }
++    return db;
++  };
++
++  function getStat(mod, key) {
++    return CouchDB.requestStats(mod, key, true);
++  };
++
++  function doView(db) {
++    var designDoc = {
++      _id:"_design/test", // turn off couch.js id escaping?
++      language: "javascript",
++      views: {
++        all_docs: {map: "function(doc) {emit(doc.integer, null);}"},
++      }
++    };
++    db.save(designDoc);
++    db.view("test/all_docs");
++  };
++
++  function runTest(mod, key, funcs) {
++    var db = newDb("test_suite_db", true);
++    if(funcs.setup) funcs.setup(db);
++    var before = getStat(mod, key).current;
++    if(funcs.run) funcs.run(db);
++    var after = getStat(mod, key).current;
++    if(funcs.test) funcs.test(before, after);
++  }
+ 
+-       var new_open_databases = requestStatsTest("couchdb", "open_databases").current;
+-       TEquals(open_databases + 1, new_open_databases, name);
+-     },
+-       'should decrement the number of open databases when deleting': function(name) {
+-       var db = new CouchDB("test_suite_db");
+-       db.deleteDb();
+-       db.createDb();
+-       var open_databases = requestStatsTest("couchdb", "open_databases").current;
+-
+-       db.deleteDb();
+-       var new_open_databases = requestStatsTest("couchdb", "open_databases").current;
+-       TEquals(open_databases - 1, new_open_databases, name);
+-     },
+-    'should keep the same number of open databases when reaching the max_dbs_open limit': function(name) {
+-      restartServer();
+-      var max = 5;
+-      run_on_modified_server(
+-        [{section: "couchdb",
+-          key: "max_dbs_open",
+-          value: max.toString()}],
+-
+-        function () {
+-          var dbs_open = requestStatsTest("couchdb", "open_databases").current;
+-          var files_open = requestStatsTest("couchdb", "open_os_files").current;
+-          for(var i=0; i<max+1; i++) {
+-            var db = new CouchDB("test_suite_db" + i);
+-            db.deleteDb();
+-            db.createDb();
+-          }
+-
+-          var open_databases = requestStatsTest("couchdb", "open_databases").current;
+-          T(open_databases > 0 && max >= open_databases, name);
++  if (debug) debugger;
+ 
+-          for(var i=0; i<max+1; i++) {
+-            var db = new CouchDB("test_suite_db" + i);
+-            db.deleteDb();
+-          }
+-          T(dbs_open == requestStatsTest("couchdb", "open_databases").current);
+-          T(files_open == requestStatsTest("couchdb", "open_os_files").current);
+-        })
++  (function() {
++    var db = newDb("test_suite_db");
++    db.deleteDb();
++  
++    var before = getStat("couchdb", "open_databases").current;
++    db.createDb();
++    var after = getStat("couchdb", "open_databases").current;
++    TEquals(before+1, after, "Creating a db increments open db count.");
++  })();
++  
++  runTest("couchdb", "open_databases", {
++    setup: function() {restartServer();},
++    run: function(db) {db.open("123");},
++    test: function(before, after) {
++      TEquals(before+1, after, "Opening a db increments open db count.");
++    }
++  });
++  
++  runTest("couchdb", "open_databases", {
++    run: function(db) {db.deleteDb();},
++    test: function(before, after) {
++      TEquals(before-1, after, "Deleting a db decrements open db count.");
++    }
++  });
++  
++  (function() {
++    restartServer();
++    var max = 5;
++    
++    var testFun = function() {
++      var pre_dbs = getStat("couchdb", "open_databases").current || 0;
++      var pre_files = getStat("couchdb", "open_os_files").current || 0;
++      
++      for(var i = 0; i < max*2; i++) {
++        newDb("test_suite_db_" + i, true);
++      }
++      
++      var open_dbs = getStat("couchdb", "open_databases").current;
++      TEquals(open_dbs > 0, true, "We actually opened some dbs.");
++      TEquals(open_dbs, max, "We only have max db's open.");
++      
++      for(var i = 0; i < max * 2; i++) {
++        newDb("test_suite_db_" + i).deleteDb();
++      }
++      
++      var post_dbs = getStat("couchdb", "open_databases").current;
++      var post_files = getStat("couchdb", "open_os_files").current;
++      TEquals(pre_dbs, post_dbs, "We have the same number of open dbs.");
++      TEquals(pre_files, post_files, "We have the same number of open files.");
++    };
++    
++    run_on_modified_server(
++      [{section: "couchdb", key: "max_dbs_open", value: "5"}],
++      testFun
++    );
++  })();
++  
++  // Just fetching the before value is the extra +1 in test
++  runTest("httpd", "requests", {
++    run: function() {CouchDB.request("GET", "/");},
++    test: function(before, after) {
++      TEquals(before+2, after, "Request counts are incremented properly.");
++    }
++  });
++  
++  runTest("couchdb", "database_reads", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {db.open("test");},
++    test: function(before, after) {
++      TEquals(before+1, after, "Reading a doc increments docs reads.");
++    }
++  });
++  
++  runTest("couchdb", "database_reads", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {db.request("GET", "/");},
++    test: function(before, after) {
++      TEquals(before, after, "Only doc reads increment doc reads.");
++    }
++  });
++  
++  runTest("couchdb", "database_reads", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {db.open("test", {"open_revs": "all"});},
++    test: function(before, after) {
++      TEquals(before+1, after, "Reading doc revs increments docs reads.");
++    }
++  });
++  
++  runTest("couchdb", "database_writes", {
++    run: function(db) {db.save({"a": "1"});},
++    test: function(before, after) {
++      TEquals(before+1, after, "Saving docs incrememnts doc writes.");
++    }
++  });
++  
++  runTest("couchdb", "database_writes", {
++    run: function(db) {
++      CouchDB.request("POST", "/test_suite_db", {body: '{"a": "1"}'})
+     },
+- };
+-
+-  var request_count_tests = {
+-   'should increase the request count for every request': function(name) {
+-     var requests = requestStatsTest("httpd", "requests").current + 1;
+-
+-     CouchDB.request("GET", "/");
+-
+-     var new_requests = requestStatsTest("httpd", "requests").current;
+-
+-     TEquals(requests + 1, new_requests, name);
+-   }
+- };
+-
+- var database_read_count_tests = {
+-   'should increase database reads counter when a document is read': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-     db.save({"_id":"test"});
+-
+-     var reads = requestStatsTest("couchdb", "database_reads").current;
+-     db.open("test");
+-     var new_reads = requestStatsTest("couchdb", "database_reads").current;
+-
+-     TEquals(reads + 1 , new_reads, name);
+-   },
+-   'should not increase database read counter when a non-document is read': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-     db.save({"_id":"test"});
+-
+-     var reads = requestStatsTest("couchdb", "database_reads").current;
+-     CouchDB.request("GET", "/");
+-     var new_reads = requestStatsTest("couchdb", "database_reads").current;
+-
+-     TEquals(reads, new_reads, name);
+-   },
+-   'should increase database read counter when a document\'s revisions are read': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-     db.save({"_id":"test"});
+-
+-     var reads = requestStatsTest("couchdb", "database_reads").current;
+-     db.open("test", {"open_revs":"all"});
+-     var new_reads = requestStatsTest("couchdb", "database_reads").current;
+-
+-     TEquals(reads + 1 , new_reads, name);
+-   }
+- };
+-
+- var view_read_count_tests = {
+-   'should increase the permanent view read counter': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var reads = requestStatsTest("httpd", "view_reads").current;
+-     createAndRequestView(db);
+-     var new_reads = requestStatsTest("httpd", "view_reads").current;
+-
+-     TEquals(reads + 1 , new_reads, name);
+-   },
+-   'should not increase the permanent view read counter when a document is read': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-     db.save({"_id":"test"});
+-
+-     var reads = requestStatsTest("httpd", "view_reads").current;
+-     db.open("test");
+-     var new_reads = requestStatsTest("httpd", "view_reads").current;
+-
+-     TEquals(reads, new_reads, name);
+-   },
+-   'should not increase the permanent view read counter when a temporary view is read': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var reads = requestStatsTest("httpd", "view_reads").current;
+-     db.query(function(doc) { emit(doc._id)});
+-     var new_reads = requestStatsTest("httpd", "view_reads").current;
+-
+-     TEquals(reads, new_reads, name);
+-   },
+-   'should increase the temporary view read counter': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var reads = requestStatsTest("httpd", "temporary_view_reads").current;
+-     db.query(function(doc) { emit(doc._id)});
+-     var new_reads = requestStatsTest("httpd", "temporary_view_reads").current;
+-
+-     TEquals(reads + 1, new_reads, name);
+-   },
+-   'should increase the temporary view read counter when querying a permanent view': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var reads = requestStatsTest("httpd", "view_reads").current;
+-     createAndRequestView(db);
+-     var new_reads = requestStatsTest("httpd", "view_reads").current;
+-
+-     TEquals(reads + 1 , new_reads, name);
+-   }
+- };
+-
+- var http_requests_by_method_tests = {
+-   'should count GET requests': function(name) {
+-     var requests = requestStatsTest("httpd_request_methods", "GET").current;
+-     var new_requests = requestStatsTest("httpd_request_methods", "GET").current;
+-
+-     TEquals(requests + 1, new_requests, name);
+-   },
+-   'should not count GET requests for POST request': function(name) {
+-     var requests = requestStatsTest("httpd_request_methods", "GET").current;
+-     CouchDB.request("POST", "/");
+-     var new_requests = requestStatsTest("httpd_request_methods", "GET").current;
+-
+-     TEquals(requests + 1, new_requests, name);
+-   },
+-   'should count POST requests': function(name) {
+-     var requests = requestStatsTest("httpd_request_methods", "POST").current;
+-     CouchDB.request("POST", "/");
+-     var new_requests = requestStatsTest("httpd_request_methods", "POST").current;
+-
+-     TEquals(requests + 1, new_requests, name);
+-   }
+- };
+-
+- var document_write_count_tests = {
+-   'should increment database changes counter for document creates': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var creates = requestStatsTest("couchdb", "database_writes").current;
+-     db.save({"a":"1"});
+-     var new_creates = requestStatsTest("couchdb", "database_writes").current;
+-
+-     TEquals(creates + 1, new_creates, name);
+-   },
+-   'should increment database changes counter for document updates': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var doc = {"_id":"test"};
+-     db.save(doc);
+-
+-     var updates = requestStatsTest("couchdb", "database_writes").current;
+-     db.save(doc);
+-     var new_updates = requestStatsTest("couchdb", "database_writes").current;
+-
+-     TEquals(updates + 1, new_updates, name);
+-   },
+-   'should increment database changes counter for document deletes': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var doc = {"_id":"test"};
+-     db.save(doc);
+-
+-     var deletes = requestStatsTest("couchdb", "database_writes").current;
+-     db.deleteDoc(doc);
+-     var new_deletes = requestStatsTest("couchdb", "database_writes").current;
+-
+-     TEquals(deletes + 1, new_deletes, name);
+-   },
+-   'should increment database changes counter for document copies': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var doc = {"_id":"test"};
+-     db.save(doc);
+-
+-     var copies = requestStatsTest("couchdb", "database_writes").current;
+-     CouchDB.request("COPY", "/test_suite_db/test", {
+-       headers: {"Destination":"copy_of_test"}
+-     });
+-     var new_copies = requestStatsTest("couchdb", "database_writes").current;
+-
+-     TEquals(copies + 1, new_copies, name);
+-   },
+-   'should increase the bulk doc counter': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var bulks = requestStatsTest("httpd", "bulk_requests").current;
+-
+-     var docs = makeDocs(5);
+-     db.bulkSave(docs);
+-
+-     var new_bulks = requestStatsTest("httpd", "bulk_requests").current;
+-
+-     TEquals(bulks + 1, new_bulks, name);
+-   },
+-   'should increment database changes counter for document creates using POST': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var creates = requestStatsTest("couchdb", "database_writes").current;
+-     CouchDB.request("POST", "/test_suite_db", {body:'{"a":"1"}'});
+-     var new_creates = requestStatsTest("couchdb", "database_writes").current;
+-
+-     TEquals(creates + 1, new_creates, name);
+-   },
+-   'should increment database changes counter when adding attachment': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var creates = requestStatsTest("couchdb", "database_writes").current;
+-     CouchDB.request("PUT", "/test_suite_db/bin_doc2/foo2.txt", {
+-           body:"This is no base64 encoded text",
+-           headers:{"Content-Type": "text/plain;charset=utf-8"}
+-     });
+-     var new_creates = requestStatsTest("couchdb", "database_writes").current;
+-     TEquals(creates + 1, new_creates, name);
+-   },
+-   'should increment database changes counter when adding attachment to existing doc': function(name) {
+-     var db = new CouchDB("test_suite_db");
+-     db.deleteDb();
+-     db.createDb();
+-
+-     var doc = {_id:"test"};
+-     db.save(doc);
+-
+-     var updates = requestStatsTest("couchdb", "database_writes").current;
+-     CouchDB.request("PUT", "/test_suite_db/test/foo2.txt?rev=" + doc._rev, {
+-           body:"This is no base64 encoded text",
+-           headers:{"Content-Type": "text/plain;charset=utf-8"}
+-     });
+-     var new_updates = requestStatsTest("couchdb", "database_writes").current;
+-     TEquals(updates + 1, new_updates, name);
+-   }
+-
+- };
+- var response_codes_tests = {
+-   'should increment the response code counter': function(name) {
+-     var db = new CouchDB("nonexistant_db");
+-     db.deleteDb();
+-
+-     var not_founds = requestStatsTest("httpd_status_codes", "404").current;
+-     CouchDB.request("GET", "/nonexistant_db");
+-     var new_not_founds = requestStatsTest("httpd_status_codes", "404").current;
+-
+-     TEquals(not_founds + 1, new_not_founds, name);
+-   },
+-   'should not increment respinse code counter for other response code': function(name) {
+-     var not_founds = requestStatsTest("http_status_codes", "404").current;
+-     CouchDB.request("GET", "/");
+-     var new_not_founds = requestStatsTest("http_status_codes", "404").current;
+-
+-     TEquals(not_founds, new_not_founds, name);
+-   }
+- };
+-
+- var aggregation_tests = {
+-   'should return the mean': function(name) {
+-     CouchDB.request("GET", "/");
+-
+-     var mean = requestStatsTest("httpd", "requests").mean;
+-
+-     T(mean >= 0, name);
+-   },
+-   'should return the maximum': function(name) {
+-     CouchDB.request("GET", "/");
+-
+-     var maximum = requestStatsTest("httpd", "requests").max;
+-
+-     T(maximum >= 0, name);
+-   },
+-   'should return the minimum': function(name) {
+-     CouchDB.request("GET", "/");
+-
+-     var minimum = requestStatsTest("httpd", "requests", "min").min;
+-
+-     T(minimum >= 0, name);
+-   },
+-   'should return the stddev': function(name) {
+-     CouchDB.request("GET", "/");
+-
+-     var stddev = requestStatsTest("httpd", "stddev_requests").current;
+-
+-     T(stddev >= 0, name);
+-   }
+- };
+-
+- var summary_tests = {
+-   'should show a summary of all counters with aggregated values': function(name) {
+-     var options = {};
+-     options.headers = {"Accept": "application/json"};
+-     var summary = JSON.parse(CouchDB.request("GET", "/_stats", options).responseText);
+-     var aggregates = ["mean", "min", "max", "stddev",
+-       "current"];
+-
+-     for(var i in aggregates) {
+-       T(summary.httpd.requests[aggregates[i]] >= 0, aggregates[i] + " >= 0", name);
+-     }
+-   }
+- };
+-
+-   var tests = [
+-     open_databases_tests,
+-     request_count_tests,
+-     database_read_count_tests,
+-     view_read_count_tests,
+-     http_requests_by_method_tests,
+-     document_write_count_tests,
+-     response_codes_tests,
+-     aggregation_tests,
+-     summary_tests
+-   ];
+-
+-   for(var testGroup in tests) {
+-     for(var test in tests[testGroup]) {
+-       tests[testGroup][test](test);
+-     }
+-   };
+-
+-   function createAndRequestView(db) {
+-     var designDoc = {
+-       _id:"_design/test", // turn off couch.js id escaping?
+-       language: "javascript",
+-       views: {
+-         all_docs_twice: {map: "function(doc) { emit(doc.integer, null); emit(doc.integer, null) }"},
+-       }
+-     };
+-     db.save(designDoc);
+-
+-     db.view("test/all_docs_twice");
+-   }
+-
+-   function requestStatsTest(module, key) {
+-     return CouchDB.requestStats(module, key, true);
+-   }
+-}
++    test: function(before, after) {
++      TEquals(before+1, after, "POST'ing new docs increments doc writes.");
++    }
++  })
++  
++  runTest("couchdb", "database_writes", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {var doc = db.open("test"); db.save(doc);},
++    test: function(before, after) {
++      TEquals(before+1, after, "Updating docs incrememnts doc writes.");
++    }
++  });
++  
++  runTest("couchdb", "database_writes", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {var doc = db.open("test"); db.deleteDoc(doc);},
++    test: function(before, after) {
++      TEquals(before+1, after, "Deleting docs increments doc writes.");
++    }
++  });
++  
++  runTest("couchdb", "database_writes", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {
++      CouchDB.request("COPY", "/test_suite_db/test", {
++        headers: {"Destination": "copy_of_test"}
++      });
++    },
++    test: function(before, after) {
++      TEquals(before+1, after, "Copying docs increments doc writes.");
++    }
++  });
++  
++  runTest("couchdb", "database_writes", {
++    run: function() {
++      CouchDB.request("PUT", "/test_suite_db/bin_doc2/foo2.txt", {
++        body: "This is no base64 encoded test",
++        headers: {"Content-Type": "text/plain;charset=utf-8"}
++      });
++    },
++    test: function(before, after) {
++      TEquals(before+1, after, "Create with attachment increments doc writes.");
++    }
++  });
++  
++  runTest("couchdb", "database_writes", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {
++      var doc = db.open("test");
++      CouchDB.request("PUT", "/test_suite_db/test/foo2.txt?rev=" + doc._rev, {
++        body: "This is no base64 encoded text",
++        headers: {"Content-Type": "text/plainn;charset=utf-8"}
++      });
++    },
++    test: function(before, after) {
++      TEquals(before+1, after, "Adding attachment increments doc writes.");
++    }
++  });
++  
++  runTest("httpd", "bulk_requests", {
++    run: function(db) {db.bulkSave(makeDocs(5));},
++    test: function(before, after) {
++      TEquals(before+1, after, "The bulk_requests counter is incremented.");
++    }
++  });
++  
++  runTest("httpd", "view_reads", {
++    run: function(db) {doView(db);},
++    test: function(before, after) {
++      TEquals(before+1, after, "Reading a view increments view reads.");
++    }
++  });
++  
++  runTest("httpd", "view_reads", {
++    setup: function(db) {db.save({"_id": "test"});},
++    run: function(db) {db.open("test");},
++    test: function(before, after) {
++      TEquals(before, after, "Reading a doc doesn't increment view reads.");
++    }
++  });
++  
++  runTest("httpd", "temporary_view_reads", {
++    run: function(db) {db.query(function(doc) {emit(doc._id)})},
++    test: function(before, after) {
++      TEquals(before+1, after, "Temporary views have their own counter.");
++    }
++  });
++  
++  runTest("httpd", "temporary_view_reads", {
++    run: function(db) {doView(db);},
++    test: function(before, after) {
++      TEquals(before, after, "Permanent views don't affect temporary views.");
++    }
++  });
++  
++  runTest("httpd", "view_reads", {
++    run: function(db) {db.query(function(doc) {emit(doc._id)});},
++    test: function(before, after) {
++      TEquals(before, after, "Temporary views don't affect permanent views.");
++    }
++  });
++  
++  // Relies on getting the stats values being GET requests.
++  runTest("httpd_request_methods", "GET", {
++    test: function(before, after) {
++      TEquals(before+1, after, "Get requests are incremented properly.");
++    }
++  });
++  
++  runTest("httpd_request_methods", "GET", {
++    run: function() {CouchDB.request("POST", "/");},
++    test: function(before, after) {
++      TEquals(before+1, after, "POST requests don't affect GET counter.");
++    }
++  });
++  
++  runTest("httpd_request_methods", "POST", {
++    run: function() {CouchDB.request("POST", "/");},
++    test: function(before, after) {
++      TEquals(before+1, after, "POST requests are incremented properly.");
++    }
++  });
++  
++  runTest("httpd_status_codes", "404", {
++    run: function() {CouchDB.request("GET", "/nonexistant_db");},
++    test: function(before, after) {
++      TEquals(before+1, after, "Increments 404 counter on db not found.");
++    }
++  });
++  
++  runTest("httpd_status_codes", "404", {
++    run: function() {CouchDB.request("GET", "/");},
++    test: function(before, after) {
++      TEquals(before, after, "Getting DB info doesn't increment 404's");
++    }
++  });
++
++  (function() {
++    var aggregates = [
++      "current",
++      "description",
++      "mean",
++      "min",
++      "max",
++      "stddev",
++      "sum"
++    ];
++    var summary = JSON.parse(CouchDB.request("GET", "/_stats", {
++      headers: {"Accept": "application/json"}
++    }).responseText);
++    for(var i in summary) {
++      for(var j in summary[i]) {
++        for(var k in summary[i][j]) {
++          T(aggregates.indexOf(k) >= 0, "Unknown property name: " + j);
++        }
++        for(var k in aggregates) {
++          var mesg = "Missing required property: " + aggregates[k];
++          T(summary[i][j][aggregates[k]] !== undefined, mesg);
++        }
++      }
++    }
++  })();
++};
+diff --git a/public/_utils/script/test/utf8.js b/public/_utils/script/test/utf8.js
+index f114878..b77845d 100644
+--- a/public/_utils/script/test/utf8.js
++++ b/public/_utils/script/test/utf8.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.utf8 = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/uuids.js b/public/_utils/script/test/uuids.js
+index 845e751..4de7ce9 100644
+--- a/public/_utils/script/test/uuids.js
++++ b/public/_utils/script/test/uuids.js
+@@ -11,19 +11,28 @@
+ // the License.
+ 
+ couchTests.uuids = function(debug) {
++  var etags = [];
+   var testHashBustingHeaders = function(xhr) {
+     T(xhr.getResponseHeader("Cache-Control").match(/no-cache/));
+     T(xhr.getResponseHeader("Pragma") == "no-cache");
+ 
+-    var currentTime = new Date();
+-    var expiresHeader = Date.parse(xhr.getResponseHeader("Expires"));
+-    var dateHeader = Date.parse(xhr.getResponseHeader("Date"));
++    var newetag = xhr.getResponseHeader("ETag");
++    T(etags.indexOf(newetag) < 0);
++    etags[etags.length] = newetag;
++    
++    // Removing the time based tests as they break easily when
++    // running CouchDB on a remote server in regards to the browser
++    // running the Futon test suite.
++    //
++    //var currentTime = new Date();
++    //var expiresHeader = Date.parse(xhr.getResponseHeader("Expires"));
++    //var dateHeader = Date.parse(xhr.getResponseHeader("Date"));
+ 
+-    T(expiresHeader < currentTime);
+-    T(currentTime - dateHeader < 3000);
++    //T(expiresHeader < currentTime);
++    //T(currentTime - dateHeader < 3000);
+   };
+ 
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -59,4 +68,45 @@ couchTests.uuids = function(debug) {
+   // ensure we return a 405 on POST
+   xhr = CouchDB.request("POST", "/_uuids?count=1000");
+   T(xhr.status == 405);
++
++  // Test sequential uuids
++  var seq_testfun = function() {
++    xhr = CouchDB.request("GET", "/_uuids?count=1000");
++    T(xhr.status == 200);
++    result = JSON.parse(xhr.responseText);
++    for(var i = 1; i < result.uuids.length; i++) {
++      T(result.uuids[i].length == 32);
++      T(result.uuids[i-1] < result.uuids[i], "Sequential uuids are ordered.");
++    }
++  };
++
++  run_on_modified_server([{
++      "section": "uuids",
++      "key": "algorithm",
++      "value": "sequential",
++    }],
++    seq_testfun
++  );
++
++  // Test utc_random uuids
++  var utc_testfun = function() {
++    xhr = CouchDB.request("GET", "/_uuids?count=1000");
++    T(xhr.status == 200);
++    result = JSON.parse(xhr.responseText);
++    for(var i = 1; i < result.uuids.length; i++) {
++      T(result.uuids[i].length == 32);
++      var u1 = result.uuids[i-1].substr(0, 13);
++      var u2 = result.uuids[i].substr(0, 13);
++      T(u1 < u2, "UTC uuids are roughly ordered.");
++    }
++  };
++
++  run_on_modified_server([{
++      "section": "uuids",
++      "key": "algorithm",
++      "value": "utc_random"
++    }],
++    utc_testfun
++  );
++
+ };
+diff --git a/public/_utils/script/test/view_collation.js b/public/_utils/script/test/view_collation.js
+index 6d1488e..f4ae4a1 100644
+--- a/public/_utils/script/test/view_collation.js
++++ b/public/_utils/script/test/view_collation.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_collation = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -103,10 +103,14 @@ couchTests.view_collation = function(debug) {
+   var rows = db.query(queryFun, null, {endkey : "b",
+     descending:true, inclusive_end:false}).rows;
+   T(rows[rows.length-1].key == "B")
+-
+-  // inclusive_end=false overrides endkey_docid
++  
+   var rows = db.query(queryFun, null, {
+-    endkey : "b", endkey_docid: "b",
++    endkey : "b", endkey_docid: "10",
+     inclusive_end:false}).rows;
+   T(rows[rows.length-1].key == "aa")
++  
++  var rows = db.query(queryFun, null, {
++    endkey : "b", endkey_docid: "11",
++    inclusive_end:false}).rows;
++  T(rows[rows.length-1].key == "b")
+ };
+diff --git a/public/_utils/script/test/view_conflicts.js b/public/_utils/script/test/view_conflicts.js
+index 0a3b881..96f97d5 100644
+--- a/public/_utils/script/test/view_conflicts.js
++++ b/public/_utils/script/test/view_conflicts.js
+@@ -11,10 +11,10 @@
+ // the License.
+ 
+ couchTests.view_conflicts = function(debug) {
+-  var dbA = new CouchDB("test_suite_db_a");
++  var dbA = new CouchDB("test_suite_db_a", {"X-Couch-Full-Commit":"false"});
+   dbA.deleteDb();
+   dbA.createDb();
+-  var dbB = new CouchDB("test_suite_db_b");
++  var dbB = new CouchDB("test_suite_db_b", {"X-Couch-Full-Commit":"false"});
+   dbB.deleteDb();
+   dbB.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/view_errors.js b/public/_utils/script/test/view_errors.js
+index 2a472d6..0f90c46 100644
+--- a/public/_utils/script/test/view_errors.js
++++ b/public/_utils/script/test/view_errors.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_errors = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"true"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -55,7 +55,7 @@ couchTests.view_errors = function(debug) {
+           map : "function(doc){emit(doc.integer)}"
+         })
+       });
+-      T(JSON.parse(xhr.responseText).error == "invalid_json");
++      T(JSON.parse(xhr.responseText).error == "bad_request");
+ 
+       // views should ignore Content-Type, like the rest of CouchDB
+       var xhr = CouchDB.request("POST", "/test_suite_db/_temp_view", {
+diff --git a/public/_utils/script/test/view_include_docs.js b/public/_utils/script/test/view_include_docs.js
+index 99f18e2..06aafc5 100644
+--- a/public/_utils/script/test/view_include_docs.js
++++ b/public/_utils/script/test/view_include_docs.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_include_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+@@ -29,6 +29,9 @@ couchTests.view_include_docs = function(debug) {
+       with_prev: {
+         map: "function(doc){if(doc.prev) emit(doc._id,{'_rev':doc.prev}); else emit(doc._id,{'_rev':doc._rev});}"
+       },
++      with_id: {
++        map: "function(doc) {if(doc.link_id) { var value = {'_id':doc.link_id}; if (doc.link_rev) {value._rev = doc.link_rev}; emit(doc._id, value);}};"
++      },
+       summate: {
+         map:"function (doc) {emit(doc.integer, doc.integer)};",
+         reduce:"function (keys, values) { return sum(values); };"
+@@ -84,16 +87,35 @@ couchTests.view_include_docs = function(debug) {
+   T(resp.rows.length == 1);
+   T(resp.rows[0].value == 4950);
+ 
++  T(db.save({
++    "_id": "link-to-10",
++    "link_id" : "10"
++  }).ok);
++  
++  // you can link to another doc from a value.
++  resp = db.view("test/with_id", {key:"link-to-10"});
++  T(resp.rows[0].key == "link-to-10");
++  T(resp.rows[0].value["_id"] == "10");
++  
++  resp = db.view("test/with_id", {key:"link-to-10",include_docs: true});
++  T(resp.rows[0].key == "link-to-10");
++  T(resp.rows[0].value["_id"] == "10");
++  T(resp.rows[0].doc._id == "10");
++
+   // Check emitted _rev controls things
+   resp = db.allDocs({include_docs: true}, ["0"]);
+   var before = resp.rows[0].doc;
++
+   var after = db.open("0");
+-  after.integer = 100
++  after.integer = 100;
+   after.prev = after._rev;
+-  db.save(after);
+-  after = db.open("0");
+-  T(after._rev != after.prev);
+-  T(after.integer == 100);
++  resp = db.save(after)
++  T(resp.ok);
++  
++  var after = db.open("0");
++  TEquals(resp.rev, after._rev, "fails with firebug running");
++  T(after._rev != after.prev, "passes");
++  TEquals(100, after.integer, "fails with firebug running");
+ 
+   // should emit the previous revision
+   resp = db.view("test/with_prev", {include_docs: true}, ["0"]);
+@@ -111,6 +133,6 @@ couchTests.view_include_docs = function(debug) {
+   T(resp.rows[0].key == "0");
+   T(resp.rows[0].id == "0");
+   T(!resp.rows[0].doc);
+-  T(resp.rows[0].error == "missing");
++  T(resp.rows[0].doc == null);
+   T(resp.rows[1].doc.integer == 23);
+ };
+diff --git a/public/_utils/script/test/view_multi_key_all_docs.js b/public/_utils/script/test/view_multi_key_all_docs.js
+index bad4a89..62e4966 100644
+--- a/public/_utils/script/test/view_multi_key_all_docs.js
++++ b/public/_utils/script/test/view_multi_key_all_docs.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_multi_key_all_docs = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/view_multi_key_design.js b/public/_utils/script/test/view_multi_key_design.js
+index e5235ac..5a2f645 100644
+--- a/public/_utils/script/test/view_multi_key_design.js
++++ b/public/_utils/script/test/view_multi_key_design.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_multi_key_design = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/view_multi_key_temp.js b/public/_utils/script/test/view_multi_key_temp.js
+index 0d4a649..55eefda 100644
+--- a/public/_utils/script/test/view_multi_key_temp.js
++++ b/public/_utils/script/test/view_multi_key_temp.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_multi_key_temp = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/script/test/view_offsets.js b/public/_utils/script/test/view_offsets.js
+index 2ac2cdf..464a1ae 100644
+--- a/public/_utils/script/test/view_offsets.js
++++ b/public/_utils/script/test/view_offsets.js
+@@ -13,7 +13,7 @@
+ couchTests.view_offsets = function(debug) {
+   if (debug) debugger;
+ 
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+ 
+@@ -60,7 +60,7 @@ couchTests.view_offsets = function(debug) {
+   ].forEach(function(row){ check(row[0], row[1]);});
+ 
+   var runTest = function () {
+-    var db = new CouchDB("test_suite_db");
++    var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+     db.deleteDb();
+     db.createDb();
+ 
+diff --git a/public/_utils/script/test/view_pagination.js b/public/_utils/script/test/view_pagination.js
+index ba26b8a..1af2df3 100644
+--- a/public/_utils/script/test/view_pagination.js
++++ b/public/_utils/script/test/view_pagination.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_pagination = function(debug) {
+-    var db = new CouchDB("test_suite_db");
++    var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+     db.deleteDb();
+     db.createDb();
+     if (debug) debugger;
+diff --git a/public/_utils/script/test/view_sandboxing.js b/public/_utils/script/test/view_sandboxing.js
+index e8a3103..9f893b2 100644
+--- a/public/_utils/script/test/view_sandboxing.js
++++ b/public/_utils/script/test/view_sandboxing.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_sandboxing = function(debug) {
+-    var db = new CouchDB("test_suite_db");
++    var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+     db.deleteDb();
+     db.createDb();
+     if (debug) debugger;
+diff --git a/public/_utils/script/test/view_xml.js b/public/_utils/script/test/view_xml.js
+index 426de93..451fb6a 100644
+--- a/public/_utils/script/test/view_xml.js
++++ b/public/_utils/script/test/view_xml.js
+@@ -11,7 +11,7 @@
+ // the License.
+ 
+ couchTests.view_xml = function(debug) {
+-  var db = new CouchDB("test_suite_db");
++  var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
+   db.deleteDb();
+   db.createDb();
+   if (debug) debugger;
+diff --git a/public/_utils/style/layout.css b/public/_utils/style/layout.css
+index 0b513cd..c1a6a77 100644
+--- a/public/_utils/style/layout.css
++++ b/public/_utils/style/layout.css
+@@ -428,22 +428,23 @@ body.fullwidth #wrap { margin-right: 0; }
+   float: left; margin-left: 0; padding-left: 2px; padding-right: .5em;
+   padding-top: 2px;
+ }
+-#fields tbody.content input, #fields tbody.content textarea {
++#fields tbody.content input, #fields tbody.content textarea, #fields tbody.source textarea {
+   background: #fff; border: 1px solid; border-color: #999 #ddd #ddd #999;
+   margin: 0; padding: 1px; width: 100%;
+ }
+ #fields tbody.content th input { font-family: inherit; font-size: inherit;
+   font-weight: bold;
+ }
+-#fields tbody.content td input, #fields tbody.content td textarea {
++#fields tbody.content td input, #fields tbody.content td textarea, #fields tbody.source textarea {
+   font: 11px normal "DejaVu Sans Mono",Monaco,monospace;
+ }
+ #fields tbody.content input.invalid,
+-#fields tbody.content textarea.invalid {
++#fields tbody.content textarea.invalid,
++#fields tbody.source textarea.invalid {
+   background: #f9f4f4; border-color: #b66 #ebb #ebb #b66;
+ }
+-#fields tbody.content div.grippie { padding: 0 1px; width: 100%; }
+-#fields tbody.content div.error { color: #d33; }
++#fields tbody.content div.grippie, #fields tbody.source div.gripple { padding: 0 1px; width: 100%; }
++#fields tbody.content div.error, #fields tbody.source div.error { color: #d33; }
+ 
+ #fields tbody.content td ul.attachments { list-style: none; margin: 0;
+   padding: 0;
+@@ -469,6 +470,7 @@ body.fullwidth #wrap { margin-right: 0; }
+ #fields tbody.source td pre { color: #999; font-size: 11px; line-height: 1.6em;
+   margin: 0; overflow: auto; white-space: pre-wrap; width: 100%;
+ }
++#fields tbody.source td.editinline-container { padding-left: 14px; padding-right: 48px; }
+ 
+ /* Test suite */
+ 
