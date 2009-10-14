@@ -13,10 +13,11 @@ begin
     gem.rubyforge_project = "cliclac"
     gem.add_dependency "mongo", ">= 0.15"
     gem.add_dependency "mongo_ext", ">= 0.15"
-    gem.add_dependency "sinatra", ">= 0.9.4"
+    gem.add_dependency "sinatra", ">= 0.10.1"
     gem.add_dependency "yajl-ruby", ">= 0.6.3"
     gem.add_development_dependency "rspec", ">= 1.2.8"
     gem.add_development_dependency "rack-test", ">= 0.5.0"
+    gem.add_development_dependency "shotgun", ">= 0.4"
     gem.default_executable = %{cliclac}
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

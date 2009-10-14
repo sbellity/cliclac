@@ -4,6 +4,7 @@ module Cliclac
     include Cliclac::Helpers
     
     set :public, File.expand_path(ROOT_PATH + "/../public")
+    disable :unescape_path
     
     # info
     get "/" do
@@ -25,10 +26,6 @@ module Cliclac
       # TODO
     end
     
-    get "/_config/query_servers/" do
-      respond({ "javascript" => "/usr/local/bin/couchjs /usr/local/share/couchdb/server/main.js" })
-    end
-    
     # stats
     get "/_stats" do 
       # TODO
@@ -47,18 +44,13 @@ module Cliclac
     
     # Database Level Requests
     
-    # compact
-    post "/:db/_compact" do
-      # Specific to CouchDB
-    end
-    
     # create
     put "/:db/?" do
       if adapter.db_exists?(db_name)
         error "file_exists", "The database could not be created, the file already exists.", 412
       else
         adapter.create_db(db_name)
-        headers "Location" => "http://#{@env["HTTP_HOST"]}/#{db_name}"
+        headers "Location" => location(db_name)
         ok 201
       end
     end
@@ -102,54 +94,85 @@ module Cliclac
       list_documents adapter.find(database, conditions, query_options)
     end
     
+    post "/:db/_all_docs" do
+      begin
+        keys = body["keys"]
+        raise "`keys` member must be a array." unless keys.is_a? Array
+        list_documents adapter.find(db, { "_id" => { "$in" => keys.map { |k| Cliclac::Key.new(k, true).probable_value } }})
+      rescue Cliclac::InvalidDocumentError
+        error "bad_request", "Request body must be a JSON object", 400
+      rescue => e
+        error "bad_request", e, 400
+      end
+    end
+    
     # open_doc
     get "/:db/*" do
       options = { 
         :revs_info => params[:revs_info] == "true",
         :local_seq => params[:local_seq] == "true"
       }
-      respond adapter.find_one(db, params[:splat].join("/"), options)
+      doc = adapter.find_one(db, params[:splat].join("/"), options)
+      if doc.nil?
+        error_not_found
+      else
+        respond doc
+      end
     end
     
     # save_doc (CREATE)
-    post "/:db" do
+    post "/:db/?" do
       begin
-        doc = Yajl::Parser.new.parse(request.body)
-        puts "Calling POST on #{db} with #{doc}"
-        res = adapter.insert(db, doc)
-        pp res
-        respond({ "id" => res.to_s, "rev" => "1" }, 201)
-      rescue => e
-        error "format", e.to_s, 500
+        res = adapter.insert(db, body)
+        headers "Location" => location(db_name, res.to_s)
+        ok 201, :id => res.to_s, :rev => 1
+      rescue Cliclac::OperationFailure => e
+        error "doc_validation", e.to_s
+      rescue Cliclac::InvalidDocumentError => e
+        error "bad_request", "Request body must be a JSON object", 400
       end
     end
     
     # save_doc (UPDATE)
     put "/:db/:doc_id" do
       begin
-        doc = Yajl::Parser.new.parse(request.body)
-        puts "Calling PUT on #{db} with #{doc}"
-        res = adapter.update(db, doc)
-        ok 201, "id" => res.to_s, "rev" => "1"
-      rescue 
+        doc_id = params[:doc_id]
+        res = adapter.update(db, doc_id, body)
+        headers "Location" => location(db_name, doc_id)
+        ok 201, "id" => doc_id, "rev" => "1"
+      rescue Cliclac::InvalidDocumentError => e
+        error "bad_request", "Document must be a JSON object", 400
+      rescue => e
+        error "doc_validation", e.to_s
       end
     end
     
     # remove_doc
     delete "/:db/*" do
-      adapter.remove(db, { "_id" => params[:splat].join("/") })
+      doc_id = params[:splat].join("/")
+      if adapter.remove(db, doc_id)
+        ok 200, "_id" => doc_id, "rev" => "1"
+      else
+        error_not_found
+      end
     end
     
     # bulk_docs
     post "/:db/_bulk_docs" do
-    
+      begin
+        raise Cliclac::InvalidDocumentError if !body.is_a?(Hash) || body[:docs].nil?
+        body[:docs].map { |doc| adapter.update(db, {"_id" => doc["_id"]}, doc) }
+      rescue Cliclac::InvalidDocumentError => e
+        error "bad_request", "Request body must be a JSON object", 400
+      rescue
+      end
     end
     
     # query (aka temporary view)
     post "/:db/_temp_view" do
-      q = Yajl::Parser.new.parse(request.body)
+      q = Yajl::Parser.new.parse(@request.body.read)
       if q["language"] == "javascript"
-        respond adapter.mapreduce(db, q["map"], q["reduce"])
+        respond adapter.mapreduce(db, q["map"], q["reduce"] || "")
       end
     end
     

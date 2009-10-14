@@ -30,18 +30,18 @@ couchTests.basics = function(debug) {
 
   // creating a new DB should return Location header
   // and it should work for dbs with slashes (COUCHDB-411)
-  // var dbnames = ["test_suite_db", "test_suite_db%2Fwith_slashes"];
-  // dbnames.forEach(function(dbname) {
-  //   xhr = CouchDB.request("DELETE", "/" + dbname);
-  //   xhr = CouchDB.request("PUT", "/" + dbname);
-  //   TEquals(dbname,
-  //     xhr.getResponseHeader("Location").substr(-dbname.length),
-  //     "should return Location header to newly created document");
-  // 
-  //   TEquals("http://",
-  //     xhr.getResponseHeader("Location").substr(0, 7),
-  //     "should return absolute Location header to newly created document");
-  // });
+  var dbnames = ["test_suite_db", "test_suite_db2"];
+  dbnames.forEach(function(dbname) {
+    xhr = CouchDB.request("DELETE", "/" + dbname);
+    xhr = CouchDB.request("PUT", "/" + dbname);
+    TEquals(dbname,
+      xhr.getResponseHeader("Location").substr(-dbname.length),
+      "should return Location header to newly created document");
+  
+    TEquals("http://",
+      xhr.getResponseHeader("Location").substr(0, 7),
+      "should return absolute Location header to newly created document");
+  });
 
   // Get the database info, check the db_name
   T(db.info().db_name == "test_suite_db");
@@ -123,32 +123,35 @@ couchTests.basics = function(debug) {
   var reduceFunction = function(keys, values){
     return sum(values);
   };
-
+  
   results = db.query(mapFunction, reduceFunction);
-
+  
   T(results.rows[0].value == 33);
-
+  
   // delete a document
   T(db.deleteDoc(existingDoc).ok);
-
+  
   // make sure we can't open the doc
   T(db.open(existingDoc._id) == null);
-
+  
   results = db.query(mapFunction);
-
+  
   // 1 less document should now be in the results.
   T(results.total_rows == 2);
   T(db.info().doc_count == 5);
-
+  
   // make sure we can still open the old rev of the deleted doc
-  T(db.open(existingDoc._id, {rev: existingDoc._rev}) != null);
+  // Cliclac : no revisions mechanism in MongoDB...
+  // T(db.open(existingDoc._id, {rev: existingDoc._rev}) != null);
+  
   // make sure restart works
   T(db.ensureFullCommit().ok);
   restartServer();
-
+  
   // make sure we can still open
-  T(db.open(existingDoc._id, {rev: existingDoc._rev}) != null);
-
+  // Cliclac : no revisions mechanism in MongoDB...
+  // T(db.open(existingDoc._id, {rev: existingDoc._rev}) != null);
+  
   // test that the POST response has a Location header
   var xhr = CouchDB.request("POST", "/test_suite_db", {
     body: JSON.stringify({"foo":"bar"})
@@ -188,12 +191,21 @@ couchTests.basics = function(debug) {
   T(xhr.status == 404);
 
   // Check for invalid document members
+  // _xx documents are valid with MongoDB... changing to $xx
+  // bad_docs = [
+  //   ["goldfish", {"_zing": 4}],
+  //   ["zebrafish", {"_zoom": "hello"}],
+  //   ["mudfish", {"zane": "goldfish", "_fan": "something smells delicious"}],
+  //   ["tastyfish", {"_bing": {"wha?": "soda can"}}]
+  // ]
+
   bad_docs = [
-    ["goldfish", {"_zing": 4}],
-    ["zebrafish", {"_zoom": "hello"}],
-    ["mudfish", {"zane": "goldfish", "_fan": "something smells delicious"}],
-    ["tastyfish", {"_bing": {"wha?": "soda can"}}]
+    ["goldfish", {"$zing": 4}],
+    ["zebrafish", {"$zoom": "hello"}],
+    ["mudfish", {"zane": "goldfish", "$fan": "something smells delicious"}],
+    ["tastyfish", {"$bing": {"wha?": "soda can"}}]
   ]
+
   var test_doc = function(info) {
   var data = JSON.stringify(info[1]);
     xhr = CouchDB.request("PUT", "/test_suite_db/" + info[0], {body: data});
@@ -235,4 +247,11 @@ couchTests.basics = function(debug) {
   result = JSON.parse(xhr.responseText);
   T(result.error == "bad_request");
   T(result.reason == "`keys` member must be a array.");
+  
+  // POST on _all_docs should return expected results
+  xhr = CouchDB.request("POST", "/test_suite_db/_all_docs", { body: JSON.stringify({ keys: ["1","2","3"] }) });
+  T(xhr.status == 200);
+  result = JSON.parse(xhr.responseText);
+  T(result.total_rows == 3);
+  T(result.offset == 0);
 };

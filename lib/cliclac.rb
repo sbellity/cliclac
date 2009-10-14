@@ -17,13 +17,18 @@ require "cliclac/key"
 require "cliclac/adapters/base"
 require "cliclac/adapters/mongo"
 require "cliclac/helpers"
+require "cliclac/couchdb_compatibility"
 require "cliclac/app"
 
 require "pp"
 
 module Cliclac
   
+  class InvalidDocumentError < RuntimeError; end
+  class OperationFailure < RuntimeError; end
+  
   def self.adapter
+    @@adapter ||= Cliclac::Adapters::Mongo.new
     @@adapter
   end
   

@@ -2,6 +2,7 @@ module Cliclac
   module Helpers
     
     # Response
+    include Rack::Utils
     
     def respond content="", status_code=200
       content_type "application/json"
@@ -13,12 +14,24 @@ module Cliclac
       respond({ "ok" => true }.merge(h), status_code)
     end
     
-    def error(type, msg, status_code)
+    def error(type, msg, status_code=500)
       respond({:error => type, :reason => msg}, status_code)
     end
 
     def error_not_found
       error "not_found", "missing", 404
+    end
+    
+    def location(d, doc_id=nil)
+      "http://#{@env["HTTP_HOST"]}/#{db_name}#{"/#{doc_id}" unless doc_id.nil?}"
+    end
+    
+    # Request
+    
+    def body
+      doc = Yajl::Parser.new.parse(@request.body.read)
+      raise Cliclac::InvalidDocumentError if !doc.is_a?(Hash)
+      doc
     end
     
     # Adapter
@@ -43,7 +56,7 @@ module Cliclac
     end
     
     def db_name
-      params[:db]
+      unescape params[:db]
     end
     
     def db d=nil
