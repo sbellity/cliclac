@@ -42,49 +42,54 @@ couchTests.all_docs = function(debug) {
   T(all.offset == 2);
 
   // check that the docs show up in the seq view in the order they were created
-  var changes = db.changes();
+  var all_seq = db.allDocsBySeq();
   var ids = ["0","3","1","2"];
-  for (var i=0; i < changes.results.length; i++) {
-    var row = changes.results[i];
-    T(row.id == ids[i], "seq order");
+  for (var i=0; i < all_seq.rows.length; i++) {
+    var row = all_seq.rows[i];
+    T(row.id == ids[i]);
   };
 
   // it should work in reverse as well
-  changes = db.changes({descending:true});
+  all_seq = db.allDocsBySeq({descending:true});
   ids = ["2","1","3","0"];
-  for (var i=0; i < changes.results.length; i++) {
-    var row = changes.results[i];
-    T(row.id == ids[i], "descending=true");
+  for (var i=0; i < all_seq.rows.length; i++) {
+    var row = all_seq.rows[i];
+    T(row.id == ids[i]);
   };
 
   // check that deletions also show up right
   var doc1 = db.open("1");
   var deleted = db.deleteDoc(doc1);
   T(deleted.ok);
-  changes = db.changes();
+  all_seq = db.allDocsBySeq();
+
   // the deletion should make doc id 1 have the last seq num
-  T(changes.results.length == 4);
-  T(changes.results[3].id == "1");
-  T(changes.results[3].deleted);
+  T(all_seq.rows.length == 4);
+  T(all_seq.rows[3].id == "1");
+  T(all_seq.rows[3].value.deleted);
+
+  // is this a bug?
+  // T(all_seq.rows.length == all_seq.total_rows);
 
   // do an update
   var doc2 = db.open("3");
   doc2.updated = "totally";
   db.save(doc2);
-  changes = db.changes();
+  all_seq = db.allDocsBySeq();
 
   // the update should make doc id 3 have the last seq num
-  T(changes.results.length == 4);
-  T(changes.results[3].id == "3");
+  T(all_seq.rows.length == 4);
+  T(all_seq.rows[3].id == "3");
 
   // ok now lets see what happens with include docs
-  changes = db.changes({include_docs: true});
-  T(changes.results.length == 4);
-  T(changes.results[3].id == "3");
-  T(changes.results[3].doc.updated == "totally");
+  all_seq = db.allDocsBySeq({include_docs: true});
+  T(all_seq.rows.length == 4);
+  T(all_seq.rows[3].id == "3");
+  T(all_seq.rows[3].doc.updated == "totally");
 
-  T(changes.results[2].doc);
-  T(changes.results[2].doc._deleted);
+  // and on the deleted one, no doc
+  T(all_seq.rows[2].value.deleted);
+  T(!all_seq.rows[2].doc);
 
   // test the all docs collates sanely
   db.save({_id: "Z", foo: "Z"});

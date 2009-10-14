@@ -207,12 +207,12 @@ function CouchDB(name, httpHeaders) {
     return this.allDocs({startkey:"_design", endkey:"_design0"});
   };
 
-  this.changes = function(options,keys) {
+  this.allDocsBySeq = function(options,keys) {
     var req = null;
     if(!keys) {
-      req = this.request("GET", this.uri + "_changes" + encodeOptions(options));
+      req = this.request("GET", this.uri + "_all_docs_by_seq" + encodeOptions(options));
     } else {
-      req = this.request("POST", this.uri + "_changes" + encodeOptions(options), {
+      req = this.request("POST", this.uri + "_all_docs_by_seq" + encodeOptions(options), {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({keys:keys})
       });
@@ -387,12 +387,9 @@ CouchDB.getVersion = function() {
 CouchDB.replicate = function(source, target, rep_options) {
   rep_options = rep_options || {};
   var headers = rep_options.headers || {};
-  var body = rep_options.body || {};
-  body.source = source;
-  body.target = target;
   CouchDB.last_req = CouchDB.request("POST", "/_replicate", {
     headers: headers,
-    body: JSON.stringify(body)
+    body: JSON.stringify({source: source, target: target})
   });
   CouchDB.maybeThrowError(CouchDB.last_req);
   return JSON.parse(CouchDB.last_req.responseText);
@@ -429,8 +426,7 @@ CouchDB.requestStats = function(module, key, test) {
     query_arg = "?flush=true";
   }
 
-  var url = "/_stats/" + module + "/" + key + query_arg;
-  var stat = CouchDB.request("GET", url).responseText;
+  var stat = CouchDB.request("GET", "/_stats/" + module + "/" + key + query_arg).responseText;
   return JSON.parse(stat)[module][key];
 }
 

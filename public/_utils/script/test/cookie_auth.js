@@ -20,14 +20,12 @@ couchTests.cookie_auth = function(debug) {
 
   // Simple secret key generator
   function generateSecret(length) {
-    var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     var secret = '';
     for (var i=0; i<length; i++) {
-      secret += tab.charAt(Math.floor(Math.random() * 64));
+      secret += String.fromCharCode(Math.floor(Math.random() * 256));
     }
     return secret;
   }
-
   // this function will be called on the modified server
   var testFun = function () {
     try {
