@@ -254,4 +254,11 @@ couchTests.basics = function(debug) {
   result = JSON.parse(xhr.responseText);
   T(result.total_rows == 3);
   T(result.offset == 0);
+  
+  // _bulk_docs saves... the objects
+  xhr = CouchDB.request("POST", "/test_suite_db/_bulk_docs", {body: JSON.stringify({ docs: [{a:1, b:2},{c:3, d:4}]})});
+  T(xhr.status == 201);
+  result = JSON.parse(xhr.responseText);
+  T(result.length == 2);
+  
 };

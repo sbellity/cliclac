@@ -87,10 +87,13 @@ module Cliclac
         if !params[:startkey].nil? && !params[:endkey].nil? && params[:limit] == "10" && params[:endkey].gsub("\"", "") =~ /.*[z]{3}$/
           conditions["_id"] = Regexp.new(startkey.string)
         else
-          conditions["_id"]["$gte"] = startkey if startkey
-          conditions["_id"]["$lte"] = endkey if endkey
+          conditions["_id"]["$gte"] = startkey.probable_value if startkey
+          conditions["_id"]["$lte"] = endkey.probable_value if endkey
         end
       end
+      
+      puts "\n\n\n\n\n----------- \ndoing it !"
+      pp conditions
       list_documents adapter.find(database, conditions, query_options)
     end
     
@@ -160,11 +163,11 @@ module Cliclac
     # bulk_docs
     post "/:db/_bulk_docs" do
       begin
-        raise Cliclac::InvalidDocumentError if !body.is_a?(Hash) || body[:docs].nil?
-        body[:docs].map { |doc| adapter.update(db, {"_id" => doc["_id"]}, doc) }
-      rescue Cliclac::InvalidDocumentError => e
-        error "bad_request", "Request body must be a JSON object", 400
-      rescue
+        docs = body["docs"]
+        puts Cliclac::InvalidDocumentError if !body.is_a?(Hash) || !docs.is_a?(Array) || docs.nil?
+        respond docs.map { |doc| { "_id" => adapter.update(db, {"_id" => doc["_id"]}, doc), "_rev" => 1 } }, 201
+      rescue => e
+        error "bad_request", e.to_s, 400
       end
     end
     

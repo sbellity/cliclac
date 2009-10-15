@@ -29,9 +29,14 @@ module Cliclac
     # Request
     
     def body
-      doc = Yajl::Parser.new.parse(@request.body.read)
-      raise Cliclac::InvalidDocumentError if !doc.is_a?(Hash)
-      doc
+      @body_string ||= @request.body.read
+      begin
+        doc = Yajl::Parser.new.parse(@body_string)
+        raise Cliclac::InvalidDocumentError if !doc.is_a?(Hash)
+        doc
+      rescue
+        raise Cliclac::InvalidDocumentError
+      end
     end
     
     # Adapter
@@ -72,7 +77,7 @@ module Cliclac
     def query_options
       options = {}
       options[:limit] = params[:limit].nil? ? 10 : params[:limit].to_i
-      options[:sort] = { "_id" => (params[:descending] == "true" ? -1 : 1) }
+      options[:sort] = [["_id", params[:descending] == "true" ? "descending" : "ascending"]]
       options[:skip] = params[:skip].nil? ? 0 : params[:skip].to_i
       return options
     end
