@@ -130,6 +130,15 @@ module Cliclac
         end
       end
       
+      def copy d, doc_id, destination_id
+        d = db(d) if d.is_a?(String)
+        doc = find_one(d, doc_id)
+        raise Cliclac::UpdateConflictError unless find_one(d, destination_id).nil?
+        raise Cliclac::NotFoundError if doc.nil?
+        doc["_id"] = destination_id
+        d.insert(doc) rescue Cliclac::OperationFailure
+      end
+      
       def remove(d, doc_id)
         d = db(d) if d.is_a?(String)
         spec = { "_id" => doc_id }

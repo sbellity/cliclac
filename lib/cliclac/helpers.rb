@@ -5,9 +5,13 @@ module Cliclac
     include Rack::Utils
     
     def respond content="", status_code=200
-      content_type "application/json"
+      if @env["HTTP_ACCEPT"] =~ /json/
+        content_type "application/json"
+      else
+        content_type "text/plain;charset=utf-8"
+      end
       status status_code
-      return content.to_json
+      return "#{content.to_json}\n"
     end
     
     def ok status_code=200, h={}

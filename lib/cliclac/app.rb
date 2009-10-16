@@ -34,7 +34,24 @@ module Cliclac
     # UUIDs
     get "/_uuids" do # (takes a count parameter)
       count = params[:count].nil? ? 1 : params[:count].to_i
+      headers "Cache-Control" => "must-revalidate, no-cache", 
+              "Pragma" => "no-cache"
       respond "uuids" => (1..count).map { Mongo::ObjectID.new.to_s }
+    end
+    
+    post "/_uuids" do
+      headers "Allow" => "GET"
+      error "method_not_allowed", "Only GET allowed", 405
+    end
+    
+    put "/_uuids" do
+      headers "Allow" => "GET"
+      error "method_not_allowed", "Only GET allowed", 405
+    end
+    
+    delete "/_uuids" do
+      headers "Allow" => "GET"
+      error "method_not_allowed", "Only GET allowed", 405
     end
     
     # replicate
@@ -91,9 +108,6 @@ module Cliclac
           conditions["_id"]["$lte"] = endkey.probable_value if endkey
         end
       end
-      
-      puts "\n\n\n\n\n----------- \ndoing it !"
-      pp conditions
       list_documents adapter.find(database, conditions, query_options)
     end
     
@@ -142,11 +156,28 @@ module Cliclac
         doc_id = params[:doc_id]
         res = adapter.update(db, doc_id, body)
         headers "Location" => location(db_name, doc_id)
-        ok 201, "id" => doc_id, "rev" => "1"
+        status_code = params["batch"] == "ok" ? 202 : 201
+        ok status_code, "id" => doc_id, "rev" => "1"
       rescue Cliclac::InvalidDocumentError => e
         error "bad_request", "Document must be a JSON object", 400
       rescue => e
         error "doc_validation", e.to_s
+      end
+    end
+    
+    copy "/:db/:doc_id" do
+      begin
+        doc_id = params[:doc_id]
+        destination_id = @env["HTTP_DESTINATION"]
+        raise "badarg" if destination_id.nil?
+        res = adapter.copy(db, doc_id, destination_id)
+        ok 201, :id => res.to_s, :rev => 1
+      rescue Cliclac::UpdateConflictError
+        error "conflict", "Document update conflict.", 409
+      rescue Cliclac::NotFoundError
+        error_not_found
+      rescue => e
+        error "unknown error", e
       end
     end
     
@@ -165,7 +196,7 @@ module Cliclac
       begin
         docs = body["docs"]
         puts Cliclac::InvalidDocumentError if !body.is_a?(Hash) || !docs.is_a?(Array) || docs.nil?
-        respond docs.map { |doc| { "_id" => adapter.update(db, {"_id" => doc["_id"]}, doc), "_rev" => 1 } }, 201
+        respond docs.map { |doc| { "id" => adapter.update(db, {"_id" => doc["_id"]}, doc), "rev" => 1 } }, 201
       rescue => e
         error "bad_request", e.to_s, 400
       end

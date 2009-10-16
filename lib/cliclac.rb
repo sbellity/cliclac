@@ -4,6 +4,7 @@ $:.unshift("lib")
 
 require "rubygems"
 require "sinatra/base"
+require "sinatra_ext"
 require "mongo"
 require "net/http"
 require "yajl"
@@ -11,6 +12,7 @@ require 'yajl/json_gem'
 require "uri"
 require "cgi"
 require "singleton"
+require 'digest/md5'
 
 require "cliclac/utils"
 require "cliclac/key"
@@ -24,6 +26,8 @@ require "pp"
 
 module Cliclac
   
+  class NotFoundError < RuntimeError; end
+  class UpdateConflictError < RuntimeError; end
   class InvalidDocumentError < RuntimeError; end
   class OperationFailure < RuntimeError; end
   

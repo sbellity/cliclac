@@ -232,6 +232,10 @@ couchTests.basics = function(debug) {
   xhr = CouchDB.request("POST", "/test_suite_db/_bulk_docs", {body: "[]"});
   T(xhr.status == 400);
   result = JSON.parse(xhr.responseText);
+  if (result.reason != "Request body must be a JSON object") {
+    console.warn("Here ! " + result.reason);
+  }
+  
   T(result.error == "bad_request");
   T(result.reason == "Request body must be a JSON object");
 
@@ -240,6 +244,7 @@ couchTests.basics = function(debug) {
   T(xhr.status == 400);
   result = JSON.parse(xhr.responseText);
   T(result.error == "bad_request");
+  
   T(result.reason == "Request body must be a JSON object");
   var data = "{\"keys\": 1}";
   xhr = CouchDB.request("POST", "/test_suite_db/_all_docs", {body:data});
