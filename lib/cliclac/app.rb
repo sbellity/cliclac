@@ -205,8 +205,15 @@ module Cliclac
     # query (aka temporary view)
     post "/:db/_temp_view" do
       q = Yajl::Parser.new.parse(@request.body.read)
+      if q["map"]
+        map = Yajl::Parser.new.parse(q["map"])
+      end
       if q["language"] == "javascript"
-        respond adapter.mapreduce(db, q["map"], q["reduce"] || "")
+        if q["reduce"]
+          list_documents adapter.mapreduce(db, map, q["reduce"] || "")
+        elsif map
+          list_documents adapter.find(db, map)
+        end
       end
     end
     

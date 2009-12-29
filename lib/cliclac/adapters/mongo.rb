@@ -27,6 +27,7 @@ module Cliclac
       end
       
       def db_infos(d)
+        count = db(d).count rescue 0
         {
           :db_name => d,
           :doc_count => db(d).count,
